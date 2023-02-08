@@ -42,7 +42,7 @@ $lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
                 <td scope="row"><?php echo $registro['id']; ?></td>
                 <td><?php echo $registro['nombredelpuesto']; ?></td>
                 <td>
-                    <input name="BtnEditar" id="BtnEditar" class="btn btn-info" type="button" value="Editar">
+                <a class="btn btn-info" href="editar.php?txtID=<?php echo$registro['id'] ?>" role="button">Editar </a>
                 <span>| 
                 <a class="btn btn-danger" href="index.php?txtID=<?php echo$registro['id'] ?>" role="button">Eliminar </a>
                 </td>
