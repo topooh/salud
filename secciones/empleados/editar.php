@@ -1,6 +1,6 @@
 <?php include("../../templates/header.php"); ?>
 
 
-Editar Usuarios 
+Editar empleados
 
 <?php include("../../templates/footer.php"); ?>

@@ -1,3 +1,27 @@
+<?php include("../../bd.php");
+if($_POST){
+  print_r($_POST); 
+  
+  // recolectamos los datos del POST 
+ $usuario=(isset($_POST["usuario"])?$_POST["usuario"]:"");
+ $password=(isset($_POST["password"])?$_POST["password"]:"");
+ $correo=(isset($_POST["correo"])?$_POST["correo"]:"");
+
+ // preparar la iserccion de datos
+ $sentencia=$conexion->prepare("insert into tbl_usuarios(id,usuario,password,correo)
+  VALUES(NULL,:usuario,:password,:correo)");
+ 
+ // ASignando valores que vienen con el metodo  POST  los que vienen de los formularios..
+ // asigna valores que tienene uso de :variable   
+ $sentencia->bindParam(":usuario",$usuario);
+ $sentencia->bindParam(":password",$password);
+ $sentencia->bindParam(":correo",$correo);
+
+ $sentencia ->execute();
+ header("location:index.php");
+ }
+?>
+
 <?php include("../../templates/header.php"); ?>
 
 <br>
@@ -10,20 +34,20 @@
         <form action="" method="post" enctype="multipart/form-data">    
     </div>
 <div class="mb-3">
-  <label for="Usuario" class="form-label">Nombre del Usuario</label>
+  <label for="usuario" class="form-label">Nombre del Usuario</label>
   <input type="text"
-    class="form-control" name="Usuario" id="Usuario" aria-describedby="helpId" placeholder="Nombre De Usuario">
+    class="form-control" name="usuario" id="usuario" aria-describedby="helpId" placeholder="Nombre De Usuario">
     
     <div class="mb-3">
-      <label for="" class="form-label">Password</label>
+      <label for="password" class="form-label">Password</label>
       <input type="password"
-        class="form-control" name="Password" id="Password" aria-describedby="helpId" placeholder="Escriba su Contraseña">
+        class="form-control" name="Password" id="password" aria-describedby="helpId" placeholder="Escriba su Contraseña">
     </div>
 
     <div class="mb-3">
-      <label for="Correo" class="form-label">Correo</label>
+      <label for="correo" class="form-label">Correo</label>
       <input type="email"
-        class="form-control" name="Correo" id="Correo" aria-describedby="helpId" placeholder="Escriba su Correo Electronico">
+        class="form-control" name="correo" id="correo" aria-describedby="helpId" placeholder="Escriba su Correo Electronico">
 
     </div>
 
