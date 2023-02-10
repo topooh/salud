@@ -1,6 +1,16 @@
 <?php
 include ("../../bd.php");
+if(isset( $_GET['txtID'] )){
 
+    $txtID=(isset($_GET['txtID']))?$_GET['txtID']:"";
+
+    $sentencia=$conexion->prepare("DELETE FROM tbl_empleados WHERE id=:id");
+    $sentencia->bindParam(":id",$txtID);
+    $sentencia ->execute();
+header("location:index.php");
+
+
+}
 
 $sentencia=$conexion->prepare("SELECT *,
 (SELECT nombredelpuesto
@@ -48,8 +58,9 @@ $lista_tbl_empleados=$sentencia->fetchALL(PDO::FETCH_ASSOC);
                     <td><?php echo $registro['cv']; ?></td>
                     <td><?php echo $registro['puesto']; ?></td>
                     <td><?php echo $registro['fechaingreso']; ?></td>
-                    <td><a name="" id="" class="btn btn-primary" href="#" role="button">Decreto</a> | <a name="" id="" class="btn btn-info" href="#" role="button">Editar</a>  | <a name="" id="" class="btn btn-danger" href="#" role="button">Eliminar</a> </td>
-                </tr>
+                    <td><a name="" id="" class="btn btn-primary" href="#" role="button">Decreto</a> | <a class="btn btn-info" href="editar.php?txtID=<?php echo$registro['id'] ?>" role="button">Editar </a>
+                <span>| 
+                <a class="btn btn-danger" href="index.php?txtID=<?php echo$registro['id'] ?>" role="button">Eliminar </a></tr>
                 <?php } ?> 
                 
             </tbody>

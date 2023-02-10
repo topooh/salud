@@ -1,3 +1,46 @@
+<?php include ("../../bd.php");
+
+if($_POST){
+  //print_r($_POST);
+  //print_r($_FILES);
+
+  $primernombre=(isset($_POST["PrimerNombre"])?$_POST["PrimerNombre"]:"");
+  $segundonombre=(isset($_POST["SegundoNombre"])?$_POST["SegundoNombre"]:""); // son con la primera en Mayuscula por que asi se llaman los formularios
+  $primerapellido=(isset($_POST["PrimerApellido"])?$_POST["PrimerApellido"]:"");
+  $segundoapellido=(isset($_POST["SegundoApellido"])?$_POST["SegundoApellido"]:"");
+  $foto=(isset($_POST["Foto"])?$_POST["Foto"]:""); // este es mi rut
+  $cv=(isset($_POST["cv"])?$_POST["cv"]:""); // digito verificador
+
+
+  $idpuesto=(isset($_POST["idpuesto"])?$_POST["idpuesto"]:"");
+  $fechaingreso=(isset($_POST["FechaIngreso"])?$_POST["idpuesto"]:"");
+
+  $sentencia=$conexion->prepare("INSERT INTO `tbl_empleados` (`id`, `primernombre`, `segundonombre`, `primerapellido`, `segundoapellido`, `foto`, `cv`, `idpuesto`, `fechaingreso`)
+   VALUES (NULL, :primernombre, :segundonombre, :primerapellido, :segundoapellido, :foto, :cv, :idpuesto, :fechaingreso);)");
+$sentencia->bindParam(":primernombre",$primernombre);
+$sentencia->bindParam(":segundonombre",$segundonombre);
+$sentencia->bindParam(":primerapellido",$primerapellido);
+$sentencia->bindParam(":segundoapellido",$segundoapellido);
+$sentencia->bindParam(":foto",$foto);
+$sentencia->bindParam(":cv",$cv);
+$sentencia->bindParam(":idpuesto",$idpuesto);
+$sentencia->bindParam(":fechaingreso",$fechaingreso); 
+$sentencia ->execute();
+header("location:index.php"); // redireccionar
+
+
+
+
+
+
+}
+
+$sentencia=$conexion -> prepare ("select * from tbl_puestos");
+$sentencia ->execute();
+$lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
+// print_R($lista_tbl_puestos); mostrar los datos que me esta trayendo desde la base de datos!!!
+
+?>
 <?php include("../../templates/header.php"); ?>
 
 
@@ -33,24 +76,24 @@
 
 </div>
 <div class="mb-3">
-  <label for="" class="form-label">Foto:</label>
-  <input type="file"
+  <label for="" class="form-label">Rut(foto):</label>
+  <input type="numeric"
     class="form-control" name="Foto" id="Foto" aria-describedby="helpId" placeholder="">
 </div>
 
 <div class="mb-3">
   <label for="" class="form-label">CV ( PDF)</label>
-  <input type="file" class="form-control" name="cv" id="cv" placeholder="Curriculum Vitae" aria-describedby="fileHelpId">
+  <input type="text" class="form-control" name="cv" id="cv" placeholdser="Curriculum Vitae" aria-describedby="fileHelpId">
   
 </div>
 <div class="mb-3">
   <label for="idpuesto" class="form-label">Puesto</label>
-  <select multiple class="form-select form-select-sm" name="idpuesto" id="idpuesto">
-        <option selected>Select one</option>
-        <option value="">New Delhi</option>
-        <option value="">Istanbul</option>
-        <option value="">Jakarta</option>
-    </select>
+  <select  class="form-select form-select-sm" name="idpuesto" id="idpuesto">
+    
+        <?php foreach($lista_tbl_puestos as $registro){?>
+        <option value="<?php echo $registro['id']?>"><?php echo $registro['nombredelpuesto']?></option>
+        <?php } ?> </select>
+
 </div>
 <div class="mb-3">
   <label for="" class="form-label">Fecha Ingreso</label>
