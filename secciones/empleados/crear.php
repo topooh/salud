@@ -1,7 +1,7 @@
 <?php include ("../../bd.php");
 
 if($_POST){
-  //print_r($_POST);
+  print_r($_POST);
   //print_r($_FILES);
 
   $primernombre=(isset($_POST["PrimerNombre"])?$_POST["PrimerNombre"]:"");
@@ -13,7 +13,7 @@ if($_POST){
 
 
   $idpuesto=(isset($_POST["idpuesto"])?$_POST["idpuesto"]:"");
-  $fechaingreso=(isset($_POST["FechaIngreso"])?$_POST["idpuesto"]:"");
+  $fechaingreso=(isset($_POST["fechaingreso"])?$_POST["fechaingreso"]:"");
 
   $sentencia=$conexion->prepare("INSERT INTO `tbl_empleados` (`id`, `primernombre`, `segundonombre`, `primerapellido`, `segundoapellido`, `foto`, `cv`, `idpuesto`, `fechaingreso`)
    VALUES (NULL, :primernombre, :segundonombre, :primerapellido, :segundoapellido, :foto, :cv, :idpuesto, :fechaingreso);)");
@@ -96,8 +96,8 @@ $lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
 </div>
 <div class="mb-3">
-  <label for="" class="form-label">Fecha Ingreso</label>
-  <input type="date" class="form-control" name="FechaIngreso" id="FechaIngreso" aria-describedby="emailHelpId" placeholder="Fecha Ingreso">
+  <label for="fechaingreso" class="form-label">Fecha Ingreso</label>
+  <input type="date" class="form-control" name="fechaingreso" id="fechaingreso" aria-describedby="emailHelpId" placeholder="Fecha Ingreso">
  
 </div>
 <button type="submit" class="btn btn-primary">Agregar</button>

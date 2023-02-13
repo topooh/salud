@@ -36,7 +36,7 @@ header("location:index.php");
     <a name="" id="" class="btn btn-primary" href="crear.php" role="button">Agregar Usuario</a>    </div>
     <div class="card-body">
 <div class="table-responsive-sm">
-    <table class="table ">
+    <table class="table" id="tabla_id">
         <thead>
             <tr>
                 <th scope="col">ID</th>

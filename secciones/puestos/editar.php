@@ -27,7 +27,8 @@ if($_POST){
    $sentencia->bindParam(":id",$txtID);
 
    $sentencia ->execute();
-   header("location:index.php");
+   $mensaje="Cambios Realizados";
+   header("location:index.php?mensaje=".$mensaje);
    }
 ?>
 <?php include("../../templates/header.php"); ?>
@@ -47,7 +48,7 @@ if($_POST){
          <input type="text"
          value="<?php echo $txtID;?>"
            class="form-control" readonly name="txtID" id="txtID" aria-describedby="helpId" placeholder="">
-         <small id="helpId" class="form-text text-muted">Help text</small>
+
        </div>       
     </div>
 <div class="mb-3">

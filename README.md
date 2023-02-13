@@ -12,3 +12,14 @@ se procede a la creacion de plataforma, creacion de BD, pantallas de formularios
 
 base de datos conectada, formularios operativos de ingreso de usuario y ingreso de tipo de trabajo.
 los datos se ingresan.... se procedio a la optimizacion de la bd por que tenia problemas al ingreso del correo en la seccion usuarios.
+
+
+09 de febrero
+
+crud de empleados listo ingreo eliminacion y edicion de datos.
+
+
+13 de febrero
+
+JQUERI habilitado , buqueda en las tablas y ordenes automaticas, sweetalet2 a medio funcionar las funciones las tengo que llamar desde el index
+cuando las llevo al footer o al header no las toma.

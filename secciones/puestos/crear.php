@@ -13,7 +13,8 @@ $sentencia=$conexion->prepare("insert into tbl_puestos(id,nombredelpuesto) VALUE
 
 $sentencia->bindParam(":nombrePuesto",$nombredelpuesto);
 $sentencia ->execute();
-header("location:index.php");
+$mensaje="Puesto Agregado";
+header("location:index.php?mensaje=".$mensaje);
 }
 ?>
 <?php include("../../templates/header.php"); ?>

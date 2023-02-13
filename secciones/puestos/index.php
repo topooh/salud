@@ -8,7 +8,8 @@ if(isset( $_GET['txtID'] )){
     $sentencia=$conexion->prepare("DELETE FROM tbl_puestos WHERE id=:id");
     $sentencia->bindParam(":id",$txtID);
     $sentencia ->execute();
-header("location:index.php");
+    $mensaje = "Registro Eliminado";
+header("location:index.php?mensaje=".$mensaje);
 
 
 }
@@ -20,6 +21,8 @@ $lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 <?php include("../../templates/header.php"); ?>
 
 
+
+
 <br>
 <center><h4>Puestos de Trabajo </h4></center>
 <div class="card">
@@ -27,7 +30,7 @@ $lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
     <a name="id" id="id" class="btn btn-primary" href="crear.php" role="button">Agregar Puesto</a>    </div>
     <div class="card-body">
 <div class="table-responsive-sm">
-    <table class="table ">
+    <table class="table " id="tabla_id">
         <thead>
             <tr>
                 <th scope="col">ID</th>
@@ -44,14 +47,38 @@ $lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
                 <td>
                 <a class="btn btn-info" href="editar.php?txtID=<?php echo$registro['id'] ?>" role="button">Editar </a>
                 <span>| 
-                <a class="btn btn-danger" href="index.php?txtID=<?php echo$registro['id'] ?>" role="button">Eliminar </a>
+                <a class="btn btn-danger" href="javascript:borrar(<?php echo$registro['id'] ?>);" role="button">Eliminar </a>
                 </td>
             </tr>
             
             <?php } ?> 
             
+            // tengo que llevar al footer
+            <script>
+    function borrar(id){
+        Swal.fire({
+  title: '¿Deseas Borrar los registros ?',
+  showCancelButton: true,
+  confirmButtonText: 'Si, Borrar',
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    Swal.fire('Eliminado!', '', 'success')
+    window.location="index.php?txtID="+id;
+  } else if (result.isDenied) {
+    Swal.fire('Los Cambios No se Guardaron', '', 'info')
+  }
+})
+
+        //index.php?txtID=
+    }
+ </script>
+  </script>
             
-          
+
+
+
+
         </tbody>
     </table>
 </div>
