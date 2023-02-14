@@ -2,7 +2,7 @@
 session_start();
 $url_base="http://localhost/salud/"; 
 if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado la secion.
-  header("Location:".$url_Base."login.php");
+  header("Location:".$url_Base."login.php"); // no me esta tomando $url_base
 }else{
 
 }
@@ -59,6 +59,9 @@ if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado 
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuarios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo $url_base;?>secciones/permisos/">Permisos</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url_base;?>cerrar.php">Cerrar Sesión</a>

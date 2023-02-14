@@ -1,0 +1,7 @@
+en el siguiente archivo base de datos se guarda la estructura nueva con la tablas creadas
+
+tbl_permisos
+tbl_puestos
+tbl_tipo_permiso
+
+con el ojjetivo de condtruir una una idea.

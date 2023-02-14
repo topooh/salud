@@ -2,7 +2,7 @@
   <footer>
 <br>
   <center>
-    Sistema de pedidos de permisos 
+    Sistema de pedidos de permisos Version 0.0.1A 
 
     
   </center>

@@ -36,3 +36,6 @@ tbl_permisos
 tbl_tipo_permiso
 tbl_jornada
 Login de usuarios funcionando, bloqueo de paginas donde no pueden acceder, el update de empleados esta fallando.
+
+Seccion permisos funcionanddo con la tablas dinamicas, adémas de mostrar los valores en los combobox, me falta eso si ingresar valores
+y verificar que el usarrio con $_session este habilitado y mostrar su nombre.
