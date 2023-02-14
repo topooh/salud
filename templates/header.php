@@ -1,7 +1,27 @@
 <?php
-$url_base="http://localhost/salud/";
-?>
+session_start();
+$url_base="http://localhost/salud/"; 
+if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado la secion.
+  header("Location:".$url_Base."login.php");
+}else{
 
+}
+?>
+<script> //llevar a lfooter no se por que no me toma
+ function borrar(id){
+        Swal.fire({
+  title: '¿Deseas Borrar el registro?',
+  showCancelButton: true,
+  confirmButtonText: 'Si, Borrar',
+}).then((result) => {
+    if(result.isConfirmed){
+        window.location="index.php?txtID="+id;
+    }
+})
+
+        //index.php?txtID=
+    }
+  </script>
 <!doctype html>
 <html lang="es">
 
@@ -17,7 +37,8 @@ $url_base="http://localhost/salud/";
 
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
-  
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -40,7 +61,7 @@ $url_base="http://localhost/salud/";
                 <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuarios</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Cerrar Sesión</a>
+                <a class="nav-link" href="<?php echo $url_base;?>cerrar.php">Cerrar Sesión</a>
             </li>
         </ul>
     </nav>
@@ -53,3 +74,5 @@ $url_base="http://localhost/salud/";
 <script>
     Swal.fire({icon:"success", title:"<?php echo $_GET['mensaje'];?>"});
     </script>
+  
+    

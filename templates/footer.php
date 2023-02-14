@@ -28,11 +28,8 @@
         } 
     });
 });
-
-
-
+</script>
 <script>
-
 //llevar a lfooter
 function borrar(id){
 Swal.fire({
@@ -51,7 +48,6 @@ Swal.fire('Los Cambios No se Guardaron', '', 'info')
 
 //index.php?txtID=
 }
-</script>
 </script>
 </body>
 

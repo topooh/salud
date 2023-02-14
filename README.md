@@ -23,3 +23,16 @@ crud de empleados listo ingreo eliminacion y edicion de datos.
 
 JQUERI habilitado , buqueda en las tablas y ordenes automaticas, sweetalet2 a medio funcionar las funciones las tengo que llamar desde el index
 cuando las llevo al footer o al header no las toma.
+
+
+
+
+
+
+14 febrero BD
+Base de dato tablas agregagas
+
+tbl_permisos
+tbl_tipo_permiso
+tbl_jornada
+Login de usuarios funcionando, bloqueo de paginas donde no pueden acceder, el update de empleados esta fallando.

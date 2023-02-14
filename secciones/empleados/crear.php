@@ -26,7 +26,8 @@ $sentencia->bindParam(":cv",$cv);
 $sentencia->bindParam(":idpuesto",$idpuesto);
 $sentencia->bindParam(":fechaingreso",$fechaingreso); 
 $sentencia ->execute();
-header("location:index.php"); // redireccionar
+$mensaje="Empleado Agregado";
+header("location:index.php?mensaje=".$mensaje); // redireccionar con mensaje
 
 
 

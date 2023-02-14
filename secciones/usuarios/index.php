@@ -24,7 +24,9 @@ if(isset( $_GET['txtID'] )){
     $sentencia=$conexion->prepare("DELETE FROM tbl_usuarios WHERE id=:id");
     $sentencia->bindParam(":id",$txtID);
     $sentencia ->execute();
-header("location:index.php");
+    $mensaje = "Usuario Eliminado";
+    header("location:index.php");
+
 }
 
 ?>
@@ -56,7 +58,7 @@ header("location:index.php");
                 <td>
                 <a class="btn btn-info" href="editar.php?txtID=<?php echo$registro['id'] ?>" role="button">Editar </a>
                 <span>| 
-                <a class="btn btn-danger" href="index.php?txtID=<?php echo$registro['id'] ?>" role="button">Eliminar </a>
+                <a class="btn btn-danger" href="javascript:borrar(<?php echo$registro['id'] ?>);" role="button">Eliminar </a>
                 </td>
             </tr>
             <?php } ?> 

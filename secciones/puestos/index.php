@@ -8,7 +8,7 @@ if(isset( $_GET['txtID'] )){
     $sentencia=$conexion->prepare("DELETE FROM tbl_puestos WHERE id=:id");
     $sentencia->bindParam(":id",$txtID);
     $sentencia ->execute();
-    $mensaje = "Registro Eliminado";
+    $mensaje = "Puesto Eliminado";
 header("location:index.php?mensaje=".$mensaje);
 
 
@@ -52,30 +52,6 @@ $lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
             </tr>
             
             <?php } ?> 
-            
-            // tengo que llevar al footer
-            <script>
-    function borrar(id){
-        Swal.fire({
-  title: '¿Deseas Borrar los registros ?',
-  showCancelButton: true,
-  confirmButtonText: 'Si, Borrar',
-}).then((result) => {
-  /* Read more about isConfirmed, isDenied below */
-  if (result.isConfirmed) {
-    Swal.fire('Eliminado!', '', 'success')
-    window.location="index.php?txtID="+id;
-  } else if (result.isDenied) {
-    Swal.fire('Los Cambios No se Guardaron', '', 'info')
-  }
-})
-
-        //index.php?txtID=
-    }
- </script>
-  </script>
-            
-
 
 
 

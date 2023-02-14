@@ -69,13 +69,8 @@ if($_POST){
   $sentencia->bindParam(":fechaingreso",$fechaingreso); 
   $sentencia->bindParam(":id",$txtID); 
   $sentencia ->execute();
-  header("location:index.php"); // redireccionar
-  
-  
-  
-  
-  
-  
+  $mensaje="Cambios Realizados";
+   header("location:index.php?mensaje=".$mensaje);
   }
   
 ?>

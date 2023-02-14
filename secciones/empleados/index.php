@@ -7,7 +7,8 @@ if(isset( $_GET['txtID'] )){
     $sentencia=$conexion->prepare("DELETE FROM tbl_empleados WHERE id=:id");
     $sentencia->bindParam(":id",$txtID);
     $sentencia ->execute();
-header("location:index.php");
+    $mensaje = "Trabajador Eliminado";
+
 
 
 }
@@ -69,5 +70,26 @@ $lista_tbl_empleados=$sentencia->fetchALL(PDO::FETCH_ASSOC);
     
     </div>
 </div>
+ <script>
 
+            //llevar a lfooter no se por que no me toma
+    function borrar(id){
+        Swal.fire({
+  title: '¿Deseas Borrar los registros ?',
+  showCancelButton: true,
+  confirmButtonText: 'Si, Borrar',
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    Swal.fire('Trabajador Eliminado!', '', 'success')
+    window.location="index.php?txtID="+id;
+  } else if (result.isDenied) {
+    Swal.fire('Los Cambios No se Guardaron', '', 'info')
+  }
+})
+
+        //index.php?txtID=
+    }
+ </script>
+  </script>
 <?php include("../../templates/footer.php"); ?>

@@ -1,6 +1,6 @@
 <?php include("../../bd.php");
 if($_POST){
-  print_r($_POST); 
+  //print_r($_POST); 
   
   // recolectamos los datos del POST 
  $usuario=(isset($_POST["usuario"])?$_POST["usuario"]:"");
@@ -16,10 +16,9 @@ if($_POST){
  $sentencia->bindParam(":usuario",$usuario);
  $sentencia->bindParam(":password",$password);
  $sentencia->bindParam(":correo",$correo);
-
+ $mensaje="Usuario Creado";
  $sentencia ->execute();
- header("location:index.php");
- }
+ header("location:index.php?mensaje=".$mensaje); }
 ?>
 
 <?php include("../../templates/header.php"); ?>
