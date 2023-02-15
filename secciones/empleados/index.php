@@ -59,7 +59,8 @@ $lista_tbl_empleados=$sentencia->fetchALL(PDO::FETCH_ASSOC);
                     <td><?php echo $registro['cv']; ?></td>
                     <td><?php echo $registro['puesto']; ?></td>
                     <td><?php echo $registro['fechaingreso']; ?></td>
-                    <td><a name="" id="" class="btn btn-primary" href="decreto-administrativo.php?txtID=<?php echo$registro['id'] ?>" role="button">Decreto</a> | <a class="btn btn-info" href="editar.php?txtID=<?php echo$registro['id'] ?>" role="button">Editar </a>
+                    <td><a name="" id="" class="btn btn-primary" href="decreto-administrativo.php?txtID=<?php echo$registro['id'] ?>" role="button">Decreto</a> |
+                     <a class="btn btn-info" href="editar.php?txtID=<?php echo$registro['id'] ?>" role="button">Editar </a>
                 <span>| 
                 <a class="btn btn-danger" href="javascript:borrar(<?php echo$registro['id'] ?>);" role="button">Eliminar </a></tr>
                 <?php } ?> 

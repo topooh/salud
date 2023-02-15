@@ -39,3 +39,10 @@ Login de usuarios funcionando, bloqueo de paginas donde no pueden acceder, el up
 
 Seccion permisos funcionanddo con la tablas dinamicas, adémas de mostrar los valores en los combobox, me falta eso si ingresar valores
 y verificar que el usarrio con $_session este habilitado y mostrar su nombre.
+
+
+15 de febrero
+
+Base de Datos modificada, index, primary key entre otros, el ingreso de pedidos de permiso funcionando
+se puede verificar puede pedir mas de un permiso, las fecha de solicitud esta bloqueda, y verificando pero no bloqea el ingreso del formulario.
+
