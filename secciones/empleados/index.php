@@ -22,7 +22,33 @@ $sentencia ->execute();
 $lista_tbl_empleados=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
 ?>
-<?php include("../../templates/header.php"); ?>
+<?php
+session_start();
+switch($_SESSION['tipousuario']){
+case 1:
+  // TIPO USUARIO NORMAL 
+echo("tipo de usuario 1");
+include("../../templates/usuario/header.php");
+break;
+case 2:
+
+  // JEFE DIRECTO
+  echo("tipo usuario 2");
+  include("../../templates/jefe-directo/header.php");
+break;
+case 3:
+
+  // JEFE CESFAM
+
+include("../../templates/jefe-cesfam/header.php");
+break;
+case 4:
+  // ADMIN
+include("../../templates/admin/header.php");
+break;  
+
+}
+?>
 
 <center><h4>Personal</h4></center>
 <div class="card">

@@ -1,4 +1,5 @@
 <?php include("../../bd.php");
+session_start();
 if($_POST){
   //print_r($_POST); 
   
@@ -21,7 +22,32 @@ if($_POST){
  header("location:index.php?mensaje=".$mensaje); }
 ?>
 
-<?php include("../../templates/header.php"); ?>
+<?php
+switch($_SESSION['tipousuario']){
+case 1:
+  // TIPO USUARIO NORMAL 
+
+include("../../templates/usuario/header.php");
+break;
+case 2:
+
+  // JEFE DIRECTO
+  
+  include("../../templates/jefe-directo/header.php");
+break;
+case 3:
+
+  // JEFE CESFAM
+
+include("../../templates/jefe-cesfam/header.php");
+break;
+case 4:
+  // ADMIN
+include("../../templates/admin/header.php");
+break;  
+
+}
+?>
 
 <br>
 <center> <h4> Crear Un Nuevo Usuario </h4></center> 

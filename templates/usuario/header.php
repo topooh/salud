@@ -54,10 +54,10 @@ $url_base="http://localhost/salud/";
             </li>
             
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuariosaaa</a>
+                <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuarios</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/permisos/">Permisosaaa</a>
+                <a class="nav-link" href="<?php echo $url_base;?>secciones/permisos/">Permisos</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url_base;?>cerrar.php">Cerrar Sesión</a>

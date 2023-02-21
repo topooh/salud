@@ -49,16 +49,16 @@ $url_base="http://localhost/salud/";
                 <a class="nav-link active" href="/salud/" aria-current="page">Sistema Web <span class="visually-hidden">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/empleados/">Empleadosaaa</a>
+                <a class="nav-link" href="<?php echo $url_base;?>secciones/empleados/">Empleados</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/puestos/">Puestosaaaa</a>
+                <a class="nav-link" href="<?php echo $url_base;?>secciones/puestos/">Puestos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuariosaaa</a>
+                <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuarios</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/permisos/">Permisosaaa</a>
+                <a class="nav-link" href="<?php echo $url_base;?>secciones/permisos/">Permisos</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url_base;?>cerrar.php">Cerrar Sesión</a>

@@ -18,7 +18,34 @@ tbl_jornada.id=tbl_permisos.jornada limit 1 ) as tipo_jornada
 $jornada->execute();
 $lista_tbl_jornada=$jornada->fetchALL(PDO::FETCH_ASSOC);
 ?>
-<?php include("../../templates/header.php"); ?>
+<?php
+session_start();
+switch($_SESSION['tipousuario']){
+case 1:
+  // TIPO USUARIO NORMAL 
+
+include("../../templates/usuario/header.php");
+break;
+case 2:
+
+  // JEFE DIRECTO
+ 
+  include("../../templates/jefe-directo/header.php");
+break;
+case 3:
+
+  // JEFE CESFAM
+
+include("../../templates/jefe-cesfam/header.php");
+break;
+case 4:
+  // ADMIN
+include("../../templates/admin/header.php");
+break;  
+
+}
+?>
+
 
 <?php 
 ?>

@@ -1,4 +1,5 @@
 <?php include ("../../bd.php");
+session_start();
 
 if($_POST){
   print_r($_POST);
@@ -42,7 +43,32 @@ $lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 // print_R($lista_tbl_puestos); mostrar los datos que me esta trayendo desde la base de datos!!!
 
 ?>
-<?php include("../../templates/header.php"); ?>
+<?php
+switch($_SESSION['tipousuario']){
+case 1:
+  // TIPO USUARIO NORMAL 
+
+include("../../templates/usuario/header.php");
+break;
+case 2:
+
+  // JEFE DIRECTO
+  
+  include("../../templates/jefe-directo/header.php");
+break;
+case 3:
+
+  // JEFE CESFAM
+
+include("../../templates/jefe-cesfam/header.php");
+break;
+case 4:
+  // ADMIN
+include("../../templates/admin/header.php");
+break;  
+
+}
+?>
 
 
 <center><h4>Crear Trabajador</h4></center>

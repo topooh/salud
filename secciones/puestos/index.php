@@ -18,17 +18,18 @@ $sentencia=$conexion -> prepare ("select * from tbl_puestos");
 $sentencia ->execute();
 $lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 // print_R($lista_tbl_puestos); mostrar los datos que me esta trayendo desde la base de datos!!!
-?><?php
+?>
+<?php
 switch($_SESSION['tipousuario']){
 case 1:
   // TIPO USUARIO NORMAL 
-echo("tipo de usuario 1");
+
 include("../../templates/usuario/header.php");
 break;
 case 2:
 
   // JEFE DIRECTO
-  echo("tipo usuario 2");
+  
   include("../../templates/jefe-directo/header.php");
 break;
 case 3:
