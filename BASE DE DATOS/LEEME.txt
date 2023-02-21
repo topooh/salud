@@ -10,4 +10,7 @@ con el ojjetivo de condtruir una una idea.
 
 BASE de datos SALUD (1)
 
-Modificacion de indices, calves primarias, tablas creadas y al parecer bien vinculadas.
+Modificacion de indices, claves primarias, tablas creadas y al parecer bien vinculadas.
+
+
+

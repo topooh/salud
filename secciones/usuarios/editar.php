@@ -67,7 +67,7 @@ if($_POST){
       <label for="password" class="form-label">Password</label>
       <input type="password"
       value="<?php echo $password;?>"
-        class="form-control" name="Password" id="password" aria-describedby="helpId" placeholder="Escriba su Contraseña">
+        class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Escriba su Contraseña">
     </div>
 
     <div class="mb-3">

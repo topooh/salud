@@ -1,4 +1,28 @@
+<?php   include("../../bd.php");
+//2 horas 51 tipo de permiso COMBOBOX TIPO DE PERMISOS
+$sentencia=$conexion->prepare("SELECT *,
+(SELECT tipopermiso FROM 
+tbl_tipo_permiso WHERE 
+tbl_tipo_permiso.id=tbl_permisos.id limit 1) as tipo_permiso
+ FROM tbl_permisos");
+$sentencia->execute();
+$lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
+
+
+// sentencia jornada
+$jornada=$conexion->prepare("SELECT *,
+(SELECT tipojornada FROM 
+tbl_jornada WHERE 
+tbl_jornada.id=tbl_permisos.jornada limit 1 ) as tipo_jornada
+ FROM tbl_permisos");
+$jornada->execute();
+$lista_tbl_jornada=$jornada->fetchALL(PDO::FETCH_ASSOC);
+?>
 <?php include("../../templates/header.php"); ?>
+
+<?php 
+?>
+
 
 <br><br>
 
@@ -25,14 +49,17 @@
             </tr>
         </thead>
         <tbody>
+        
+        <?php foreach($lista_tbl_permisos as $registro){?> 
+            <?php foreach($lista_tbl_jornada as $jornada){?>
             <tr class="">
-                <td scope="row">ID!!</td>
-                <td>Nombre Trabajador</td>
-                <td>Tipo de Permiso</td>
-                <td>02-02-2023</td>
-                <td>14-02-2023</td>
-                <td>15-02-2023</td>
-                <td>TARDE</td>
+                <td scope="row"><?php echo $registro['id']; ?></td>
+                <td><?php echo $registro['idempleado']; ?></td>
+                <td><?php echo $registro['tipo_permiso']; ?></td>
+                <td><?php echo $registro['fechasolicitud']; ?></td>
+                <td><?php echo $registro['fechapermiso']; ?></td>
+                <td><?php echo $registro['permisohasta']; ?></td>
+               <td> <?php echo $jornada['tipo_jornada']; ?></td>
                 <td>
                     <div class="form-check">
                      <input class="form-check-input" type="checkbox" value="" id="jefedirecto">
@@ -50,6 +77,8 @@
                 </div>
                 </td>
             </tr>
+            <?php } ?> 
+            <?php } ?> 
             
         </tbody>
     </table>
@@ -57,7 +86,7 @@
 
     </div>
     <div class="card-footer text-muted">
-        Footer
+        
     </div>
 </div>
 <?php include("../../templates/footer.php"); ?>
