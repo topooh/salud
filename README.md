@@ -46,3 +46,10 @@ y verificar que el usarrio con $_session este habilitado y mostrar su nombre.
 Base de Datos modificada, index, primary key entre otros, el ingreso de pedidos de permiso funcionando
 se puede verificar puede pedir mas de un permiso, las fecha de solicitud esta bloqueda, y verificando pero no bloqea el ingreso del formulario.
 
+
+21 de febrerero
+
+Nueva BD con tabla tipo de usuarios creada vinculada con usuarios atraves de indice, ingreso y edicion de usuario editada,
+creando un header personalizado para cada tipo de usuario hasta el momento tenemos 4.
+
+TRabajando en el perfil usuario hemos tocado el header general para crear uno para cada 1.
