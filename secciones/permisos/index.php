@@ -46,6 +46,7 @@ $lista_tbl_jornada=$jornada->fetchALL(PDO::FETCH_ASSOC);
                 <th scope="col">Jornada</th>
                 <th scope="col">Jefe Directo</th>
                 <th scope="col">Jefe CESFAM</th>
+                <th scope="col">RRHH</th>
             </tr>
         </thead>
         <tbody>
@@ -60,12 +61,14 @@ $lista_tbl_jornada=$jornada->fetchALL(PDO::FETCH_ASSOC);
                 <td><?php echo $registro['fechapermiso']; ?></td>
                 <td><?php echo $registro['permisohasta']; ?></td>
                <td> <?php echo $jornada['tipo_jornada']; ?></td>
+               
                 <td>
                     <div class="form-check">
                      <input class="form-check-input" type="checkbox" value="" id="jefedirecto">
                     <label class="form-check-label" for="jefedirecto">
                      Aprobar
                      </label>
+                     
                     </div> 
                 </td>
                 <td> 
@@ -76,6 +79,8 @@ $lista_tbl_jornada=$jornada->fetchALL(PDO::FETCH_ASSOC);
                   </label>
                 </div>
                 </td>
+                <td> <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="rrhh" >Recepcionado</td>
             </tr>
             <?php } ?> 
             <?php } ?> 

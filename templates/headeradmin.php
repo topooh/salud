@@ -1,11 +1,7 @@
 <?php
 session_start();
 $url_base="http://localhost/salud/"; 
-if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado la secion.
-  header("Location:".$url_Base."login.php"); // no me esta tomando $url_base
-}else{
 
-}
 
 ?>
 <script> //llevar a lfooter no se por que no me toma
@@ -27,7 +23,7 @@ if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado 
 <html lang="es">
 
 <head>
-  <title>Listado de Personal </title>
+  <title>Pagina principal </title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -45,28 +41,7 @@ if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado 
 
 </head>
 
-
-
-  <?php
-  switch($_SESSION['tipousuario']){
-case 1:
-  echo("tipo de usuario 1");
-  include("headeradmin.php");
-  break;
-case 2:
-    echo("tipo usuario 2");
-    include("headeradmin.php");
-  break;
-case 3:
-  echo("mensaje de lheader");
-  include("headeradmin.php");
-  break;
-case 4:
-  include("headeradmin.php");
-  break;  
-  
-  }
-  ?><body>
+<body>
   <header>
     <nav class="navbar navbar-expand navbar-light bg-light">
         <ul class="nav navbar-nav">
@@ -74,16 +49,16 @@ case 4:
                 <a class="nav-link active" href="/salud/" aria-current="page">Sistema Web <span class="visually-hidden">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/empleados/">Empleados</a>
+                <a class="nav-link" href="<?php echo $url_base;?>secciones/empleados/">Empleadosaaa</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/puestos/">Puestos</a>
+                <a class="nav-link" href="<?php echo $url_base;?>secciones/puestos/">Puestosaaaa</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuarios</a>
+                <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuariosaaa</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/permisos/">Permisos</a>
+                <a class="nav-link" href="<?php echo $url_base;?>secciones/permisos/">Permisosaaa</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url_base;?>cerrar.php">Cerrar Sesión</a>

@@ -19,6 +19,7 @@ if($_POST){
         $_SESSION['logueado']= true;
         $_SESSION['password']=$registro["password"];
         $_SESSION['correo']=$registro["correo"];
+        $_SESSION['tipousuario']=$registro["tipousuario"];
         header("Location: index.php");
 
     }else{$mensaje = "Error: Usuario o contraseña incorrecta";

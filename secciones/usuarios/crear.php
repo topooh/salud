@@ -8,8 +8,8 @@ if($_POST){
  $correo=(isset($_POST["correo"])?$_POST["correo"]:"");
 
  // preparar la iserccion de datos
- $sentencia=$conexion->prepare("insert into tbl_usuarios(id,usuario,password,correo)
-  VALUES(NULL,:usuario,:password,:correo)");
+ $sentencia=$conexion->prepare("insert into tbl_usuarios(id,usuario,password,correo,tipousuario)
+  VALUES(NULL,:usuario,:password,:correo,'1')");
  
  // ASignando valores que vienen con el metodo  POST  los que vienen de los formularios..
  // asigna valores que tienene uso de :variable   
