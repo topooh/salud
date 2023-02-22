@@ -14,13 +14,20 @@ if($_POST){
     $sentencia->execute();
     $registro=$sentencia->fetch(PDO::FETCH_LAZY);
     print_r($registro);
+    $iduseario=$conexion->prepare("select *,count(*)as n_usuarios
+    FROM tbl_usuarios
+    WHERE usuario=:usuario
+    AND password=:password");
+
     if($registro["n_usuarios"]==1){
         $_SESSION['usuario']=$registro["usuario"]; // declaro las variables de sesion es decir estas son las que llamo en el index
         $_SESSION['logueado']= true;
         $_SESSION['password']=$registro["password"];
         $_SESSION['correo']=$registro["correo"];
         $_SESSION['tipousuario']=$registro["tipousuario"];
-        header("Location: index.php");
+        $_SESSION['rut']=$registro["rut"];
+        $mensaje="Sesion Iniciada ".$registro["usuario"]."".$registro["rut"];
+         header("location:index.php?mensaje=".$mensaje);
 
     }else{$mensaje = "Error: Usuario o contraseña incorrecta";
     }

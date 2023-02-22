@@ -1,5 +1,10 @@
 <?php   include("bd.php");
+session_start();
+if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado la secion.
+  header("Location:".$url_Base."login.php"); // no me esta tomando $url_base
+}else{
 
+}
 ?>
 <?php include("templates/header.php"); ?>
 <?php switch ($_SESSION['tipousuario']){

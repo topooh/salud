@@ -53,3 +53,7 @@ Nueva BD con tabla tipo de usuarios creada vinculada con usuarios atraves de ind
 creando un header personalizado para cada tipo de usuario hasta el momento tenemos 4.
 
 TRabajando en el perfil usuario hemos tocado el header general para crear uno para cada 1.
+
+CREACION DE HEADER POR PERFIL DE USUARIO (USUARIO NORMAL- JEFE DIRECTO- JEFE- CESFAM- ADMIN)
+ACTUALMENTE CON UN ERROR de llamar 2 veces a la variable secion, deberia ser por los nuevos header, que lo llamaba en el anterior para validar
+y en el actual para saber que tipo de usuario es

@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 $url_base="http://localhost/salud/"; 
 
 
@@ -76,3 +76,5 @@ case 4:
 <script>
     Swal.fire({icon:"success", title:"<?php echo $_GET['mensaje'];?>"});
     </script>
+
+    

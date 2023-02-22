@@ -57,7 +57,7 @@ $url_base="http://localhost/salud/";
                 <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuarios</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/permisos/">Permisos</a>
+                <a class="nav-link" href="<?php echo $url_base;?>templates/usuario/secciones/permisos/">Permisos</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url_base;?>cerrar.php">Cerrar Sesión</a>
