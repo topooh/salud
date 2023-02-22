@@ -29,6 +29,7 @@ cuando las llevo al footer o al header no las toma.
 
 
 
+
 14 febrero BD
 Base de dato tablas agregagas
 
@@ -57,3 +58,8 @@ TRabajando en el perfil usuario hemos tocado el header general para crear uno pa
 CREACION DE HEADER POR PERFIL DE USUARIO (USUARIO NORMAL- JEFE DIRECTO- JEFE- CESFAM- ADMIN)
 ACTUALMENTE CON UN ERROR de llamar 2 veces a la variable secion, deberia ser por los nuevos header, que lo llamaba en el anterior para validar
 y en el actual para saber que tipo de usuario es
+
+
+22 de febrero
+nuevos cambios en la base de datos usuarios relacionados con tabla empleados , atraves del rut, perfles creados para cada usuario}
+permisos ingresandose atraves de perfil usuario.

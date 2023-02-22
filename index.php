@@ -9,7 +9,7 @@ if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado 
 <?php include("templates/header.php"); ?>
 <?php switch ($_SESSION['tipousuario']){
 case 1:
-$tipousuario="Usuario";
+  $tipousuario="Usuario";
 break;
 
 case 2:

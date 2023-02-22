@@ -1,7 +1,7 @@
 <?php
 $url_base="http://localhost/salud/"; 
 if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado la secion.
-  header("Location:".$url_Base."login.php"); // no me esta tomando $url_base
+  header("Location:".$url_base."login.php"); // no me esta tomando $url_base
 }else{
 
 }
@@ -53,7 +53,7 @@ if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado 
                 <a class="nav-link active" href="/salud/" aria-current="page">Sistema Web JEFE cesfam <span class="visually-hidden">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/empleados/">Empleadosaaa</a>
+                <a class="nav-link" href="<?php echo $url_base;?>templates/jefe-cesfam/secciones/empleados/">Empleados</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url_base;?>secciones/puestos/">Puestosaaaa</a>
@@ -62,7 +62,7 @@ if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado 
                 <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuariosaaa</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/permisos/">Permisosaaa</a>
+                <a class="nav-link" href="<?php echo $url_base;?>templates/jefe-cesfam/secciones/permisos/">Permisos</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url_base;?>cerrar.php">Cerrar Sesión</a>

@@ -1,8 +1,15 @@
-<php $url_base="http://localhost/salud/";  ?>
+<php $url_base="http://localhost/salud/"; 
+ ?>
+<?php  
+session_start();
+if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado la secion.
+  header("Location:".$url_base."login.php"); // no me esta tomando $url_base
+}else{
 
+}?>
 
 <?php
-session_start();
+
 switch($_SESSION['tipousuario']){
 case 1:
   // TIPO USUARIO NORMAL 

@@ -26,7 +26,7 @@ if($_POST){
         $_SESSION['correo']=$registro["correo"];
         $_SESSION['tipousuario']=$registro["tipousuario"];
         $_SESSION['rut']=$registro["rut"];
-        $mensaje="Sesion Iniciada ".$registro["usuario"]."".$registro["rut"];
+        $mensaje="Haz Ingresado como ".$registro["usuario"]."<br> Tu Rut registrado es <br>".$registro["rut"];
          header("location:index.php?mensaje=".$mensaje);
 
     }else{$mensaje = "Error: Usuario o contraseña incorrecta";

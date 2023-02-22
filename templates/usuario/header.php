@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado la secion.
-  header("Location:".$url_Base."login.php"); // no me esta tomando $url_base
+  header("Location:".$url_base."login.php"); // no me esta tomando $url_base
 }else{
 
 }

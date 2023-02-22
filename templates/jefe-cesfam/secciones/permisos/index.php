@@ -1,4 +1,4 @@
-<?php   include("../../../../bd.php");
+<?php
 session_start();
 $url_base="http://localhost/salud/"; 
 if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado la secion.
@@ -6,6 +6,27 @@ if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado 
 }else{
 
 }
+
+/* update jefecesfam
+$jefecesfam=$conexion->prepare("
+    UPDATE tbl_permisos SET
+
+        jefecesfam=1
+    WHERE id=:id");
+
+*/
+if(isset( $_GET['txtID'] )){
+
+  $txtID=(isset($_GET['txtID']))?$_GET['txtID']:"";
+
+  $sentencia=$conexion->prepare("SELECT * from tbl_permisos where id=:id");
+  $sentencia->bindParam(":id",$txtID);
+  $sentencia ->execute();
+  $registro=$sentencia->fetch(PDO::FETCH_LAZY);
+  $nombredelpuesto=$registro["nombredelpuesto"];
+}
+
+   include("../../../../bd.php");
 //2 horas 51 tipo de permiso COMBOBOX TIPO DE PERMISOS
 $sentencia=$conexion->prepare("SELECT *,
 (SELECT tipopermiso FROM 
@@ -31,7 +52,7 @@ switch($_SESSION['tipousuario']){
 case 1:
   // TIPO USUARIO NORMAL 
 
-include("../../../../templates/usuario/header.php");
+include("../../templates/usuario/header.php");
 break;
 case 2:
 
@@ -43,7 +64,7 @@ case 3:
 
   // JEFE CESFAM
 
-include("../../templates/jefe-cesfam/header.php");
+include("../../../../templates/jefe-cesfam/header.php");
 break;
 case 4:
   // ADMIN
@@ -60,14 +81,11 @@ break;
 
 <br><br>
 
-<center><h4> Mis Permisos Solicitados </h4></center>
-<div class="p-5 mb-4 bg-light rounded-3">
-        <div class="container-fluid py-5">
-          <center><h1 class="display-5 fw-bold"></h1>
-          <h4>  <a name="pedir" id="pedir" class="btn btn-primary" href="pedir.php" role="button">Pedir Permiso</a></h4></center>
-        </div>
-      </div>
-      
+<center><h4> Listado de Permisos Solicitados </h4></center>
+<div class="card">
+    
+    <div class="card-header">
+        Listado de Permisos <a name="pedir" id="pedir" class="btn btn-primary" href="pedir.php" role="button">Pedir Permiso</a>
     </div>
     <div class="card-body">
 <div class="table-responsive-sm">
@@ -97,7 +115,8 @@ break;
                 <td><?php echo $registro['fechasolicitud']; ?></td>
                 <td><?php echo $registro['fechapermiso']; ?></td>
                 <td><?php echo $registro['permisohasta']; ?></td>
-               <td scope="row"> <?php echo $jornada['tipo_jornada']; ?></td>
+               <td> <?php echo $jornada['tipo_jornada']; ?></td>
+               
                
                 <td>
                     <div class="form-check">
@@ -117,7 +136,7 @@ break;
                 </div>
                 </td>
                 <td> <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="rrhh" >Recepcionado</td>
+                <input class="form-check-input" type="checkbox" value="0" id="rrhh" >Recepcionado</div></td>
             </tr>
             <?php } ?> 
             <?php } ?> 
@@ -132,3 +151,9 @@ break;
     </div>
 </div>
 <?php include("../../../../templates/footer.php"); ?>
+
+
+
+<?php
+
+
