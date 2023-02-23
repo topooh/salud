@@ -7,16 +7,24 @@ if($_POST){
  $usuario=(isset($_POST["usuario"])?$_POST["usuario"]:"");
  $password=(isset($_POST["password"])?$_POST["password"]:"");
  $correo=(isset($_POST["correo"])?$_POST["correo"]:"");
+ $rut=(isset($_POST["rut"])?$_POST["rut"]:"");
+ $nombre=(isset($_POST["nombre"])?$_POST["nombre"]:"");
+ $apellido_pat=(isset($_POST["apellido_pat"])?$_POST["apellido_pat"]:"");
+ $apellido_mat=(isset($_POST["apellido_mat"])?$_POST["apellido_mat"]:"");
 
  // preparar la iserccion de datos
- $sentencia=$conexion->prepare("insert into tbl_usuarios(id,usuario,password,correo,tipousuario)
-  VALUES(NULL,:usuario,:password,:correo,'1')");
+ $sentencia=$conexion->prepare("insert into tbl_usuarios(id,usuario,password,correo,rut,nombre,apellido_pat,apellido_mat,tipousuario)
+  VALUES(NULL,:usuario,:password,:correo, :rut, :nombre, :apellido_pat, :apellido_mat, '1')");
  
  // ASignando valores que vienen con el metodo  POST  los que vienen de los formularios..
  // asigna valores que tienene uso de :variable   
  $sentencia->bindParam(":usuario",$usuario);
  $sentencia->bindParam(":password",$password);
  $sentencia->bindParam(":correo",$correo);
+ $sentencia->bindParam(":rut",$rut);
+ $sentencia->bindParam(":nombre",$nombre);
+ $sentencia->bindParam(":apellido_pat",$apellido_pat);
+ $sentencia->bindParam(":apellido_mat",$apellido_mat);
  $mensaje="Usuario Creado";
  $sentencia ->execute();
  header("location:index.php?mensaje=".$mensaje); }
@@ -75,7 +83,31 @@ break;
         class="form-control" name="correo" id="correo" aria-describedby="helpId" placeholder="Escriba su Correo Electronico">
 
     </div>
+    <div class="mb-3">
+      <label for="rut" class="form-label">Rut</label>
+      <input type="numeric"
+        class="form-control" name="rut" id="rut" aria-describedby="helpId" placeholder="12345678-k">
 
+    </div>
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="numeric"
+        class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder="Nombre">
+
+    </div>
+    <div class="mb-3">
+      <label for="apelldido_pat" class="form-label">Primer apellido</label>
+      <input type="text"
+        class="form-control" name="apellido_pat" id="apellido_pat" aria-describedby="helpId" placeholder="Primer Apellido">
+
+    </div>
+    <div class="mb-3">
+      <label for="apelldido_mat" class="form-label">Segundo apellido</label>
+      <input type="text"
+        class="form-control" name="apellido_mat" id="apellido_mat" aria-describedby="helpId" placeholder="Primer Apellido">
+
+    </div>
+    
     <br>
     <button type="submit" class="btn btn-success">Agregar</button> <a name="" id="" class="btn btn-danger" href="index.php" role="button">Cancelar</a>
   

@@ -11,7 +11,8 @@ if(isset( $_GET['txtID'] )){
     $registro=$sentencia->fetch(PDO::FETCH_LAZY);
     $usuario=$registro["usuario"];
     $password=$registro["password"];
-    $correo=$registro["corrreo"];
+    $correo=$registro["correo"];
+    $rut=$registro["rut"];
     
 }
 if($_POST){
@@ -22,18 +23,22 @@ if($_POST){
    $usuario=(isset($_POST["usuario"])?$_POST["usuario"]:"");
    $password=(isset($_POST["password"])?$_POST["password"]:"");
    $correo=(isset($_POST["correo"])?$_POST["correo"]:"");
+   $rut=(isset($_POST["rut"])?$_POST["rut"]:"");
    // preparar la iserccion de datos
    $sentencia=$conexion->prepare("UPDATE tbl_usuarios SET
    usuario=:usuario,
    password=:password,
-   correo=:correo
+   correo=:correo,
+   rut=:rut,
    where id=:id");  
    // ASignando valores que vienen con el metodo  POST  los que vienen de los formularios..
    // asigna valores que tienene uso de :variable   
+  
    $sentencia->bindParam(":usuario",$usuario);
    $sentencia->bindParam(":password",$password);
    $sentencia->bindParam(":correo",$correo);
    $sentencia->bindParam(":id",$txtID);
+   $sentencia->bindParam(":rut",$rut);
    $sentencia ->execute();
    header("location:index.php");
    }
@@ -100,9 +105,17 @@ break;
       <label for="correo" class="form-label">Correo</label>
       <input type="email"
         value="<?php echo $correo;?>"
-        class="form-control" name="correo" id="correo" aria-describedby="helpId" placeholder="Escriba su Correo Electronico">
+        class="form-control" name="correo" id="correo" aria-describedby="helpId" >
         
     </div>
+    <div class="mb-3">
+      <label for="correo" class="form-label">Rut</label>
+      <input type="numeric"
+        value="<?php echo $rut;?>"
+        class="form-control" name="rut" id="rut" aria-describedby="helpId" placeholder="Escriba Su Rut">
+        
+    </div>
+
 
     <br>
     <button type="submit" class="btn btn-success">Editar</button> <a name="" id="" class="btn btn-danger" href="index.php" role="button">Cancelar</a>

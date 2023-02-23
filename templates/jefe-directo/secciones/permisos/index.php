@@ -1,4 +1,10 @@
-<?php   include("../../bd.php");
+<?php   include("../../../../bd.php");
+session_start();
+if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado la secion.
+    header("Location:".$url_base."login.php"); // no me esta tomando $url_base era por que estaba en mayuscula
+  }else{
+  
+  }
 //2 horas 51 tipo de permiso COMBOBOX TIPO DE PERMISOS
 $sentencia=$conexion->prepare("SELECT *,
 (SELECT tipopermiso FROM 
@@ -30,7 +36,7 @@ case 2:
 
   // JEFE DIRECTO
  
-  include("../../templates/jefe-directo/header.php");
+  include("../../../../templates/jefe-directo/header.php");
 break;
 case 3:
 
@@ -53,7 +59,7 @@ break;
 
 <br><br>
 
-<center><h4> Listado de Permisos </h4></center>
+<center><h4> Listado de Permisos JEFEDIRECT </h4></center>
 <div class="card">
     
     <div class="card-header">
@@ -121,6 +127,5 @@ break;
         
     </div>
 </div>
+<?php include("../../../../templates/footer.php"); ?>
 
-
-<?php include("../../templates/footer.php"); ?>

@@ -56,10 +56,10 @@ if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado 
                 <a class="nav-link" href="<?php echo $url_base;?>templates/jefe-cesfam/secciones/empleados/">Empleados</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/puestos/">Puestosaaaa</a>
+                <a class="nav-link" href="<?php echo $url_base;?>secciones/puestos/">Puestos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuariosaaa</a>
+                <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuarios</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url_base;?>templates/jefe-cesfam/secciones/permisos/">Permisos</a>

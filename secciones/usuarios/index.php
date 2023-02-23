@@ -72,6 +72,9 @@ break;
                 <th scope="col">Nombre Del Usuario</th>
                 <th scope="col">Contraseña</th>
                 <th scope="col">Correo</th>
+                <th scope="col">Rut </th>
+                <th scope="col">Nombre </th>
+                <th scope="col">Apellidos </th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
@@ -82,6 +85,9 @@ break;
                 <td><?php echo $registro['usuario']; ?></td>
                 <td>*****</td>
                 <td><?php echo $registro['correo']; ?></td>
+                <td><?php echo $registro['rut']; ?> </td>
+                <td><?php echo $registro['nombre']; ?> </td>
+                <td><?php echo $registro['apellido_pat']; echo " "; echo $registro['apellido_mat']; ?> </td>
                 <td>
                 <a class="btn btn-info" href="editar.php?txtID=<?php echo$registro['id'] ?>" role="button">Editar </a>
                 <span>| 

@@ -26,6 +26,9 @@ if($_POST){
         $_SESSION['correo']=$registro["correo"];
         $_SESSION['tipousuario']=$registro["tipousuario"];
         $_SESSION['rut']=$registro["rut"];
+        $_SESSION['nombre']=$registro['nombre'];
+        $_SESSION['apellido_pat']=$registro['apellido_pat'];
+        $_SESSION['apellido_mat']=$registro['apellido_mat'];
         $mensaje="Haz Ingresado como ".$registro["usuario"]."<br> Tu Rut registrado es <br>".$registro["rut"];
          header("location:index.php?mensaje=".$mensaje);
 

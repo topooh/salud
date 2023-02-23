@@ -7,13 +7,13 @@ if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado 
 
 }
 //2 horas 51 tipo de permiso COMBOBOX TIPO DE PERMISOS
-$sentencia=$conexion->prepare("SELECT *,
+$sentencia2=$conexion->prepare("SELECT *,
 (SELECT tipopermiso FROM 
 tbl_tipo_permiso WHERE 
 tbl_tipo_permiso.id=tbl_permisos.id limit 1) as tipo_permiso
  FROM tbl_permisos");
-$sentencia->execute();
-$lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
+$sentencia2->execute();
+$lista_tbl_permisos=$sentencia2->fetchALL(PDO::FETCH_ASSOC);
 
 
 // sentencia jornada
@@ -88,39 +88,49 @@ break;
         </thead>
         <tbody>
         
-        <?php foreach($lista_tbl_permisos as $registro){?> 
-            <?php foreach($lista_tbl_jornada as $jornada){?>
-            <tr class="">
-                <td scope="row"><?php echo $registro['id']; ?></td>
-                <td><?php echo $registro['idempleado']; ?></td>
-                <td><?php echo $registro['tipo_permiso']; ?></td>
-                <td><?php echo $registro['fechasolicitud']; ?></td>
-                <td><?php echo $registro['fechapermiso']; ?></td>
-                <td><?php echo $registro['permisohasta']; ?></td>
-               <td scope="row"> <?php echo $jornada['tipo_jornada']; ?></td>
-               
-                <td>
-                    <div class="form-check">
-                     <input class="form-check-input" type="checkbox" value="" id="jefedirecto">
-                    <label class="form-check-label" for="jefedirecto">
-                     Aprobar
-                     </label>
-                     
-                    </div> 
-                </td>
-                <td> 
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="jefecesfam" >
-                 <label class="form-check-label" for="jefecesfam">
-                  Aprobar
-                  </label>
-                </div>
-                </td>
-                <td> <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="rrhh" >Recepcionado</td>
-            </tr>
-            <?php } ?> 
-            <?php } ?> 
+        <?php // array arreglado mostrando solo 1 vez
+$lista_permisos_jornada = array();
+foreach ($lista_tbl_permisos as $registro) {
+    $jornada = $lista_tbl_jornada[array_search($registro['id'], array_column($lista_tbl_jornada, 'id'))];
+    $registro['tipo_jornada'] = $jornada['tipo_jornada'];
+    $lista_permisos_jornada[] = $registro;
+}
+foreach ($lista_permisos_jornada as $registro) {
+?>
+    <tr class="">
+        <td scope="row"><?php echo $registro['id']; ?></td>
+        <td><?php echo $registro['idempleado']; ?></td>
+        <td><?php echo $registro['idtipopermiso']; ?></td>
+        <td><?php echo $registro['fechasolicitud']; ?></td>
+        <td><?php echo $registro['fechapermiso']; ?></td>
+        <td><?php echo $registro['permisohasta']; ?></td>
+        <td><?php echo $registro['tipo_jornada']; ?></td>
+        <td>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="jefedirecto">
+                <label class="form-check-label" for="jefedirecto">
+                    Aprobar
+                </label>
+            </div>
+        </td>
+        <td>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="jefecesfam">
+                <label class="form-check-label" for="jefecesfam">
+                    Aprobar
+                </label>
+            </div>
+        </td>
+        <td>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="rrhh">
+                <label class="form-check-label" for="rrhh">
+                    Recepcionado
+                </label>
+            </div>
+        </td>
+    </tr>
+<?php } ?>
             
         </tbody>
     </table>
@@ -131,4 +141,5 @@ break;
         
     </div>
 </div>
+
 <?php include("../../../../templates/footer.php"); ?>
