@@ -1,22 +1,23 @@
 <?php   include("../../bd.php");
 //2 horas 51 tipo de permiso COMBOBOX TIPO DE PERMISOS
-$sentencia=$conexion->prepare("SELECT *,
-(SELECT tipopermiso FROM 
-tbl_tipo_permiso WHERE 
-tbl_tipo_permiso.id=tbl_permisos.id limit 1) as tipo_permiso
- FROM tbl_permisos");
+$sentencia=$conexion->prepare("
+SELECT
+    tbl_permisos.id as id,
+    tu.nombre,
+    tipopermiso,
+    fechasolicitud,
+    fechapermiso,
+    permisohasta,
+    tipojornada,
+    jefedirecto,
+    jefecesfam
+FROM tbl_permisos
+         join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
+         join tbl_jornada tj on tj.id = tbl_permisos.jornada
+join tbl_usuarios tu on tu.rut = tbl_permisos.idempleado");
 $sentencia->execute();
 $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
-
-// sentencia jornada
-$jornada=$conexion->prepare("SELECT *,
-(SELECT tipojornada FROM 
-tbl_jornada WHERE 
-tbl_jornada.id=tbl_permisos.jornada limit 1 ) as tipo_jornada
- FROM tbl_permisos");
-$jornada->execute();
-$lista_tbl_jornada=$jornada->fetchALL(PDO::FETCH_ASSOC);
 ?>
 <?php
 session_start();
@@ -78,20 +79,20 @@ break;
         </thead>
         <tbody>
         
-        <?php foreach($lista_tbl_permisos as $registro){?> 
-            <?php foreach($lista_tbl_jornada as $jornada){?>
+        <?php foreach($lista_tbl_permisos as $registro){?>
+
             <tr class="">
                 <td scope="row"><?php echo $registro['id']; ?></td>
-                <td><?php echo $registro['idempleado']; ?></td>
-                <td><?php echo $registro['tipo_permiso']; ?></td>
+                <td><?php echo $registro['nombre']; ?></td>
+                <td><?php echo $registro['tipopermiso']; ?></td>
                 <td><?php echo $registro['fechasolicitud']; ?></td>
                 <td><?php echo $registro['fechapermiso']; ?></td>
                 <td><?php echo $registro['permisohasta']; ?></td>
-               <td> <?php echo $jornada['tipo_jornada']; ?></td>
+               <td> <?php echo $registro['tipojornada']; ?></td>
                
                 <td>
                     <div class="form-check">
-                     <input class="form-check-input" type="checkbox" value="" id="jefedirecto">
+                     <input class="form-check-input check-jefedirecto" type="checkbox" id="jefedirecto" <?php echo $registro['jefedirecto'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="jefedirecto">
                      Aprobar
                      </label>
@@ -100,7 +101,7 @@ break;
                 </td>
                 <td> 
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="jefecesfam" >
+                <input class="form-check-input check-jefecesfam" type="checkbox"  id="jefecesfam" data-id="<?php echo $registro['id'];?>">
                  <label class="form-check-label" for="jefecesfam">
                   Aprobar
                   </label>
@@ -109,8 +110,7 @@ break;
                 <td> <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="rrhh" >Recepcionado</td>
             </tr>
-            <?php } ?> 
-            <?php } ?> 
+            <?php } ?>
             
         </tbody>
     </table>
@@ -118,9 +118,28 @@ break;
 
     </div>
     <div class="card-footer text-muted">
-        
     </div>
 </div>
+<script>
+    $('.check-jefedirecto').on('change', function (e) {
+        console.log(e.target.checked);
+        // aqui hago una llamada asincrona para actualizar el registro
+        // $(this).attr('data-id') tiene el id del registro en bd
+        // e.target.checked trae un booleano si esta o no checkeado el checkbox
+        let request = $.ajax({
+            url: "save.php?type=jefedirecto",
+            method: "POST",
+            data: { id : $(this).attr('data-id'), check: e.target.checked},
+            dataType: "html"
+        });
 
+        request.done(function( msg ) {
+            let result = JSON.parse(msg);
+            if (!result.error) {
+                alert(result.msg);
+            }
+        });
+    });
+</script>
 
 <?php include("../../templates/footer.php"); ?>
