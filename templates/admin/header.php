@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 $url_base="http://localhost/salud/"; 
 
 

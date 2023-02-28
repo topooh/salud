@@ -33,7 +33,7 @@ break;
 case 2:
 
   // JEFE DIRECTO
-  echo("tipo usuario 2");
+
   include("../../templates/jefe-directo/header.php");
 break;
 case 3:

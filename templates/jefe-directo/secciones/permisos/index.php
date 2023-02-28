@@ -1,9 +1,25 @@
 <?php   include("../../../../bd.php");
+session_start();
+if(!isset($_SESSION['usuario'])){// obliga a redireccionar si no esta iniciado la secion.
+   
+    header("Location:".$url_base."../../../../login.php"); // no me esta tomando $url_base
+
+  }else{
+  
+  }
+  if ($_SESSION['tipousuario'] != 2) {
+    
+    // El usuario no tiene acceso a esta página, redirige al usuario a la página de inicio
+    header("Location:".$url_base."../../../../index.php");
+
+}
 //2 horas 51 tipo de permiso COMBOBOX TIPO DE PERMISOS
 $sentencia=$conexion->prepare("
 SELECT
     tbl_permisos.id as id,
     tu.nombre,
+    tu.apellido_pat,
+    tu.apellido_mat,
     tipopermiso,
     fechasolicitud,
     fechapermiso,
@@ -23,7 +39,6 @@ $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
 ?>
 <?php
-session_start();
 switch($_SESSION['tipousuario']){
 case 1:
   // TIPO USUARIO NORMAL 
@@ -87,7 +102,7 @@ break;
 
             <tr class="">
                 <td scope="row"><?php echo $registro['id']; ?></td>
-                <td><?php echo $registro['nombre']; ?></td>
+                <td><?php echo $registro['nombre']; ?> <?php echo $registro['apellido_pat']; ?> <?php echo $registro['apellido_mat']; ?> </td>
                 <td><?php echo $registro['tipopermiso']; ?></td>
                 <td><?php echo $registro['fechasolicitud']; ?></td>
                 <td><?php echo $registro['fechapermiso']; ?></td>

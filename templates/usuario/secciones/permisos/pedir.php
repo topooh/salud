@@ -2,11 +2,18 @@
  ?>
 <?php  
 session_start();
-if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado la secion.
-  header("Location:".$url_base."login.php"); // no me esta tomando $url_base
-}else{
+if(!isset($_SESSION['usuario'])){// obliga a redireccionar si no esta iniciado la secion.
+   
+    header("Location:".$url_base."../../../../login.php"); // no me esta tomando $url_base
 
-}?>
+  }
+if ($_SESSION['tipousuario'] != 1) {
+    
+    // El usuario no tiene acceso a esta página, redirige al usuario a la página de inicio
+    
+    header("Location:".$url_base."../../../../index.php");
+    $mensaje = "Error: no tienes permiso";
+} ?>
 
 <?php
 

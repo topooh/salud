@@ -7,7 +7,7 @@ if(!isset($_SESSION['usuario'])){// obliga a redireccionar si no esta iniciado l
     header("Location:".$url_base."../../../../login.php"); // no me esta tomando $url_base
 
   }
-if ($_SESSION['tipousuario'] != 2) {
+if ($_SESSION['tipousuario'] != 3) {
     
     // El usuario no tiene acceso a esta página, redirige al usuario a la página de inicio
     
@@ -27,7 +27,7 @@ case 2:
 
   // JEFE DIRECTO
   
-  include("../../../../templates/jefe-directo/header.php");
+  include("../../templates/jefe-directo/header.php");
 break;
 case 3:
 

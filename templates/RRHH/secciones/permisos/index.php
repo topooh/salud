@@ -1,4 +1,16 @@
 <?php   include("../../../../bd.php");
+session_start();
+if(!isset($_SESSION['usuario'])){// obliga a redireccionar si no esta iniciado la secion.
+   
+    header("Location:".$url_base."../../../../login.php"); // no me esta tomando $url_base
+
+  }
+if ($_SESSION['tipousuario'] != 5) {
+    
+    // El usuario no tiene acceso a esta página, redirige al usuario a la página de inicio
+    header("Location:".$url_base."../../../../index.php");
+    echo("No tienes permisos");
+}
 //2 horas 51 tipo de permiso COMBOBOX TIPO DE PERMISOS
 $sentencia=$conexion->prepare("
 SELECT
@@ -28,7 +40,7 @@ $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
 ?>
 <?php
-session_start();
+
 switch($_SESSION['tipousuario']){
 case 1:
   // TIPO USUARIO NORMAL 
