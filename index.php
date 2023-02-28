@@ -17,12 +17,16 @@ case 2:
   break;
 
 case 3:
-  $tipousuario = " Jefe Cesfam";
+  $tipousuario = " Director";
   break;
 
 case 4: 
   $tipousuario = "Administrador";
   break; 
+case 5:
+  $tipousuario = "Recursos Humanos";
+case 6:
+  $tipousuario = "Super Jefe";
 }
 ?>
 

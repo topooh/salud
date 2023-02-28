@@ -56,6 +56,10 @@ case 4:
 include("../../templates/admin/header.php");
 break;  
 
+// RRHH
+case 5:
+include ("../../templates/RRHH/header.php");
+
 }
 ?>
 <br>

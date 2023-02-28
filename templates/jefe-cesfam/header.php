@@ -50,20 +50,21 @@ if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado 
     <nav class="navbar navbar-expand navbar-light bg-light">
         <ul class="nav navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" href="/salud/" aria-current="page">Sistema Web JEFE cesfam <span class="visually-hidden">(current)</span></a>
+                <a class="nav-link active" href="/salud/" aria-current="page">Sistema Web Director <span class="visually-hidden">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>templates/jefe-cesfam/secciones/empleados/">Empleados</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/puestos/">Puestos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuarios</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>templates/jefe-cesfam/secciones/permisos/">Permisos</a>
-            </li>
+            
+            
+            <div class="dropdown">
+             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              Permisos
+             </a>
+
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="<?php echo $url_base;?>templates/jefe-cesfam/secciones/permisos/">Permisos Pendientes</a></li>
+                <li><a class="dropdown-item" href="<?php echo $url_base;?>templates/jefe-cesfam/secciones/permisos/firmados.php">Permisos Firmados</a></li>
+              </ul>
+            </div>
+            
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url_base;?>cerrar.php">Cerrar Sesión</a>
             </li>

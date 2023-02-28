@@ -2,7 +2,7 @@
   <footer>
 <br>
   <center>
-    Sistema de pedidos de permisos Version 0.0.1B Funcionando el ingreso de personal distuinguido. 
+    Sistema de pedido de permisos.
 
     
   </center>

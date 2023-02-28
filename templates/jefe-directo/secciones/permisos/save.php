@@ -1,5 +1,5 @@
 <?php
-include("../../bd.php");
+include("../../../../bd.php");
 
 switch ($_GET['type']) {
     case 'jefedirecto':
@@ -12,14 +12,7 @@ switch ($_GET['type']) {
         //logica guardado jefe cesfam
         $sentencia=$conexion->prepare("UPDATE tbl_permisos SET jefecesfam={$_POST['check']} WHERE id = {$_POST['id']}");
         $sentencia->execute();
-        echo json_encode(['error'=>false, 'msg' => 'Guardada aprobacion jefe directo']);
-        break;
-
-    case 'rrhh':
-        //logica guardado jefe cesfam
-        $sentencia=$conexion->prepare("UPDATE tbl_permisos SET rrhh={$_POST['check']} WHERE id = {$_POST['id']}");
-        $sentencia->execute();
-        echo json_encode(['error'=>false, 'msg' => 'Guardada aprobacion RRHH']);
+        echo json_encode(['error'=>false, 'msg' => 'Guardada aprobacion jefe Cesfam']);
         break;
     default:
         echo json_encode(['error'=>true]);

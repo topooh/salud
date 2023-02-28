@@ -63,9 +63,16 @@ $url_base="http://localhost/salud/";
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuarios</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>templates/jefe-directo/secciones/permisos/">Permisos</a>
-            </li>
+            <div class="dropdown">
+             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              Permisos
+             </a>
+
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="<?php echo $url_base;?>templates/jefe-directo/secciones/permisos/">Permisos Pendientes</a></li>
+                <li><a class="dropdown-item" href="<?php echo $url_base;?>templates/jefe-directo/secciones/permisos/firmados.php">Permisos Firmados</a></li>
+              </ul>
+            </div>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url_base;?>cerrar.php">Cerrar Sesión</a>
             </li>

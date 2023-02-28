@@ -8,13 +8,14 @@ if($_POST){
  $password=(isset($_POST["password"])?$_POST["password"]:"");
  $correo=(isset($_POST["correo"])?$_POST["correo"]:"");
  $rut=(isset($_POST["rut"])?$_POST["rut"]:"");
+ $dv=(isset($_POST["dv"])?$_POST["dv"]:"");
  $nombre=(isset($_POST["nombre"])?$_POST["nombre"]:"");
  $apellido_pat=(isset($_POST["apellido_pat"])?$_POST["apellido_pat"]:"");
  $apellido_mat=(isset($_POST["apellido_mat"])?$_POST["apellido_mat"]:"");
 
  // preparar la iserccion de datos
- $sentencia=$conexion->prepare("insert into tbl_usuarios(id,usuario,password,correo,rut,nombre,apellido_pat,apellido_mat,tipousuario)
-  VALUES(NULL,:usuario,:password,:correo, :rut, :nombre, :apellido_pat, :apellido_mat, '1')");
+ $sentencia=$conexion->prepare("insert into tbl_usuarios(id,usuario,password,correo,rut,dv,nombre,apellido_pat,apellido_mat,tipousuario)
+  VALUES(NULL,:usuario,:password,:correo, :rut, :dv, :nombre, :apellido_pat, :apellido_mat, '1')");
  
  // ASignando valores que vienen con el metodo  POST  los que vienen de los formularios..
  // asigna valores que tienene uso de :variable   
@@ -22,6 +23,7 @@ if($_POST){
  $sentencia->bindParam(":password",$password);
  $sentencia->bindParam(":correo",$correo);
  $sentencia->bindParam(":rut",$rut);
+ $sentencia->bindParam(":dv",$dv);
  $sentencia->bindParam(":nombre",$nombre);
  $sentencia->bindParam(":apellido_pat",$apellido_pat);
  $sentencia->bindParam(":apellido_mat",$apellido_mat);
@@ -34,7 +36,6 @@ if($_POST){
 switch($_SESSION['tipousuario']){
 case 1:
   // TIPO USUARIO NORMAL 
-
 include("../../templates/usuario/header.php");
 break;
 case 2:
@@ -53,6 +54,8 @@ case 4:
   // ADMIN
 include("../../templates/admin/header.php");
 break;  
+case 5:
+  include("../../templates/RRHH/header.php");
 
 }
 ?>
@@ -86,7 +89,14 @@ break;
     <div class="mb-3">
       <label for="rut" class="form-label">Rut</label>
       <input type="numeric"
-        class="form-control" name="rut" id="rut" aria-describedby="helpId" placeholder="12345678-k">
+        class="form-control" name="rut" id="rut" aria-describedby="helpId" placeholder="12345678">
+
+    </div>
+    <div class="mb-3">
+      <label for="dv" class="form-label">Digito Verificador</label>
+      <input type="text" maxlength="1"
+      
+        class="form-control" name="dv" id="dv" aria-describedby="helpId" placeholder="K">
 
     </div>
     <div class="mb-3">

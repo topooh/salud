@@ -42,11 +42,19 @@ case 3:
 
 include("../../templates/jefe-cesfam/header.php");
 break;
+
 case 4:
   // ADMIN
 include("../../templates/admin/header.php");
 break;  
 
+case 5:
+  // RRHH
+  include("../../templates/RRHH/header.php");
+break;
+
+case 6:
+  include("../../templates/super/header.php");
 }
 ?>
 

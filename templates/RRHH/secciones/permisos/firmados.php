@@ -4,19 +4,25 @@ $sentencia=$conexion->prepare("
 SELECT
     tbl_permisos.id as id,
     tu.nombre,
+    tu.rut,
+    tu.dv,
+    tu.apellido_pat,
+    tu.apellido_mat,
     tipopermiso,
     fechasolicitud,
     fechapermiso,
     permisohasta,
     tipojornada,
     jefedirecto,
-    jefecesfam
+    jefecesfam,
+    rrhh
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
 join tbl_usuarios tu on tu.rut = tbl_permisos.idempleado
+
 WHERE
-        jefedirecto=1 and jefecesfam=0;");
+    jefedirecto=1 and jefecesfam=1 and rrhh=1;");
 $sentencia->execute();
 $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
@@ -27,25 +33,28 @@ switch($_SESSION['tipousuario']){
 case 1:
   // TIPO USUARIO NORMAL 
 
-include("../../../../templates/usuario/header.php");
+include("../../templates/usuario/header.php");
 break;
 case 2:
 
   // JEFE DIRECTO
  
-  include("../../templates/jefe-directo/header.php");
+  include("../../../../templates/jefe-directo/header.php");
 break;
 case 3:
 
   // JEFE CESFAM
 
-include("../../../../templates/jefe-cesfam/header.php");
+include("../../templates/jefe-cesfam/header.php");
 break;
 case 4:
   // ADMIN
 include("../../templates/admin/header.php");
 break;  
-
+case 5:
+ // RRHH
+ include("../../../../templates/RRHH/header.php");
+ break;
 }
 ?>
 
@@ -56,7 +65,7 @@ break;
 
 <br><br>
 
-<center><h4> Listado de Permisos Pendientes </h4></center>
+<center><h4> Listado de Permisos Firmados </h4></center>
 <div class="card">
     
     <div class="card-header">
@@ -69,12 +78,14 @@ break;
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Trabajador</th>
+                <th scope="col">Rut </th>
                 <th scope="col">Tipo De Permiso</th>
                 <th scope="col">Fecha Solicitud</th>
                 <th scope="col">Fecha Permiso</th>
                 <th scope="col">Permiso Hasta</th>
                 <th scope="col">Jornada</th>
-                <th scope="col">Jefe CESFAM</th>
+                <th scope="col">RRHH</th>
+                
                 
             </tr>
         </thead>
@@ -84,22 +95,24 @@ break;
 
             <tr class="">
                 <td scope="row"><?php echo $registro['id']; ?></td>
-                <td><?php echo $registro['nombre']; ?></td>
+                <td><?php echo $registro['nombre']; ?> <?php echo $registro['apellido_pat']; ?> <?php echo $registro['apellido_mat']; ?></td>
+                <td><?php echo $registro['rut']; ?> - <?php echo $registro['dv']; ?></td>
                 <td><?php echo $registro['tipopermiso']; ?></td>
                 <td><?php echo $registro['fechasolicitud']; ?></td>
                 <td><?php echo $registro['fechapermiso']; ?></td>
                 <td><?php echo $registro['permisohasta']; ?></td>
                <td> <?php echo $registro['tipojornada']; ?></td>
                
-                
-                <td> 
-                <div class="form-check">
-                <input class="form-check-input check-jefecesfam" type="checkbox"  id="jefecesfam" <?php echo $registro['jefecesfam'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
-                 <label class="form-check-label" for="jefecesfam">
-                  Aprobar
-                  </label>
-                </div>
+                <td>
+                    <div class="form-check">
+                     <input class="form-check-input check-rrhh" type="checkbox" id="rrhh" <?php echo $registro['rrhh'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
+                    <label class="form-check-label" for="rrhh">
+                     Aprobar
+                     </label>
+                     
+                    </div> 
                 </td>
+                
                 
             </tr>
             <?php } ?>
@@ -113,13 +126,13 @@ break;
     </div>
 </div>
 <script>
-    $('.check-jefecesfam').on('change', function (e) {
+    $('.check-rrhh').on('change', function (e) {
         console.log(e.target.checked);
         // aqui hago una llamada asincrona para actualizar el registro
         // $(this).attr('data-id') tiene el id del registro en bd
         // e.target.checked trae un booleano si esta o no checkeado el checkbox
         let request = $.ajax({
-            url: "save.php?type=jefecesfam",
+            url: "save.php?type=rrhh",
             method: "POST",
             data: { id : $(this).attr('data-id'), check: e.target.checked},
             dataType: "html"

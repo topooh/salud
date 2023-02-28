@@ -1,4 +1,6 @@
-<?php   include("../../bd.php");
+
+<?php
+session_start();   include("../../bd.php");
 //2 horas 51 tipo de permiso COMBOBOX TIPO DE PERMISOS
 $sentencia=$conexion->prepare("
 SELECT
@@ -10,7 +12,8 @@ SELECT
     permisohasta,
     tipojornada,
     jefedirecto,
-    jefecesfam
+    jefecesfam,
+    rrhh
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
@@ -20,7 +23,7 @@ $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
 ?>
 <?php
-session_start();
+
 switch($_SESSION['tipousuario']){
 case 1:
   // TIPO USUARIO NORMAL 
@@ -101,14 +104,18 @@ break;
                 </td>
                 <td> 
                 <div class="form-check">
-                <input class="form-check-input check-jefecesfam" type="checkbox"  id="jefecesfam" data-id="<?php echo $registro['id'];?>">
-                 <label class="form-check-label" for="jefecesfam">
+                <input class="form-check-input check-jefecesfam" type="checkbox" id="jefecesfam" <?php echo $registro['jefecesfam'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
+                    <label class="form-check-label" for="jefecesfam">
                   Aprobar
                   </label>
                 </div>
                 </td>
                 <td> <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="rrhh" >Recepcionado</td>
+                <input class="form-check-input check-rrhh" type="checkbox" id="rrhh" <?php echo $registro['rrhh'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
+                    <label class="form-check-label" for="rrhh">
+                  Recepcionado
+                  </label>
+                </div></td>
             </tr>
             <?php } ?>
             
@@ -128,6 +135,49 @@ break;
         // e.target.checked trae un booleano si esta o no checkeado el checkbox
         let request = $.ajax({
             url: "save.php?type=jefedirecto",
+            method: "POST",
+            data: { id : $(this).attr('data-id'), check: e.target.checked},
+            dataType: "html"
+        });
+
+        request.done(function( msg ) {
+            let result = JSON.parse(msg);
+            if (!result.error) {
+                alert(result.msg);
+            }
+        });
+    });
+</script>
+
+<script>
+    $('.check-jefecesfam').on('change', function (e) {
+        console.log(e.target.checked);
+        // aqui hago una llamada asincrona para actualizar el registro
+        // $(this).attr('data-id') tiene el id del registro en bd
+        // e.target.checked trae un booleano si esta o no checkeado el checkbox
+        let request = $.ajax({
+            url: "save.php?type=jefecesfam",
+            method: "POST",
+            data: { id : $(this).attr('data-id'), check: e.target.checked},
+            dataType: "html"
+        });
+
+        request.done(function( msg ) {
+            let result = JSON.parse(msg);
+            if (!result.error) {
+                alert(result.msg);
+            }
+        });
+    });
+</script>
+<script>
+    $('.check-rrhh').on('change', function (e) {
+        console.log(e.target.checked);
+        // aqui hago una llamada asincrona para actualizar el registro
+        // $(this).attr('data-id') tiene el id del registro en bd
+        // e.target.checked trae un booleano si esta o no checkeado el checkbox
+        let request = $.ajax({
+            url: "save.php?type=rrhh",
             method: "POST",
             data: { id : $(this).attr('data-id'), check: e.target.checked},
             dataType: "html"
