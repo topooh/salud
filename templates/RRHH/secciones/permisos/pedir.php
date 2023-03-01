@@ -41,7 +41,7 @@ include("../../templates/admin/header.php");
 break;  
 case 5:
   // RRHH
-include("../../s../../templates/RRHH/header.php");
+include("../../../../templates/RRHH/header.php");
 break; 
 
 }
