@@ -13,12 +13,20 @@
 
 // puedo fixear la consulta sql funciona pero no esta bine hecha
 $sentencia=$conexion->prepare("
-SELECT `tbl_reembolso`.`id`, `rut_usuario`, `tipo_reembolso`, `fechasolicitud`, `fechaprestacion`, `estado`, `tbl_tipo_reembolso`.`descripcion`
-FROM `tbl_reembolso` 
-JOIN `tbl_tipo_reembolso`  ON `tbl_tipo_reembolso`.`id` = `tbl_reembolso`.`tipo_reembolso`;   
-    JOIN tbl_tipo_reembolso ON tbl_reembolso.tipo_reembolso = tbl_tipo_reembolso.id
-    JOIN tbl_estado_reembolso ON tbl_reembolso.estado = tbl_estado_reembolso.id
-    JOIN tbl_usuarios ON tbl_reembolso.rut_usuario = tbl_usuarios.rut;
+SELECT
+    reembolso.id,
+    tu.rut,
+    tu.nombre,
+    tu.apellido_pat,
+    tu.apellido_mat,
+    reembolso.fechasolicitud,
+    reembolso.fechaprestacion,
+    ter.descripcion as estado_reembolso,
+    ttr.descripcion as tipo_reembolso
+FROM tbl_reembolso AS reembolso
+JOIN tbl_estado_reembolso ter on ter.id = reembolso.estado
+JOIN tbl_usuarios tu on tu.rut = reembolso.rut_usuario
+join tbl_tipo_reembolso ttr on ttr.id = reembolso.tipo_reembolso
 ");
 
 
@@ -63,11 +71,11 @@ $lista_tbl_reembolso=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
             <tr class="">
                 <td scope="row"><?php echo $registro['id']; ?></td>
-                <td><?php echo $registro['rut_usuario']; ?></td>
-                <td><?php echo $registro['descripcion']; ?></td>
+                <td><?php echo $registro['rut']; ?></td>
+                <td><?php echo $registro['tipo_reembolso']; ?></td>
                 <td><?php echo $registro['fechasolicitud']; ?></td>      
                 <td><?php echo $registro['fechaprestacion']; ?> </td>
-                <td><?php echo("Este Dato no puede salir"); ?> </td>
+                <td><?php echo $registro['estado_reembolso']; ?> </td>
             
                 
             </tr>

@@ -1,6 +1,7 @@
 
 <?php
-session_start();   include("../../bd.php");
+ include("../../bd.php");
+
 //2 horas 51 tipo de permiso COMBOBOX TIPO DE PERMISOS
 $sentencia=$conexion->prepare("
 SELECT
@@ -13,7 +14,8 @@ SELECT
     tipojornada,
     jefedirecto,
     jefecesfam,
-    rrhh
+    rrhh,
+    estado_permiso
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
@@ -122,11 +124,12 @@ break;
                   </label>
                 </div></td>
                 <td>  <label for="idpuesto" class="form-label"></label>
-  <select  class="form-select form-select-sm" name="idpuesto" id="idpuesto" >
+  <select  class="form-select form-select-sm estado_permiso" name="estado_permiso" id="estado_permiso" data-id="<?php echo $registro['id'];?>">
     
-        <?php foreach($lista_tbl_puestos as $registro){?>
-        <option value="<?php echo $registro['id']?>"><?php echo $registro['estado_permiso'] ?> </option>
-        <?php } ?> </select></td>
+        <?php foreach($lista_tbl_puestos as $permiso){?>
+            <option value="<?php echo $permiso['id']?>" <?php echo $registro['estado_permiso'] == $permiso['id'] ? 'selected':'';?>>
+            <?php echo $permiso['estado_permiso'] ?> </option>
+            <?php } ?> </select></td>
             </tr>
             <?php } ?>
             
@@ -139,6 +142,18 @@ break;
     </div>
 </div>
 <script>
+    $('.estado_permiso').on('change', function (e) {
+        console.log($(this).val());
+        let request = $.ajax({
+            url: "save.php?type=estado_permiso",
+            method: "POST",
+            data: { id : $(this).attr('data-id'), select: $(this).val()},
+            dataType: "html"
+        });
+
+    });
+
+
     $('.check-jefedirecto').on('change', function (e) {
         console.log(e.target.checked);
         // aqui hago una llamada asincrona para actualizar el registro
