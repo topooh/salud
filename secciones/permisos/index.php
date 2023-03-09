@@ -57,7 +57,7 @@ break;
 
 <br><br>
 
-<center><h4> Listado de Permisos </h4></center>
+<center><h4> Listado de Permisossdfdfdfsdf </h4></center>
 <div class="card">
     
     <div class="card-header">

@@ -76,7 +76,7 @@ case 5:
 
 
 <br><br>
-
+<title>Permisos Firmados | Vista RRHH</title>
 <center><h4> Listado de Permisos Firmados </h4></center>
 <div class="card">
     

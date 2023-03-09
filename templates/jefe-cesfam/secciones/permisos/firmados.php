@@ -73,6 +73,8 @@ break;
 
 <br><br>
 
+<title> Permisos Firmados</title>
+
 <center><h4> Listado de Permisos Firmados </h4></center>
 <div class="card">
     

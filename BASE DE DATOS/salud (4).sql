@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-02-2023 a las 20:35:17
+-- Tiempo de generación: 02-03-2023 a las 12:14:40
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -33,8 +33,8 @@ CREATE TABLE `tbl_empleados` (
   `segundonombre` varchar(255) NOT NULL,
   `primerapellido` varchar(255) NOT NULL,
   `segundoapellido` varchar(255) NOT NULL,
-  `foto` varchar(255) NOT NULL,
-  `cv` varchar(255) NOT NULL,
+  `foto` int(255) NOT NULL,
+  `cv` varchar(1) NOT NULL,
   `idpuesto` int(255) NOT NULL,
   `fechaingreso` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -44,9 +44,11 @@ CREATE TABLE `tbl_empleados` (
 --
 
 INSERT INTO `tbl_empleados` (`id`, `primernombre`, `segundonombre`, `primerapellido`, `segundoapellido`, `foto`, `cv`, `idpuesto`, `fechaingreso`) VALUES
-(37, 'matias', 'ignacio', 'muñoz', 'guzman', '18427293', '8', 33, '2020-12-12'),
-(38, 'trabajador', 'segudn', 'creado', 'apelldi', '182', '2', 33, '2022-12-25'),
-(39, 'asdasd', 'Matias Ignacio', 'Muñoz', 'Guzman', '18427293', 'k', 33, '1993-12-12');
+(37, 'matias', 'ignacio', 'muñoz', 'guzman', 18427293, '8', 33, '2020-12-12'),
+(38, 'trabajador', 'segudn', 'creado', 'apelldi', 182, '2', 33, '2022-12-25'),
+(39, 'asdasd', 'Matias Ignacio', 'Muñoz', 'Guzman', 1842729, 'k', 33, '1993-12-12'),
+(41, 'empleado prueba', 'segundo nombre', 'apellido', 'materno', 184272938, '2', 34, '1993-02-15'),
+(42, 'primer nombre', 'segundo nombre', 'Apellido Paterno', 'Apellido Materno', 9395038, '0', 34, '2023-02-21');
 
 -- --------------------------------------------------------
 
@@ -64,9 +66,9 @@ CREATE TABLE `tbl_jornada` (
 --
 
 INSERT INTO `tbl_jornada` (`id`, `tipojornada`) VALUES
+(3, 'Jornada Completa'),
 (1, 'Mañana'),
-(2, 'Tarde'),
-(3, 'Jornada Completa');
+(2, 'Tarde');
 
 -- --------------------------------------------------------
 
@@ -83,15 +85,24 @@ CREATE TABLE `tbl_permisos` (
   `permisohasta` date NOT NULL,
   `jornada` int(11) NOT NULL,
   `jefedirecto` tinyint(1) NOT NULL,
-  `jefecesfam` tinyint(1) NOT NULL
+  `jefecesfam` tinyint(1) NOT NULL,
+  `rrhh` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `tbl_permisos`
 --
 
-INSERT INTO `tbl_permisos` (`id`, `idempleado`, `idtipopermiso`, `fechasolicitud`, `fechapermiso`, `permisohasta`, `jornada`, `jefedirecto`, `jefecesfam`) VALUES
-(1, 37, 2, '2023-02-14', '2023-02-15', '2023-02-15', 3, 0, 0);
+INSERT INTO `tbl_permisos` (`id`, `idempleado`, `idtipopermiso`, `fechasolicitud`, `fechapermiso`, `permisohasta`, `jornada`, `jefedirecto`, `jefecesfam`, `rrhh`) VALUES
+(20, 93950380, 1, '2023-02-22', '1993-05-05', '1993-05-05', 1, 1, 1, 0),
+(22, 93950380, 5, '2023-02-22', '2023-02-25', '2023-02-25', 3, 0, 1, 0),
+(23, 93950380, 8, '2023-02-22', '2023-02-23', '2023-02-24', 3, 1, 0, 0),
+(24, 37, 4, '2023-02-22', '2023-02-25', '2023-02-25', 2, 1, 1, 0),
+(26, 3, 5, '2023-02-22', '2023-02-25', '2023-02-25', 3, 0, 0, 0),
+(28, 3, 8, '2023-02-23', '2023-02-24', '2023-02-24', 3, 1, 1, 0),
+(29, 93950380, 2, '2023-02-23', '2023-02-25', '2023-02-26', 2, 1, 1, 0),
+(32, 93950380, 4, '2023-02-28', '2023-03-01', '2023-03-02', 3, 1, 1, 0),
+(33, 93950380, 4, '2023-03-01', '2023-03-06', '2023-03-07', 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -129,8 +140,13 @@ CREATE TABLE `tbl_tipo_permiso` (
 --
 
 INSERT INTO `tbl_tipo_permiso` (`id`, `tipopermiso`) VALUES
-(1, 'Permiso sin Sueldo'),
-(2, 'Vacaciones');
+(1, 'Vacaciones'),
+(2, 'Descanso Complementario'),
+(4, 'Ley 21409'),
+(5, 'Cursos'),
+(6, 'Dias Administrativos'),
+(7, 'Sin gose de sueldo'),
+(8, 'Cometidos');
 
 -- --------------------------------------------------------
 
@@ -142,16 +158,49 @@ CREATE TABLE `tbl_usuarios` (
   `id` int(11) NOT NULL,
   `usuario` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `correo` varchar(255) NOT NULL
+  `correo` varchar(255) NOT NULL,
+  `rut` int(11) NOT NULL,
+  `dv` varchar(1) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `apellido_pat` varchar(255) NOT NULL,
+  `apellido_mat` varchar(255) NOT NULL,
+  `tipousuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `tbl_usuarios`
 --
 
-INSERT INTO `tbl_usuarios` (`id`, `usuario`, `password`, `correo`) VALUES
-(14, 'topooh', '', 'matiasi.munozg@gmail.com'),
-(18, 'root', '', 'matiasi.munozg@gmail.co');
+INSERT INTO `tbl_usuarios` (`id`, `usuario`, `password`, `correo`, `rut`, `dv`, `nombre`, `apellido_pat`, `apellido_mat`, `tipousuario`) VALUES
+(18, 'root', '123456', 'correoelectronico@correo.cl', 37, '', 'Administrador', '', '', 4),
+(20, 'cesfam', '123456', 'matias@correo.cl', 3, '', 'Jefe', 'cesfam', 'cesfam', 3),
+(21, 'Usuario', '123456', 'perfil@gmail.com', 93950380, '0', 'Usuario ', 'Normal', 'Sin permisos', 1),
+(22, 'directo', '123456', 'directo@gmail.com', 16427293, '', 'Jefe', 'Directo', 'Directo', 2),
+(36, 'RRHH', '123456', 'rrhh@gmail.com', 16293457, '', 'Ingreso', 'RRHH', 'Test', 5),
+(37, 'superjefe', '123456', 'superjefe@gmail.com', 693574, '', 'Super', 'Jefe', 'Completo', 6);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_usuario`
+--
+
+CREATE TABLE `tipo_usuario` (
+  `id` int(11) NOT NULL,
+  `tipousuario` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `tipo_usuario`
+--
+
+INSERT INTO `tipo_usuario` (`id`, `tipousuario`) VALUES
+(1, 'Usuario'),
+(2, 'Jefe Directo'),
+(3, 'Director'),
+(4, 'Administrador'),
+(5, 'RRHH'),
+(6, 'Super Jefe');
 
 --
 -- Índices para tablas volcadas
@@ -168,17 +217,19 @@ ALTER TABLE `tbl_empleados`
 -- Indices de la tabla `tbl_jornada`
 --
 ALTER TABLE `tbl_jornada`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tipojornada` (`tipojornada`);
 
 --
 -- Indices de la tabla `tbl_permisos`
 --
 ALTER TABLE `tbl_permisos`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `idtipopermiso` (`idtipopermiso`),
-  ADD UNIQUE KEY `idempleado` (`idempleado`),
-  ADD UNIQUE KEY `jornada` (`jornada`),
-  ADD KEY `jornada_2` (`jornada`);
+  ADD KEY `idempleado` (`idempleado`,`idtipopermiso`),
+  ADD KEY `jornada` (`jornada`),
+  ADD KEY `idtipopermiso` (`idtipopermiso`),
+  ADD KEY `idempleado_2` (`idempleado`),
+  ADD KEY `idempleado_3` (`idempleado`);
 
 --
 -- Indices de la tabla `tbl_puestos`
@@ -196,6 +247,14 @@ ALTER TABLE `tbl_tipo_permiso`
 -- Indices de la tabla `tbl_usuarios`
 --
 ALTER TABLE `tbl_usuarios`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `rut` (`rut`),
+  ADD KEY `tipousuario` (`tipousuario`);
+
+--
+-- Indices de la tabla `tipo_usuario`
+--
+ALTER TABLE `tipo_usuario`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -206,7 +265,7 @@ ALTER TABLE `tbl_usuarios`
 -- AUTO_INCREMENT de la tabla `tbl_empleados`
 --
 ALTER TABLE `tbl_empleados`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_jornada`
@@ -218,7 +277,7 @@ ALTER TABLE `tbl_jornada`
 -- AUTO_INCREMENT de la tabla `tbl_permisos`
 --
 ALTER TABLE `tbl_permisos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_puestos`
@@ -230,13 +289,19 @@ ALTER TABLE `tbl_puestos`
 -- AUTO_INCREMENT de la tabla `tbl_tipo_permiso`
 --
 ALTER TABLE `tbl_tipo_permiso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --
 ALTER TABLE `tbl_usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_usuario`
+--
+ALTER TABLE `tipo_usuario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
@@ -252,9 +317,15 @@ ALTER TABLE `tbl_empleados`
 -- Filtros para la tabla `tbl_permisos`
 --
 ALTER TABLE `tbl_permisos`
-  ADD CONSTRAINT `tbl_permisos_ibfk_1` FOREIGN KEY (`idtipopermiso`) REFERENCES `tbl_tipo_permiso` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tbl_permisos_ibfk_2` FOREIGN KEY (`idempleado`) REFERENCES `tbl_empleados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tbl_permisos_ibfk_3` FOREIGN KEY (`jornada`) REFERENCES `tbl_jornada` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tbl_permisos_ibfk_2` FOREIGN KEY (`jornada`) REFERENCES `tbl_jornada` (`id`),
+  ADD CONSTRAINT `tbl_permisos_ibfk_3` FOREIGN KEY (`idtipopermiso`) REFERENCES `tbl_tipo_permiso` (`id`),
+  ADD CONSTRAINT `tbl_permisos_ibfk_4` FOREIGN KEY (`idempleado`) REFERENCES `tbl_usuarios` (`rut`);
+
+--
+-- Filtros para la tabla `tbl_usuarios`
+--
+ALTER TABLE `tbl_usuarios`
+  ADD CONSTRAINT `tbl_usuarios_ibfk_1` FOREIGN KEY (`tipousuario`) REFERENCES `tipo_usuario` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

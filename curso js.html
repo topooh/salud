@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hola mundo</h1>
+     <p>mi</p> primera pagina web
+
+     <p><a href="https://google.cl">linh</a></p>
+
+
+     <script>
+        var nombre= prompt("Escriba Su Nombre Porfavor");
+        var apellido= prompt("apellido porfavor");
+        document.write("<p>");
+        document.write("Gracias Tu Nombre es: "+nombre+ " y tu apellido: "+apellido);
+     </script>
+
+     <script>
+     var palabra= prompt("ingrese una palabra");
+     if(palabra.length==="prueba"){
+        document.write("me pillaste");
+    }else{
+        document.write("sigue Intentando");
+    }
+   
+     
+    </script>
+
+    <script>
+        document.write("Comieza a contar");
+        var contador=0;
+        while(contador<12){
+        document.write(contador + " ");
+        contador++;
+        }
+        document.write("deje de contar");
+    </script>
+
+    <script>var yfdex= function(x){
+        return 5+x+2;
+    }
+    </script>
+
+    <script>
+    document.write("comienzo a ejecutar for");
+    var cuentaVueltas = function(hastaCuanto){
+        for (var contador = 0; contador<hastaCuanto;contador++){
+            document.write(contador +" ");
+        }
+    };
+    cuentaVueltas(15);
+    document.write("dejo de contar");
+    </script>
+
+
+</body>
+</html>

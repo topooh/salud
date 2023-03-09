@@ -184,7 +184,7 @@ $lista_tbl_jornada=$sentencia2->fetchALL(PDO::FETCH_ASSOC); ?>
 
       </select>
     </div>
-
+   
 
    
   </div>
@@ -195,4 +195,9 @@ $lista_tbl_jornada=$sentencia2->fetchALL(PDO::FETCH_ASSOC); ?>
   </div>
 </div>
 
+<?php if(isset($mensaje)){ ?>
+                <div class="alert alert-danger" role="alert">
+                    <strong><?php echo $mensaje?></strong> 
+                </div>
+                <?php } ?>
 <?php include("../../../../templates/footer.php"); ?>

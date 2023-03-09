@@ -3,14 +3,22 @@ en el siguiente archivo base de datos se guarda la estructura nueva con la tabla
 tbl_permisos
 tbl_puestos
 tbl_tipo_permiso
+tbl_usuario
+tbl_tipousuario
 
-con el ojjetivo de condtruir una una idea.
+con el ojetivo de construir una una idea.
 
 
 
 BASE de datos SALUD (1)
 
 Modificacion de indices, claves primarias, tablas creadas y al parecer bien vinculadas.
+
+
+
+---------------------------------------------
+Respaldo antes de modificar la BD para la creacion del modulo de reembolso.
+
 
 
 

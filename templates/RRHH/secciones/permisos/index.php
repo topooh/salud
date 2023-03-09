@@ -79,7 +79,7 @@ break;
 
 
 <br><br>
-
+<title>Listado Permisos pendientes</title>
 <center><h4> Listado de Permisos Pendientes </h4></center>
 <div class="card">
     

@@ -63,3 +63,17 @@ y en el actual para saber que tipo de usuario es
 22 de febrero
 nuevos cambios en la base de datos usuarios relacionados con tabla empleados , atraves del rut, perfles creados para cada usuario}
 permisos ingresandose atraves de perfil usuario.
+
+23 de febrtero
+
+tablas vinculadas correctamente se muestra se cambio el inner join para que se muestre correctamente, se sigue con la parte de usuarios
+
+
+28 de febrero
+
+permisos de usuarios creacion de super usuario elque permite firmar por  jefes
+
+
+01 de marzo
+
+cambio al servidor principal.
