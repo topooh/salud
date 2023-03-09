@@ -1,6 +1,5 @@
 <?php   include("../../../../bd.php");
-
-session_start();
+require ("../../../../funciones.php");
 
 if(!isset($_SESSION['usuario'])){// obliga a redireccionar si no esta iniciado la secion.
    
@@ -34,38 +33,19 @@ FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
 join tbl_usuarios tu on tu.rut = tbl_permisos.idempleado
-WHERE
-        jefedirecto=1 and jefecesfam=0;");
+
+where jefedirecto=1 and jefecesfam=0;");
 $sentencia->execute();
 $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
 ?>
+
+<?php  $sentencia=$conexion -> prepare ("select * from tbl_estado_permiso");
+$sentencia ->execute();
+$lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);?>
 <?php
-;
-switch($_SESSION['tipousuario']){
-case 1:
-  // TIPO USUARIO NORMAL 
+mostrar_header();
 
-include("../../../../templates/usuario/header.php");
-break;
-case 2:
-
-  // JEFE DIRECTO
- 
-  include("../../templates/jefe-directo/header.php");
-break;
-case 3:
-
-  // JEFE CESFAM
-
-include("../../../../templates/jefe-cesfam/header.php");
-break;
-case 4:
-  // ADMIN
-include("../../templates/admin/header.php");
-break;  
-
-}
 ?>
 
 
@@ -74,7 +54,7 @@ break;
 
 
 <br><br>
-<title>Permisos Pendientes de Firmar</title>
+
 <center><h4> Listado de Permisos Pendientes </h4></center>
 <div class="card">
     
@@ -94,6 +74,7 @@ break;
                 <th scope="col">Permiso Hasta</th>
                 <th scope="col">Jornada</th>
                 <th scope="col">Jefe CESFAM</th>
+                <th scope="col">Estado Solicitud</th>
                 
             </tr>
         </thead>
@@ -109,8 +90,6 @@ break;
                 <td><?php echo $registro['fechapermiso']; ?></td>
                 <td><?php echo $registro['permisohasta']; ?></td>
                <td> <?php echo $registro['tipojornada']; ?></td>
-               
-                
                 <td> 
                 <div class="form-check">
                 <input class="form-check-input check-jefecesfam" type="checkbox"  id="jefecesfam" <?php echo $registro['jefecesfam'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
@@ -119,6 +98,11 @@ break;
                   </label>
                 </div>
                 </td>
+                <td>  <label for="estado" class="form-label"></label>
+  <select  class="form-select form-select-sm" name="estado" id="estado">
+        <?php foreach($lista_tbl_puestos as $registro){?>
+        <option value="<?php echo $registro['id']?>"><?php echo $registro['estado_permiso']?></option>
+        <?php } ?> </select></td>
                 
             </tr>
             <?php } ?>

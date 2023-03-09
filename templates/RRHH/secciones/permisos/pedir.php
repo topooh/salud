@@ -1,7 +1,8 @@
 <php $url_base="http://localhost/salud/"; 
  ?>
 <?php  
-session_start();
+require("../../../../funciones.php");
+
 if(!isset($_SESSION['usuario'])){// obliga a redireccionar si no esta iniciado la secion.
    
     header("Location:".$url_base."../../../../login.php"); // no me esta tomando $url_base
@@ -15,36 +16,9 @@ if ($_SESSION['tipousuario'] != 5) {
     $mensaje = "Error: no tienes permiso";
 } ?>
 
-<?php
+<?php mostrar_header();
 
-switch($_SESSION['tipousuario']){
-case 1:
-  // TIPO USUARIO NORMAL 
 
-include("../../../..//templates/usuario/header.php");
-break;
-case 2:
-
-  // JEFE DIRECTO
-  
-  include("../../../../templates/jefe-directo/header.php");
-break;
-case 3:
-
-  // JEFE CESFAM
-
-include("../../../../templates/jefe-cesfam/header.php");
-break;
-case 4:
-  // ADMIN
-include("../../templates/admin/header.php");
-break;  
-case 5:
-  // RRHH
-include("../../../../templates/RRHH/header.php");
-break; 
-
-}
 ?>
 <?php include ("../../../../bd.php"); ?>
  
@@ -65,8 +39,8 @@ break;
 
 
  // preparar la iserccion de datos
-$sentencia=$conexion->prepare("INSERT INTO `tbl_permisos` (`id`, `idempleado`, `idtipopermiso`, `fechasolicitud`, `fechapermiso`, `permisohasta`, `jornada`, `jefedirecto`, `jefecesfam`)
- VALUES(NULL, :primernombre, :tipopermiso, :fechasolicitud, :fechapermiso, :hasta, :jornada, 0, 0)");
+ $sentencia=$conexion->prepare("INSERT INTO `tbl_permisos` (`id`, `idempleado`, `idtipopermiso`, `fechasolicitud`, `fechapermiso`, `permisohasta`, `jornada`, `jefedirecto`, `jefecesfam`, `rrhh`, `estado_permiso`)
+ VALUES(NULL, :primernombre, :tipopermiso, :fechasolicitud, :fechapermiso, :hasta, :jornada, '0', '0', '0', '1')");
 
 // asignar valores del formulario 
 
@@ -78,8 +52,7 @@ $sentencia->bindParam(":hasta",$hasta);
 $sentencia->bindParam(":jornada",$jornada);
 $sentencia ->execute();
 $mensaje="Permiso solicitado";
-// header("location:index.php?mensaje=".$mensaje);
-
+header("location:index.php?mensaje=".$mensaje);
 
 
 
@@ -184,7 +157,7 @@ $lista_tbl_jornada=$sentencia2->fetchALL(PDO::FETCH_ASSOC); ?>
 
       </select>
     </div>
-   
+
 
    
   </div>
@@ -195,9 +168,4 @@ $lista_tbl_jornada=$sentencia2->fetchALL(PDO::FETCH_ASSOC); ?>
   </div>
 </div>
 
-<?php if(isset($mensaje)){ ?>
-                <div class="alert alert-danger" role="alert">
-                    <strong><?php echo $mensaje?></strong> 
-                </div>
-                <?php } ?>
 <?php include("../../../../templates/footer.php"); ?>

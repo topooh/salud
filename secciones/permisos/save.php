@@ -12,7 +12,7 @@ switch ($_GET['type']) {
         //logica guardado jefe cesfam
         $sentencia=$conexion->prepare("UPDATE tbl_permisos SET jefecesfam={$_POST['check']} WHERE id = {$_POST['id']}");
         $sentencia->execute();
-        echo json_encode(['error'=>false, 'msg' => 'Guardada aprobacion jefe directo']);
+        echo json_encode(['error'=>false, 'msg' => 'Guardada aprobacion jefe Director']);
         break;
 
     case 'rrhh':

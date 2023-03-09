@@ -29,7 +29,7 @@ $url_base="http://localhost/salud/";
 <html lang="es">
 
 <head>
-
+  <title>Pagina principal </title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -53,7 +53,11 @@ $url_base="http://localhost/salud/";
         <ul class="nav navbar-nav">
             <li class="nav-item">
                 <a class="nav-link active" href="/salud/" aria-current="page">Sistema Web R.R.H.H <span class="visually-hidden">(current)</span></a>
-            </li>            
+            </li>    
+            
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo $url_base;?>templates/RRHH/secciones/permisos/mispermisos.php">Mis Permisos</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuarios</a>
             </li>

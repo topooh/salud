@@ -1,5 +1,8 @@
 <?php
 
+?>
+<?php
+
 $url_base="http://localhost/salud/"; 
 
 
@@ -38,43 +41,15 @@ $url_base="http://localhost/salud/";
     
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+  <?php mostrar_header();?>
 </head>
 
 
 
-<?php
-  switch($_SESSION['tipousuario']){
-case 1:
-   // echo("tipo de usuario 1");
-   include("templates/usuario/header.php");
-  break;
-case 2:
-    // echo("tipo Jefe directo");
-    include("templates/jefe-directo/header.php");
-  break;
-case 3:
-  //jefe Cesfam
-  include("templates/jefe-cesfam/header.php");
-  break;
-case 4:
-  // admin 
-  include("templates/admin/header.php");
-  break;  
 
- // RRHH
-case 5:
-  include("templates/RRHH/header.php");
-  break;
-   // SUPER JEFE
-case 6:
-  include("templates/super/header.php");
-
-  
-  }
-  ?>
   <body>
   <header>
+    
    
     <!-- place navbar here -->
   </header>

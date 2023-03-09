@@ -5,7 +5,7 @@ la gestion de pedidos de permisos.
 
 
 7 de febrero
-se procede a la creacion de plataforma, creacion de BD, pantallas de formularios(creacion, edicion ty eliminacion de empleados, usuarios y trabajos
+se procede a la creacion de plataforma, creacion de BD, pantallas de formularios(creacion, edicion ty eliminacion de empleados, usuarios y trabajos)
 
 
 08 febrero
@@ -25,11 +25,6 @@ JQUERI habilitado , buqueda en las tablas y ordenes automaticas, sweetalet2 a me
 cuando las llevo al footer o al header no las toma.
 
 
-
-
-
-
-
 14 febrero BD
 Base de dato tablas agregagas
 
@@ -38,7 +33,7 @@ tbl_tipo_permiso
 tbl_jornada
 Login de usuarios funcionando, bloqueo de paginas donde no pueden acceder, el update de empleados esta fallando.
 
-Seccion permisos funcionanddo con la tablas dinamicas, adémas de mostrar los valores en los combobox, me falta eso si ingresar valores
+Seccion permisos funcionando con la tablas dinamicas, adémas de mostrar los valores en los combobox, me falta eso si ingresar valores
 y verificar que el usarrio con $_session este habilitado y mostrar su nombre.
 
 
@@ -61,19 +56,55 @@ y en el actual para saber que tipo de usuario es
 
 
 22 de febrero
-nuevos cambios en la base de datos usuarios relacionados con tabla empleados , atraves del rut, perfles creados para cada usuario}
+nuevos cambios en la base de datos usuarios relacionados con tabla empleados , atraves del rut, perfles creados para cada usuario
 permisos ingresandose atraves de perfil usuario.
 
-23 de febrtero
 
-tablas vinculadas correctamente se muestra se cambio el inner join para que se muestre correctamente, se sigue con la parte de usuarios
+23 de febrero
+tablas vinculadas correctamente se meustra se cambio el inner join para que se muestre correctamente, se siguio con la parte de usuarios.
 
 
 28 de febrero
 
-permisos de usuarios creacion de super usuario elque permite firmar por  jefes
+permisos de usuarios creacion de super usuario el que permite la edicion de cesfam y jefe directo, paginas re direccionando segun el tipo de usuario
+al que peraezca
 
 
-01 de marzo
+01 de marzo -02 
 
-cambio al servidor principal.
+Cambio al servidor principal  agregar programas , visual code , work beach xampp entre  otros necesarios.
+
+
+
+
+07 de marzo
+
+
+Cambios en la Base de datos se agrega el campo tipo de permiso y la tabla tbl_tipo de permiso con el fin de poder separar los pedidos de permisos entre
+Pendientes, Aprobados y Rechazados.
+
+
+Cambios en las vistas 
+
+USUARIO
+- El usuario puede revisar sus pedidos de permisos ( filtrando solo el de ellos)
+
+- Jefe Cesfam
+- Ve sus permisos pedidos, permisos pendientes por firmar ( si no los a firmado jefe directo no se presentara en la paltalla), y permisos firmados.
+
+Jefe directo
+
+- Nueva vista de sus pedidos realizados, vista de pedidos pendientes y listos.
+
+RRHH
+
+
+
+08 marzo
+
+
+- Se cambio el menu en todas las secciones, a traves de funciones, se agrego  tabla reembolso, se vincula con la tabla tipo de reembolso igualmente creada recientemente
+
+09 - 3
+
+Ingresando Reembolsos, cambios a el que sera servidor , falta ingresar archivos.

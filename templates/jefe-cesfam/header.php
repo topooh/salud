@@ -27,7 +27,7 @@ if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado 
 <html lang="es">
 
 <head>
- 
+  <title>Pagina principal </title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -51,6 +51,9 @@ if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado 
         <ul class="nav navbar-nav">
             <li class="nav-item">
                 <a class="nav-link active" href="/salud/" aria-current="page">Sistema Web Director <span class="visually-hidden">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo $url_base;?>templates/jefe-cesfam/secciones/permisos/mispermisos.php">Mis Permisos</a>
             </li>
             
             

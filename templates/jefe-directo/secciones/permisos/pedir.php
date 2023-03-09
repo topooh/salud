@@ -1,7 +1,8 @@
-<php $url_base="http://localhost/salud/"; 
+<php
+ $url_base="http://localhost/salud/"; 
  ?>
 <?php  
-session_start();
+require("../../../../funciones.php");
 if(!isset($_SESSION['usuario'])){// obliga a redireccionar si no esta iniciado la secion.
    
     header("Location:".$url_base."../../../../login.php"); // no me esta tomando $url_base
@@ -16,31 +17,7 @@ if ($_SESSION['tipousuario'] != 2) {
 } ?>
 
 <?php
-
-switch($_SESSION['tipousuario']){
-case 1:
-  // TIPO USUARIO NORMAL 
-
-include("../../../..//templates/usuario/header.php");
-break;
-case 2:
-
-  // JEFE DIRECTO
-  
-  include("../../../../templates/jefe-directo/header.php");
-break;
-case 3:
-
-  // JEFE CESFAM
-
-include("../../../../templates/jefe-cesfam/header.php");
-break;
-case 4:
-  // ADMIN
-include("../../templates/admin/header.php");
-break;  
-
-}
+mostrar_header();
 ?>
 <?php include ("../../../../bd.php"); ?>
  
@@ -61,8 +38,8 @@ break;
 
 
  // preparar la iserccion de datos
-$sentencia=$conexion->prepare("INSERT INTO `tbl_permisos` (`id`, `idempleado`, `idtipopermiso`, `fechasolicitud`, `fechapermiso`, `permisohasta`, `jornada`, `jefedirecto`, `jefecesfam`)
- VALUES(NULL, :primernombre, :tipopermiso, :fechasolicitud, :fechapermiso, :hasta, :jornada, 0, 0)");
+ $sentencia=$conexion->prepare("INSERT INTO `tbl_permisos` (`id`, `idempleado`, `idtipopermiso`, `fechasolicitud`, `fechapermiso`, `permisohasta`, `jornada`, `jefedirecto`, `jefecesfam`, `rrhh`, `estado_permiso`)
+ VALUES(NULL, :primernombre, :tipopermiso, :fechasolicitud, :fechapermiso, :hasta, :jornada, '0', '0', '0', '1')");
 
 // asignar valores del formulario 
 
@@ -74,7 +51,8 @@ $sentencia->bindParam(":hasta",$hasta);
 $sentencia->bindParam(":jornada",$jornada);
 $sentencia ->execute();
 $mensaje="Permiso solicitado";
-// header("location:index.php?mensaje=".$mensaje);
+header("location:index.php?mensaje=".$mensaje);
+
 
 
 

@@ -3,10 +3,8 @@ en el siguiente archivo base de datos se guarda la estructura nueva con la tabla
 tbl_permisos
 tbl_puestos
 tbl_tipo_permiso
-tbl_usuario
-tbl_tipousuario
 
-con el ojetivo de construir una una idea.
+con el ojjetivo de condtruir una una idea.
 
 
 
@@ -16,9 +14,22 @@ Modificacion de indices, claves primarias, tablas creadas y al parecer bien vinc
 
 
 
----------------------------------------------
-Respaldo antes de modificar la BD para la creacion del modulo de reembolso.
+BASE de DATOS 
 
+Incluye tablas:
 
+Empleados
+estado_permiso
+estado_rembolso
+jornada
+permisos
+puestos
+reembolsos
+tipo_permiso
+tipo_reembolso
+usuarios
+tipo_usuario
+
+Vinculadas con sus claves primarias realziadas.
 
 

@@ -22,6 +22,9 @@ $sentencia->execute();
 $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
 ?>
+<?php  $sentencia=$conexion -> prepare ("select * from tbl_estado_permiso");
+$sentencia ->execute();
+$lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);?>
 <?php
 
 switch($_SESSION['tipousuario']){
@@ -57,7 +60,7 @@ break;
 
 <br><br>
 
-<center><h4> Listado de Permisossdfdfdfsdf </h4></center>
+<center><h4> Listado de Permisos </h4></center>
 <div class="card">
     
     <div class="card-header">
@@ -78,6 +81,8 @@ break;
                 <th scope="col">Jefe Directo</th>
                 <th scope="col">Jefe CESFAM</th>
                 <th scope="col">RRHH</th>
+                <th scope="col">estado</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -116,6 +121,12 @@ break;
                   Recepcionado
                   </label>
                 </div></td>
+                <td>  <label for="idpuesto" class="form-label"></label>
+  <select  class="form-select form-select-sm" name="idpuesto" id="idpuesto" >
+    
+        <?php foreach($lista_tbl_puestos as $registro){?>
+        <option value="<?php echo $registro['id']?>"><?php echo $registro['estado_permiso'] ?> </option>
+        <?php } ?> </select></td>
             </tr>
             <?php } ?>
             

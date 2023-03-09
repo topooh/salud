@@ -1,10 +1,45 @@
 <?php 
-session_start();
  include ("../../bd.php");
-
- // llamando al header de admin me falta crear el switch
- include("../../templates/admin/header.php");
+ include("../../funciones.php");
 ?>
+<?php
+$sentencia=$conexion -> prepare ("select * from tbl_tipo_reembolso");
+$sentencia ->execute();
+$lista_tbl_reembolso=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
+<?php
+// Llamado Header con la funcion
+mostrar_header(); ?>
+ 
+<?php
+// llamado a los post
+if($_POST){
+  print_r($_POST);
+ // recolectamos los datos del POST 
+ $rutsolicitante=(isset($_POST["rut"])?$_POST["rut"]:"");
+ $tiporeembolso =(isset($_POST["tiporeembolso"])?$_POST["tiporeembolso"]:"");
+ $fechasolicitud=(isset($_POST["fechasolicitud"])?$_POST["fechasolicitud"]:"");
+ $fechaprestacion=(isset($_POST["fechaprestacion"])?$_POST["fechaprestacion"]:"");
+
+// preparamos la inserccion de datos 
+ $sentencia=$conexion->prepare("INSERT INTO `tbl_reembolso` (`id`, `rut_usuario`, `tipo_reembolso`, `fechasolicitud`, `fechaprestacion`, `estado`)
+  VALUES (NULL, :rutsolicitado, :tiporeembolso, :fechasolicitud, :fechaprestacion, '1')");
+
+// asignar valores del formulario 
+
+
+$sentencia->bindParam(":rutsolicitado", $rutsolicitante);
+$sentencia->bindParam(":tiporeembolso", $tiporeembolso);
+$sentencia->bindParam(":fechasolicitud",$fechasolicitud);
+$sentencia->bindParam(":fechaprestacion",$fechaprestacion);
+$sentencia ->execute();
+$mensaje="Reembolso solicitado";
+header("location:index.php?mensaje=".$mensaje);
+
+} ?>
+<br>
 <div class="card">
     <div class="card-header">
 
@@ -13,48 +48,35 @@ session_start();
     </div>
     <div class="card-body">
         <form action="" method="post" enctype="multipart/form-data">
-            <div class="mb-3">
-              <label for="rut" class="form-label">Nombre Solicitante</label>
-              <input type="text"
-              value="<?php echo $_SESSION['nombre'];echo(" "); echo $_SESSION['apellido_pat']; echo(" "); echo $_SESSION['apellido_mat']; ?>"
-                class="form-control" readonly name="nombre" id="nombre" aria-describedby="helpId" placeholder="<?php echo $_SESSION['nombre'];echo(" "); echo $_SESSION['apellido_pat']; echo(" "); echo $_SESSION['apellido_mat'];?>">
-            </div>
+           
             <div class="mb-3">
               <label for="rut" class="form-label">Rut</label>
-              <input type="text"
-              value="<?php echo $_SESSION['rut'];?>";
+              <input type="numeric"
+              value="<?php echo $_SESSION['rut'];?>"
               
-                class="form-control" readonly name="rut" id="rut" aria-describedby="helpId" placeholder="<?php echo $_SESSION['rut'];?>">
+                class="form-control" readonly name="rut" id="rut" aria-describedby="helpId" placeholder="<?php echo $_SESSION['rut'];?> ">
             </div>
             <div class="mb-3">
               <label for="" class="form-label">fecha Solicitud</label>
-              <input type="date" class="form-control" name="fechasolicitud" id="rechasolicitud"value="<?php echo date('Y-m-d'); ?>" aria-describedby="emailHelpId">
+              <input type="date" class="form-control" name="fechasolicitud" id="fechasolicitud"value="<?php echo date('Y-m-d'); ?>" aria-describedby="emailHelpId">
               
             </div>
             <div class="mb-3">
                 <label for="tiporeembolso" class="form-label">Tipo de Reembolso</label>
                 <select class="form-select form-select-lg" name="tiporeembolso" id="tiporeembolso">
-                    <option selected>Opcion 1</option>
-                    <option value="">Opcion 2</option>
-                    <option value="">Opcion 3</option>
-                    <option value="">Opcion 4 </option>
+                  <?php foreach($lista_tbl_reembolso as $registro){?>
+        <option value="<?php echo $registro['id']?>"><?php echo $registro['descripcion']?></option>
+        <?php } ?> 
                 </select>
             </div>
             <div class="mb-3">
               <label for="fechaprestacion" class="form-label">Fecha Prestación</label>
               <input type="date" class="form-control" name="fechaprestacion" id="fechaprestacion">  
             </div>
-            <div class="mb-3">
-              <label for="archivo" class="form-label">Archivo</label>
-              <input type="file" class="form-control" name="archivo" id="archivo" placeholder="" aria-describedby="fileHelpId">
-            </div>
-            <div class="mb-3">
-              <label for="archivo2" class="form-label">Archivo 2:</label>
-              <input type="file" class="form-control" name="archivo2" id="archivo2" placeholder="archivo2" aria-describedby="fileHelpId">
-            </div>
+           
             
 
-            <button type="button" class="btn btn-primary">Enviar</button>
+            <button type="submit" class="btn btn-primary">Agregar</button>
             <a name="cancelar" id="cancelar" class="btn btn-danger" href="#" role="button">Cancelar</a>
         </form>
     </div>

@@ -1,45 +1,46 @@
-<?php   include("../../../../bd.php");
-require("../../../../funciones.php");
+<?php
 
+require("../../../../funciones.php");
 if(!isset($_SESSION['usuario'])){// obliga a redireccionar si no esta iniciado la secion.
    
     header("Location:".$url_base."../../../../login.php"); // no me esta tomando $url_base
 
   }
-if ($_SESSION['tipousuario'] != 2) {
+if ($_SESSION['tipousuario'] != 6) {
     
     // El usuario no tiene acceso a esta página, redirige al usuario a la página de inicio
+    
     header("Location:".$url_base."../../../../index.php");
-    echo("No tienes permisos");
-}
+    $mensaje = "Error: no tienes permiso";
+} 
+include("../../../../bd.php");
 //2 horas 51 tipo de permiso COMBOBOX TIPO DE PERMISOS
+
+$rut_funcionario=$_SESSION['rut'];
 $sentencia=$conexion->prepare("
 SELECT
     tbl_permisos.id as id,
     tu.nombre,
-    tu.apellido_pat,
-    tu.apellido_mat,
     tipopermiso,
     fechasolicitud,
     fechapermiso,
     permisohasta,
     tipojornada,
     jefedirecto,
-    jefecesfam
+    jefecesfam,
+    rrhh
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
 join tbl_usuarios tu on tu.rut = tbl_permisos.idempleado
 
-WHERE
-    jefedirecto=1;");
+where tu.rut= $rut_funcionario;");
 $sentencia->execute();
 $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
 ?>
 <?php
 mostrar_header();
-
 ?>
 
 
@@ -49,7 +50,8 @@ mostrar_header();
 
 <br><br>
 
-<center><h4> Listado de Permisos Firmados </h4></center>
+<center><h4> Mis Permisos Solicitados</h4></center>
+<CENTER><span>FILTRANDO SOLO POR  LOS PERMISOS QUE A SOLICITADO EL USUARIO</span></center>
 <div class="card">
     
     <div class="card-header">
@@ -60,16 +62,16 @@ mostrar_header();
     <table class="table" id="tabla_id">
         <thead>
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Trabajador</th>
+                
+                
                 <th scope="col">Tipo De Permiso</th>
                 <th scope="col">Fecha Solicitud</th>
                 <th scope="col">Fecha Permiso</th>
                 <th scope="col">Permiso Hasta</th>
                 <th scope="col">Jornada</th>
                 <th scope="col">Jefe Directo</th>
-                
-                
+                <th scope="col">Jefe CESFAM</th>
+                <th scope="col">RRHH</th>
             </tr>
         </thead>
         <tbody>
@@ -77,8 +79,8 @@ mostrar_header();
         <?php foreach($lista_tbl_permisos as $registro){?>
 
             <tr class="">
-                <td scope="row"><?php echo $registro['id']; ?></td>
-                <td><?php echo $registro['nombre']; ?> <?php echo $registro['apellido_pat']; ?> <?php echo $registro['apellido_mat']; ?></td>
+                
+                
                 <td><?php echo $registro['tipopermiso']; ?></td>
                 <td><?php echo $registro['fechasolicitud']; ?></td>
                 <td><?php echo $registro['fechapermiso']; ?></td>
@@ -87,15 +89,27 @@ mostrar_header();
                
                 <td>
                     <div class="form-check">
-                     <input class="form-check-input check-jefedirecto" type="checkbox" disabled="disabled" id="jefedirecto" <?php echo $registro['jefedirecto'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
+                     <input class="form-check-input check-jefedirecto" type="checkbox" id="jefedirecto" disabled="disabled"<?php echo $registro['jefedirecto'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="jefedirecto">
-                     Aprobar
+                     Aprobado
                      </label>
                      
                     </div> 
                 </td>
-                
-                
+                <td> 
+                <div class="form-check">
+                <input class="form-check-input check-jefecesfam" type="checkbox" id="jefecesfam"disabled="disabled" <?php echo $registro['jefecesfam'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
+                    <label class="form-check-label" for="jefecesfam">
+                  Aprobado
+                  </label>
+                </div>
+                </td>
+                <td> <div class="form-check">
+                <input class="form-check-input check-rrhh" type="checkbox"disabled="disabled" id="rrhh" <?php echo $registro['rrhh'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
+                    <label class="form-check-label" for="rrhh">
+                  Recepcionado
+                  </label>
+                </div></td>
             </tr>
             <?php } ?>
             
@@ -107,8 +121,6 @@ mostrar_header();
     <div class="card-footer text-muted">
     </div>
 </div>
-<script>
-   
-</script>
+
 
 <?php include("../../../../templates/footer.php"); ?>

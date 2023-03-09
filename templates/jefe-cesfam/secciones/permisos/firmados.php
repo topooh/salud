@@ -1,6 +1,7 @@
 <?php   include("../../../../bd.php");
+require("../../../../funciones.php");
 
-session_start();
+
 
 if(!isset($_SESSION['usuario'])){// obliga a redireccionar si no esta iniciado la secion.
    
@@ -38,32 +39,13 @@ $sentencia->execute();
 $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
 ?>
+
+<?php 
+
+?>
 <?php
 
-switch($_SESSION['tipousuario']){
-case 1:
-  // TIPO USUARIO NORMAL 
-
-include("../../templates/usuario/header.php");
-break;
-case 2:
-
-  // JEFE DIRECTO
- 
-  include("../../../../templates/jefe-directo/header.php");
-break;
-case 3:
-
-  // JEFE CESFAM
-
-include("../../../../templates/jefe-cesfam/header.php");
-break;
-case 4:
-  // ADMIN
-include("../../templates/admin/header.php");
-break;  
-
-}
+mostrar_header();
 ?>
 
 
@@ -72,8 +54,6 @@ break;
 
 
 <br><br>
-
-<title> Permisos Firmados</title>
 
 <center><h4> Listado de Permisos Firmados </h4></center>
 <div class="card">

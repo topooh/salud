@@ -1,5 +1,8 @@
-<?php   include("../../../../bd.php");
-session_start();
+<?php   
+include("../../../../bd.php");
+require ("../../../../funciones.php");
+
+
 if(!isset($_SESSION['usuario'])){// obliga a redireccionar si no esta iniciado la secion.
    
     header("Location:".$url_base."../../../../login.php"); // no me esta tomando $url_base
@@ -39,30 +42,7 @@ $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
 ?>
 <?php
-switch($_SESSION['tipousuario']){
-case 1:
-  // TIPO USUARIO NORMAL 
-
-include("../../templates/usuario/header.php");
-break;
-case 2:
-
-  // JEFE DIRECTO
- 
-  include("../../../../templates/jefe-directo/header.php");
-break;
-case 3:
-
-  // JEFE CESFAM
-
-include("../../templates/jefe-cesfam/header.php");
-break;
-case 4:
-  // ADMIN
-include("../../templates/admin/header.php");
-break;  
-
-}
+mostrar_header();
 ?>
 
 
@@ -91,7 +71,7 @@ break;
                 <th scope="col">Permiso Hasta</th>
                 <th scope="col">Jornada</th>
                 <th scope="col">Jefe Directo</th>
-                <th scope="col">Jefe CESFAM</th>
+               
                 
                 
             </tr>
@@ -118,15 +98,7 @@ break;
                      
                     </div> 
                 </td>
-                <td>
-                    <div class="form-check">
-                     <input class="form-check-input check-jefecesfam" type="checkbox" id="jefecesfam" <?php echo $registro['jefecesfam'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
-                    <label class="form-check-label" for="jefecesfam">
-                     Aprobar
-                     </label>
-                     
-                    </div> 
-                </td>
+               
                 
                 
             </tr>

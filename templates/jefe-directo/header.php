@@ -29,7 +29,7 @@ $url_base="http://localhost/salud/";
 <html lang="es">
 
 <head>
-
+  <title>Pagina principal </title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -55,7 +55,7 @@ $url_base="http://localhost/salud/";
                 <a class="nav-link active" href="/salud/" aria-current="page">Sistema Web JEFE DIRECTO <span class="visually-hidden">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url_base;?>secciones/usuarios/">Usuarios</a>
+                <a class="nav-link" href="<?php echo $url_base;?>templates/jefe-directo/secciones/permisos/mispermisos.php">Mis Permisos</a>
             </li>
             <div class="dropdown">
              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">

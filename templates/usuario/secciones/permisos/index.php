@@ -1,5 +1,6 @@
 <?php
-session_start();
+require ("../../../../funciones.php");
+
 if(!isset($_SESSION['usuario'])){// obliga a redireccionar si no esta iniciado la secion.
    
     header("Location:".$url_base."../../../../login.php"); // no me esta tomando $url_base
@@ -12,8 +13,10 @@ if ($_SESSION['tipousuario'] != 1) {
     header("Location:".$url_base."../../../../index.php");
     $mensaje = "Error: no tienes permiso";
 } 
-include("../../../../bd.php");
+require("../../../../bd.php");
 //2 horas 51 tipo de permiso COMBOBOX TIPO DE PERMISOS
+
+$rut_funcionario=$_SESSION['rut'];
 $sentencia=$conexion->prepare("
 SELECT
     tbl_permisos.id as id,
@@ -29,37 +32,19 @@ SELECT
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
-join tbl_usuarios tu on tu.rut = tbl_permisos.idempleado");
+join tbl_usuarios tu on tu.rut = tbl_permisos.idempleado
+
+where tu.rut= $rut_funcionario;");
 $sentencia->execute();
 $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
+
 ?>
+<?php  $sentencia=$conexion -> prepare ("select * from tbl_estado_permiso");
+$sentencia ->execute();
+$lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);?>
 <?php
-
-switch($_SESSION['tipousuario']){
-case 1:
-  // TIPO USUARIO NORMAL 
-
-include("../../../../templates/usuario/header.php");
-break;
-case 2:
-
-  // JEFE DIRECTO
- 
-  include("../../templates/jefe-directo/header.php");
-break;
-case 3:
-
-  // JEFE CESFAM
-
-include("../../templates/jefe-cesfam/header.php");
-break;
-case 4:
-  // ADMIN
-include("../../templates/admin/header.php");
-break;  
-
-}
+mostrar_header();
 ?>
 
 
@@ -69,7 +54,8 @@ break;
 
 <br><br>
 
-<center><h4> Listado de Permisos Solicitados </h4></center>
+<center><h4> Mis Permisos Solicitados</h4></center>
+<CENTER><span>FILTRANDO SOLO POR  LOS PERMISOS QUE A SOLICITADO EL USUARIO</span></center>
 <div class="card">
     
     <div class="card-header">
@@ -90,6 +76,7 @@ break;
                 <th scope="col">Jefe Directo</th>
                 <th scope="col">Jefe CESFAM</th>
                 <th scope="col">RRHH</th>
+                <th scope="col">Estado Solicitud </th>
             </tr>
         </thead>
         <tbody>
@@ -128,6 +115,13 @@ break;
                   Recepcionado
                   </label>
                 </div></td>
+                
+                <td>  <label for="idpuesto" class="form-label"></label>
+  <select  class="form-select form-select-sm" name="idpuesto" id="idpuesto" disabled="disabled">
+    
+        <?php foreach($lista_tbl_puestos as $registro){?>
+        <option value="<?php echo $registro['id']?>"><?php echo $registro['estado_permiso'] ?> </option>
+        <?php } ?> </select></td>
             </tr>
             <?php } ?>
             
