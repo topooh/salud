@@ -1,23 +1,32 @@
-<?php  
+<?php 
+session_start(); 
 include ("../../bd.php.");
 if(isset( $_GET['txtID'] )){
 
     $txtID=(isset($_GET['txtID']))?$_GET['txtID']:"";
 
-    $sentencia=$conexion->prepare("SELECT * from tbl_empleados where id=:id");
+    $sentencia=$conexion->prepare("SELECT * from tbl_usuarios where id=:id");
     $sentencia->bindParam(":id",$txtID);
     $sentencia ->execute();
     $registro=$sentencia->fetch(PDO::FETCH_LAZY);
     print_r ($registro);
-    $primernombre=$registro["primernombre"];
+    $primernombre=$registro["nombre"];
     $segundonombre=$registro["segundonombre"];
-    $primerapellido=$registro["primerapellido"];
-    $segundoapellido=$registro["segundoapellido"];
-    $foto=$registro["foto"];
-    $cv=$registro["cv"];
+    $primerapellido=$registro["apellido_pat"];
+    $segundoapellido=$registro["apellido_mat"];
+    $rut=$registro["rut"];
+    $dv=$registro["dv"];
     $idpuesto=$registro["idpuesto"];
     $fechaingreso=$registro["fechaingreso"];
     }
+
+?>
+
+<?php setlocale(LC_TIME, 'es_ES.UTF-8'); // Establecer el idioma en español
+
+$fecha_actual =date('d/m/Y'); // Obtener la fecha actual en formato deseado
+
+echo strftime("%d de %B de %Y", strtotime($fecha_actual)); // Imprimir la fecha formateada en español
 ?>
 ob_start();
 <!DOCTYPE html>
@@ -26,31 +35,37 @@ ob_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Decreto </title>
+    <title>CERTIFICADO Antiguedad </title>
 
-    <P ALIGN=right><b>AUTORIZA PERMISO 
-ADMINISTRATIVO</b></P>
-<br><br>
-
-
-<P ALIGN=right><b>DECRETO AFECTO N° ______</b></P>
-<br><br>
-<B> VISTOS </B><BR><BR>
-Lo dispuesto en la Ley Nº19.378, Estatuto Atención Primaria de Salud Municipal y, en uso de las facultades que me confiere la Ley Nº18.695, Orgánica Constitucional de Municipalidades. Lo dispuesto en la Ley Nº 18.883 Estatuto de los Funcionarios Municipales, la Ley Nº 19.378, Estatuto Atención Primaria de Salud Municipal y, en uso de las facultades que me confiere la Ley Nº 18.695 Orgánica Constitucional de Municipalidades y sus posteriores modificaciones. 
-<br> <br> El Decreto Afecto N°01 de fecha 03 de enero de 2023, designa Secretaria Municipal subrogante a doña Germana Peña Pinuer.
 
 <br><br>
-<b>Considerando </B>
-    <BR><BR>
-    Las solicitudes de permisos de los funcionarios de la Salud Municipal adjuntas:
+<img src="../logo.jpg" alt="Logo de la municipalidad">
 
-                                                                     Que le corresponde a la autoridad administrativa adoptar las medidas y celebrar los actos y contratos que resguarden el normal y correcto funcionamiento de la administración, permitiéndole cumplir eficazmente sus objetivos, tareas y actividades permanentes y asegurar la continuidad de sus funciones:  
+<br>
+<P ALIGN=center><b><u>CERTIFICADO</u></b></P>
+<br><br>
 
+<dd>Quien suscribe,Encargado de Recursos Humanos del Departamento de Salud de la I. Municipalidad de La</dd> Unión, R.U.T.: 69.200.800-6, representada legalmente por Don Juan Andrés Reinoso Carrillo, Cedula de Identidad N° 8.810.114-6, ambos con domicilio en Arturo Prat 680 de La Unión, certifica que:
+<br> <br> 
+<dd>Don <b> <?php echo ($primernombre . " " . $primerapellido . " " . $segundoapellido);?></b>, R.U.T.: <?php echo ($rut . "-". $dv);?>, es funcionario del Departamento de Salud de la I.</dd> Municipalidad de La Unión, desde el 03 de agosto de 2020 y hasta el 31 de diciembre de 2023, con contrato a plazo fijo, regido por la Ley 19.378, Estatuto Administrativo de Atención Primaria de Salud.
+
+<br><br><dd>Actualmente se desempeña como Técnico en Electricidad, Categoría C, nivel 15, con jornada de 44 horas</dd> semanales.
+
+<br><br>
+<dd>Se extiende el presente certificado a petición del interesado para los fines que estime conveniente</dd>
 </head>
-<BR><BR>
-<B>DECRETO</B>
+<BR><BR><br><br>
+
 <BR><BR>
 
+<P ALIGN=center><b>VICTOR HUGO PERALTA RIVAS</b></P>
+<P ALIGN=center>RRHH DESAM LA UNIÓN</P>
+<br>
+<br>
+<br>
+<br>
+<br>
+<?php echo strftime("%d de %B de %Y", strtotime($fecha_actual)); // mostrar FECHA ?>
 <body>
     
 </body>
