@@ -35,6 +35,7 @@ $lista_tbl_reembolso=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
 
 <br><br>
+<title> Listado de Reembolso</title>
 
 <center><h4> Pedido de Reembolsos</h4></center>
 <div class="card">

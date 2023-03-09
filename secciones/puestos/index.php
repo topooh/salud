@@ -45,7 +45,7 @@ break;
 
 }
 ?>
-
+<title> Puestos de Trabajo </title>
 
 <br>
 <center><h4>Puestos de Trabajo </h4></center>

@@ -59,7 +59,7 @@ break;
 
 
 <br><br>
-
+<title>Listado de Permisos </title>
 <center><h4> Listado de Permisos </h4></center>
 <div class="card">
     

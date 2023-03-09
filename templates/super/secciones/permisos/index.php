@@ -48,7 +48,7 @@ mostrar_header();
 
 
 <br><br>
-
+<title>Permisos Pendientes </title>
 <center><h4> Listado de Permisos </h4></center>
 <div class="card">
     

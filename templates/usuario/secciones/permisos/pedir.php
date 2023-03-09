@@ -2,7 +2,6 @@
  ?>
 <?php  
 require("../../../../funciones.php");
-session_start();
 if(!isset($_SESSION['usuario'])){// obliga a redireccionar si no esta iniciado la secion.
    
     header("Location:".$url_base."../../../../login.php"); // no me esta tomando $url_base
@@ -72,7 +71,7 @@ $sentencia2 ->execute();
 $lista_tbl_jornada=$sentencia2->fetchALL(PDO::FETCH_ASSOC); ?>
 
 
-
+<title>Solicitar Permiso</title>
 <br><br>
 <div class="card">
   <div class="card-header">

@@ -63,6 +63,8 @@ include ("../../templates/RRHH/header.php");
 }
 ?>
 <br>
+
+<title>Seccion Usuarios </title>
 <center><h4>Panel de Usuarios</h4></center>
 <div class="card">
     <div class="card-header">

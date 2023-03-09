@@ -75,6 +75,7 @@ $lista_tbl_jornada=$sentencia2->fetchALL(PDO::FETCH_ASSOC); ?>
 
 
 <br><br>
+<title>Solicitar Permiso</title>
 <div class="card">
   <div class="card-header">
     Solicitar permiso

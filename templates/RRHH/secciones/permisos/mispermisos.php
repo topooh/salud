@@ -49,7 +49,7 @@ mostrar_header();
 
 
 <br><br>
-
+<title>Mis Permisos</title>
 <center><h4> Mis Permisos Solicitados</h4></center>
 <CENTER><span>FILTRANDO SOLO POR  LOS PERMISOS QUE A SOLICITADO EL USUARIO</span></center>
 <div class="card">

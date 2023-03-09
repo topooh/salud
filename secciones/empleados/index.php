@@ -57,7 +57,7 @@ case 6:
   include("../../templates/super/header.php");
 }
 ?>
-
+<title> Seccion Empleados </title>
 <center><h4>Personal</h4></center>
 <div class="card">
 

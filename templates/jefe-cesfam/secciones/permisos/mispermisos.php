@@ -51,7 +51,7 @@ $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 <?php 
 ?>
 
-
+<title>Mis Permisos</title>
 <br><br>
 
 <center><h4> Mis Permisos Solicitados</h4></center>
