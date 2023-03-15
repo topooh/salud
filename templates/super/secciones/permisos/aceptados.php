@@ -1,11 +1,12 @@
 <?php   include("../../../../bd.php");
-session_start();
+require("../../../../funciones.php");
+
 if(!isset($_SESSION['usuario'])){// obliga a redireccionar si no esta iniciado la secion.
    
     header("Location:".$url_base."../../../../login.php"); // no me esta tomando $url_base
 
   }
-if ($_SESSION['tipousuario'] != 5) {
+if ($_SESSION['tipousuario'] != 6) {
     
     // El usuario no tiene acceso a esta página, redirige al usuario a la página de inicio
     
@@ -17,10 +18,6 @@ $sentencia=$conexion->prepare("
 SELECT
     tbl_permisos.id as id,
     tu.nombre,
-    tu.rut,
-    tu.dv,
-    tu.apellido_pat,
-    tu.apellido_mat,
     tipopermiso,
     fechasolicitud,
     fechapermiso,
@@ -28,46 +25,24 @@ SELECT
     tipojornada,
     jefedirecto,
     jefecesfam,
-    rrhh
+    estado_permiso
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
 join tbl_usuarios tu on tu.rut = tbl_permisos.idempleado
 
 WHERE
-    jefedirecto=1 and jefecesfam=1 and rrhh=1;");
+    estado_permiso=3 and jefedirecto=1 and jefecesfam=1 ");
 $sentencia->execute();
 $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
 ?>
+<?php  $sentencia=$conexion -> prepare ("select * from tbl_estado_permiso");
+$sentencia ->execute();
+$lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);?>
 <?php
-switch($_SESSION['tipousuario']){
-case 1:
-  // TIPO USUARIO NORMAL 
+mostrar_header();
 
-include("../../templates/usuario/header.php");
-break;
-case 2:
-
-  // JEFE DIRECTO
- 
-  include("../../../../templates/jefe-directo/header.php");
-break;
-case 3:
-
-  // JEFE CESFAM
-
-include("../../templates/jefe-cesfam/header.php");
-break;
-case 4:
-  // ADMIN
-include("../../templates/admin/header.php");
-break;  
-case 5:
- // RRHH
- include("../../../../templates/RRHH/header.php");
- break;
-}
 ?>
 
 
@@ -76,8 +51,8 @@ case 5:
 
 
 <br><br>
-
-<center><h4> Listado de Permisos Firmados </h4></center>
+<title>Permisos Firmados </title>
+<center><h4> Listado de Permisos Aceptados </h4></center>
 <div class="card">
     
     <div class="card-header">
@@ -90,13 +65,13 @@ case 5:
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Trabajador</th>
-                <th scope="col">Rut </th>
                 <th scope="col">Tipo De Permiso</th>
                 <th scope="col">Fecha Solicitud</th>
                 <th scope="col">Fecha Permiso</th>
                 <th scope="col">Permiso Hasta</th>
                 <th scope="col">Jornada</th>
-                <th scope="col">RRHH</th>
+
+                <th scope="col">Estado Permiso </th>
                 
                 
             </tr>
@@ -107,23 +82,21 @@ case 5:
 
             <tr class="">
                 <td scope="row"><?php echo $registro['id']; ?></td>
-                <td><?php echo $registro['nombre']; ?> <?php echo $registro['apellido_pat']; ?> <?php echo $registro['apellido_mat']; ?></td>
-                <td><?php echo $registro['rut']; ?> - <?php echo $registro['dv']; ?></td>
+                <td><?php echo $registro['nombre']; ?></td>
                 <td><?php echo $registro['tipopermiso']; ?></td>
                 <td><?php echo $registro['fechasolicitud']; ?></td>
                 <td><?php echo $registro['fechapermiso']; ?></td>
                 <td><?php echo $registro['permisohasta']; ?></td>
                <td> <?php echo $registro['tipojornada']; ?></td>
                
-                <td>
-                    <div class="form-check">
-                     <input class="form-check-input check-rrhh" type="checkbox" id="rrhh" <?php echo $registro['rrhh'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
-                    <label class="form-check-label" for="rrhh">
-                     Aprobar
-                     </label>
-                     
-                    </div> 
                 </td>
+                <td>  <label for="idpuesto" class="form-label"></label>
+  <select  class="form-select form-select-sm estado_permiso" name="estado_permiso"  id="estado_permiso" data-id="<?php echo $registro['id'];?>">
+    
+        <?php foreach($lista_tbl_puestos as $permiso){?>
+            <option value="<?php echo $permiso['id']?>" <?php echo $registro['estado_permiso'] == $permiso['id'] ? 'selected':'';?>>
+            <?php echo $permiso['estado_permiso'] ?> </option>
+            <?php } ?> </select></td>
                 
                 
             </tr>
@@ -138,25 +111,7 @@ case 5:
     </div>
 </div>
 <script>
-    $('.check-rrhh').on('change', function (e) {
-        console.log(e.target.checked);
-        // aqui hago una llamada asincrona para actualizar el registro
-        // $(this).attr('data-id') tiene el id del registro en bd
-        // e.target.checked trae un booleano si esta o no checkeado el checkbox
-        let request = $.ajax({
-            url: "save.php?type=rrhh",
-            method: "POST",
-            data: { id : $(this).attr('data-id'), check: e.target.checked},
-            dataType: "html"
-        });
-
-        request.done(function( msg ) {
-            let result = JSON.parse(msg);
-            if (!result.error) {
-                alert(result.msg);
-            }
-        });
-    });
+   
 </script>
 
 <?php include("../../../../templates/footer.php"); ?>

@@ -28,7 +28,8 @@ SELECT
     tipojornada,
     jefedirecto,
     jefecesfam,
-    rrhh
+    rrhh,
+    estado_permiso
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
@@ -38,7 +39,11 @@ where tu.rut= $rut_funcionario;");
 $sentencia->execute();
 $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
+
 ?>
+<?php  $sentencia=$conexion -> prepare ("select * from tbl_estado_permiso");
+$sentencia ->execute();
+$lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);?>
 <?php
 mostrar_header();
 ?>
@@ -72,6 +77,7 @@ mostrar_header();
                 <th scope="col">Jefe Directo</th>
                 <th scope="col">Jefe CESFAM</th>
                 <th scope="col">RRHH</th>
+                <th scope="col">Estado</th>
             </tr>
         </thead>
         <tbody>
@@ -110,6 +116,13 @@ mostrar_header();
                   Recepcionado
                   </label>
                 </div></td>
+                <td>  <label for="idpuesto" class="form-label"></label>
+  <select  class="form-select form-select-sm estado_permiso" name="estado_permiso" id="estado_permiso" disabled="disabled" data-id="<?php echo $registro['id'];?>">
+    
+        <?php foreach($lista_tbl_puestos as $permiso){?>
+            <option value="<?php echo $permiso['id']?>" <?php echo $registro['estado_permiso'] == $permiso['id'] ? 'selected':'';?>>
+            <?php echo $permiso['estado_permiso'] ?> </option>
+            <?php } ?> </select></td>
             </tr>
             <?php } ?>
             

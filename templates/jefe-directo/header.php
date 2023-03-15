@@ -65,6 +65,7 @@ $url_base="http://localhost/salud/";
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li><a class="dropdown-item" href="<?php echo $url_base;?>templates/jefe-directo/secciones/permisos/">Permisos Pendientes</a></li>
                 <li><a class="dropdown-item" href="<?php echo $url_base;?>templates/jefe-directo/secciones/permisos/firmados.php">Permisos Firmados</a></li>
+                <li><a class="dropdown-item" href="<?php echo $url_base;?>templates/jefe-directo/secciones/permisos/rechazados.php">Permisos Rechazados</a></li>
               </ul>
             </div>
             <li class="nav-item">

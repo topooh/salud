@@ -1,13 +1,28 @@
+<?php   
+include("../../../../bd.php");
+require ("../../../../funciones.php");
 
-<?php
-session_start();
- include("../../bd.php");
 
+if(!isset($_SESSION['usuario'])){// obliga a redireccionar si no esta iniciado la secion.
+   
+    header("Location:".$url_base."../../../../login.php"); // no me esta tomando $url_base
+
+  }else{
+  
+  }
+  if ($_SESSION['tipousuario'] != 5) {
+    
+    // El usuario no tiene acceso a esta página, redirige al usuario a la página de inicio
+    header("Location:".$url_base."../../../../index.php");
+
+}
 //2 horas 51 tipo de permiso COMBOBOX TIPO DE PERMISOS
 $sentencia=$conexion->prepare("
 SELECT
     tbl_permisos.id as id,
     tu.nombre,
+    tu.apellido_pat,
+    tu.apellido_mat,
     tipopermiso,
     fechasolicitud,
     fechapermiso,
@@ -20,7 +35,10 @@ SELECT
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
-join tbl_usuarios tu on tu.rut = tbl_permisos.idempleado");
+join tbl_usuarios tu on tu.rut = tbl_permisos.idempleado
+
+WHERE
+    estado_permiso=2");
 $sentencia->execute();
 $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
@@ -29,31 +47,7 @@ $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 $sentencia ->execute();
 $lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);?>
 <?php
-
-switch($_SESSION['tipousuario']){
-case 1:
-  // TIPO USUARIO NORMAL 
-
-include("../../templates/usuario/header.php");
-break;
-case 2:
-
-  // JEFE DIRECTO
- 
-  include("../../templates/jefe-directo/header.php");
-break;
-case 3:
-
-  // JEFE CESFAM
-
-include("../../templates/jefe-cesfam/header.php");
-break;
-case 4:
-  // ADMIN
-include("../../templates/admin/header.php");
-break;  
-
-}
+mostrar_header();
 ?>
 
 
@@ -62,8 +56,8 @@ break;
 
 
 <br><br>
-<title>Listado de Permisos </title>
-<center><h4> Listado de Permisos </h4></center>
+<title>Permisos Pendientes </title>
+<center><h4> Listado de Permisos Rechazados </h4></center>
 <div class="card">
     
     <div class="card-header">
@@ -82,9 +76,11 @@ break;
                 <th scope="col">Permiso Hasta</th>
                 <th scope="col">Jornada</th>
                 <th scope="col">Jefe Directo</th>
-                <th scope="col">Jefe CESFAM</th>
+                <th scope="col">Jefe Cesfam </th>
                 <th scope="col">RRHH</th>
-                <th scope="col">estado</th>
+                <th scope="col">Estado Permiso</th>
+               
+                
                 
             </tr>
         </thead>
@@ -94,7 +90,7 @@ break;
 
             <tr class="">
                 <td scope="row"><?php echo $registro['id']; ?></td>
-                <td><?php echo $registro['nombre']; ?></td>
+                <td><?php echo $registro['nombre']; ?> <?php echo $registro['apellido_pat']; ?> <?php echo $registro['apellido_mat']; ?> </td>
                 <td><?php echo $registro['tipopermiso']; ?></td>
                 <td><?php echo $registro['fechasolicitud']; ?></td>
                 <td><?php echo $registro['fechapermiso']; ?></td>
@@ -103,34 +99,37 @@ break;
                
                 <td>
                     <div class="form-check">
-                     <input class="form-check-input check-jefedirecto" type="checkbox" id="jefedirecto" <?php echo $registro['jefedirecto'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
+                     <input class="form-check-input check-jefedirecto" type="checkbox" id="jefedirecto" disabled="disabled" <?php echo $registro['jefedirecto'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="jefedirecto">
-                     Aprobar
+                     Revisado
                      </label>
                      
                     </div> 
                 </td>
                 <td> 
                 <div class="form-check">
-                <input class="form-check-input check-jefecesfam" type="checkbox" id="jefecesfam" <?php echo $registro['jefecesfam'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
+                <input class="form-check-input check-jefecesfam" type="checkbox" id="jefecesfam" disabled="disabled" <?php echo $registro['jefecesfam'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="jefecesfam">
-                  Aprobar
+                  Revisado
                   </label>
                 </div>
                 </td>
                 <td> <div class="form-check">
                 <input class="form-check-input check-rrhh" type="checkbox" id="rrhh" <?php echo $registro['rrhh'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="rrhh">
-                  Recepcionado
+                  Revisado
                   </label>
                 </div></td>
                 <td>  <label for="idpuesto" class="form-label"></label>
-  <select  class="form-select form-select-sm estado_permiso" name="estado_permiso" id="estado_permiso" data-id="<?php echo $registro['id'];?>">
+  <select  class="form-select form-select-sm estado_permiso" name="estado_permiso" id="estado_permiso"  data-id="<?php echo $registro['id'];?>">
     
         <?php foreach($lista_tbl_puestos as $permiso){?>
             <option value="<?php echo $permiso['id']?>" <?php echo $registro['estado_permiso'] == $permiso['id'] ? 'selected':'';?>>
             <?php echo $permiso['estado_permiso'] ?> </option>
-            <?php } ?> </select></td>
+            <?php } ?> </select></td>   
+               
+                
+                
             </tr>
             <?php } ?>
             
@@ -143,18 +142,6 @@ break;
     </div>
 </div>
 <script>
-    $('.estado_permiso').on('change', function (e) {
-        console.log($(this).val());
-        let request = $.ajax({
-            url: "save.php?type=estado_permiso",
-            method: "POST",
-            data: { id : $(this).attr('data-id'), select: $(this).val()},
-            dataType: "html"
-        });
-
-    });
-
-
     $('.check-jefedirecto').on('change', function (e) {
         console.log(e.target.checked);
         // aqui hago una llamada asincrona para actualizar el registro
@@ -198,6 +185,18 @@ break;
     });
 </script>
 <script>
+     $('.estado_permiso').on('change', function (e) {
+        console.log($(this).val());
+        let request = $.ajax({
+            url: "save.php?type=estado_permiso",
+            method: "POST",
+            data: { id : $(this).attr('data-id'), select: $(this).val()},
+            dataType: "html"
+        });
+
+    });
+</script>
+<script>
     $('.check-rrhh').on('change', function (e) {
         console.log(e.target.checked);
         // aqui hago una llamada asincrona para actualizar el registro
@@ -219,4 +218,4 @@ break;
     });
 </script>
 
-<?php include("../../templates/footer.php"); ?>
+<?php include("../../../../templates/footer.php"); ?>

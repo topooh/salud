@@ -29,18 +29,22 @@ SELECT
     permisohasta,
     tipojornada,
     jefedirecto,
-    jefecesfam
+    jefecesfam,
+    estado_permiso
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
 join tbl_usuarios tu on tu.rut = tbl_permisos.idempleado
 
 WHERE
-    jefedirecto=0;");
+  jefedirecto=0 and estado_permiso=1");
 $sentencia->execute();
 $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
 ?>
+<?php  $sentencia=$conexion -> prepare ("select * from tbl_estado_permiso");
+$sentencia ->execute();
+$lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);?>
 <?php
 mostrar_header();
 ?>
@@ -71,6 +75,7 @@ mostrar_header();
                 <th scope="col">Permiso Hasta</th>
                 <th scope="col">Jornada</th>
                 <th scope="col">Jefe Directo</th>
+                <th scope="col">Estado Permiso</th>
                
                 
                 
@@ -93,11 +98,18 @@ mostrar_header();
                     <div class="form-check">
                      <input class="form-check-input check-jefedirecto" type="checkbox" id="jefedirecto" <?php echo $registro['jefedirecto'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="jefedirecto">
-                     Aprobar
+                     Revisado
                      </label>
                      
                     </div> 
                 </td>
+                <td>  <label for="idpuesto" class="form-label"></label>
+  <select  class="form-select form-select-sm estado_permiso" name="estado_permiso" id="estado_permiso" data-id="<?php echo $registro['id'];?>">
+    
+        <?php foreach($lista_tbl_puestos as $permiso){?>
+            <option value="<?php echo $permiso['id']?>" <?php echo $registro['estado_permiso'] == $permiso['id'] ? 'selected':'';?>>
+            <?php echo $permiso['estado_permiso'] ?> </option>
+            <?php } ?> </select></td>   
                
                 
                 
@@ -153,6 +165,18 @@ mostrar_header();
                 alert(result.msg);
             }
         });
+    });
+</script>
+<script>
+     $('.estado_permiso').on('change', function (e) {
+        console.log($(this).val());
+        let request = $.ajax({
+            url: "save.php?type=estado_permiso",
+            method: "POST",
+            data: { id : $(this).attr('data-id'), select: $(this).val()},
+            dataType: "html"
+        });
+
     });
 </script>
 

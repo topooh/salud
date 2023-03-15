@@ -64,6 +64,7 @@ if(!isset($_SESSION['usuario'])){ // obliga a redireccionar si no esta iniciado 
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li><a class="dropdown-item" href="<?php echo $url_base;?>templates/jefe-cesfam/secciones/permisos/">Permisos Pendientes</a></li>
                 <li><a class="dropdown-item" href="<?php echo $url_base;?>templates/jefe-cesfam/secciones/permisos/firmados.php">Permisos Firmados</a></li>
+                <li><a class="dropdown-item" href="<?php echo $url_base;?>templates/jefe-cesfam/secciones/permisos/rechazados.php">Permisos Rechazados</a></li>
               </ul>
             </div>
             

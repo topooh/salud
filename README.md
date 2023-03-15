@@ -108,3 +108,53 @@ RRHH
 09 - 3
 
 Ingresando Reembolsos, cambios a el que sera servidor , falta ingresar archivos.
+
+
+14-03
+
+
+Usuario 
+
+Mostrando estado permiso deshabilitado la edicion y mostrando 
+si fue revisado por los jefes, directo y cesfam 
+
+
+
+Jefe directo
+
+Listado permisos pendientes
+el permiso tiene que estar firmado por el jefe cesfa m pero tambien a la vez en estar en estado pendiente para que aparezca
+( con el objetivo de que si el jefe anterior lo rechazo pero no aparezca}
+
+Permisos firmados
+
+para que el permiso aparesca firmado tiene que haberlo revisado el jefe directo y estar en estado pendiente o aceptado.
+
+
+Permisos Rechazados
+Muestra Todos los permisos Rechazados.
+
+
+
+Jefe cesfam
+
+Mis permisos
+los revisa pero no puede hacer cambios ( si esta rechazado , wsi fue revisado etc)-
+
+Permisos pendientes
+ para que aparezca un permiso pendiente tiene k haber sido firmado por el jefedirecto=1( estar firmado) y que 
+y el jefe cesfam =0 ( que no ha sido revisado)
+Permisos Rechazados
+
+para que el permiso aparesca en rechazado tiene que estar estado_permiso = 2
+
+
+RRHH
+
+Mis Permisos
+
+Revisa los permisos generados por el usuario
+
+Permisos INDEX
+
+Muestra Los permisos que ya fueron revisados por los jefes anteriores pero falta la revision rrhh, ademas permite cambiar el estado.

@@ -27,18 +27,23 @@ SELECT
     tipojornada,
     jefedirecto,
     jefecesfam,
-    rrhh
+    rrhh,
+    estado_permiso
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
 join tbl_usuarios tu on tu.rut = tbl_permisos.idempleado
 
 WHERE
-    jefedirecto=1 and jefecesfam=1 and rrhh=0; ");
+jefedirecto=1 AND jefecesfam=1 AND rrhh=0 AND (estado_permiso=1 OR estado_permiso=3)");
 $sentencia->execute();
 $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
 ?>
+<?php
+$sentencia=$conexion -> prepare ("select * from tbl_estado_permiso");
+$sentencia ->execute();
+$lista_tbl_puestos=$sentencia->fetchALL(PDO::FETCH_ASSOC);?>
 <?php
 mostrar_header();
 ?>
@@ -71,7 +76,7 @@ mostrar_header();
                 <th scope="col">Permiso Hasta</th>
                 <th scope="col">Jornada</th>
                 <th scope="col">RRHH</th>
-                
+                <th scope="col"> Estado Permiso</th>
                 
             </tr>
         </thead>
@@ -92,14 +97,21 @@ mostrar_header();
                 <div class="form-check">
                      <input class="form-check-input check-rrhh" type="checkbox" id="rrhh" <?php echo $registro['rrhh'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="jefedirecto">
-                     Aprobar
+                     Revisado
                      </label>
                      
                     </div> 
                 </td>
-                
+                <td>  <label for="idpuesto" class="form-label"></label>
+  <select  class="form-select form-select-sm estado_permiso" name="estado_permiso" id="estado_permiso" data-id="<?php echo $registro['id'];?>">
+    
+        <?php foreach($lista_tbl_puestos as $permiso){?>
+            <option value="<?php echo $permiso['id']?>" <?php echo $registro['estado_permiso'] == $permiso['id'] ? 'selected':'';?>>
+            <?php echo $permiso['estado_permiso'] ?> </option>
+            <?php } ?> </select></td>
                 
             </tr>
+           
             <?php } ?>
             
         </tbody>
@@ -110,6 +122,61 @@ mostrar_header();
     <div class="card-footer text-muted">
     </div>
 </div>
+<script>
+    $('.estado_permiso').on('change', function (e) {
+        console.log($(this).val());
+        let request = $.ajax({
+            url: "save.php?type=estado_permiso",
+            method: "POST",
+            data: { id : $(this).attr('data-id'), select: $(this).val()},
+            dataType: "html"
+        });
+
+    });
+
+
+    $('.check-jefedirecto').on('change', function (e) {
+        console.log(e.target.checked);
+        // aqui hago una llamada asincrona para actualizar el registro
+        // $(this).attr('data-id') tiene el id del registro en bd
+        // e.target.checked trae un booleano si esta o no checkeado el checkbox
+        let request = $.ajax({
+            url: "save.php?type=jefedirecto",
+            method: "POST",
+            data: { id : $(this).attr('data-id'), check: e.target.checked},
+            dataType: "html"
+        });
+
+        request.done(function( msg ) {
+            let result = JSON.parse(msg);
+            if (!result.error) {
+                alert(result.msg);
+            }
+        });
+    });
+</script>
+
+<script>
+    $('.check-jefecesfam').on('change', function (e) {
+        console.log(e.target.checked);
+        // aqui hago una llamada asincrona para actualizar el registro
+        // $(this).attr('data-id') tiene el id del registro en bd
+        // e.target.checked trae un booleano si esta o no checkeado el checkbox
+        let request = $.ajax({
+            url: "save.php?type=jefecesfam",
+            method: "POST",
+            data: { id : $(this).attr('data-id'), check: e.target.checked},
+            dataType: "html"
+        });
+
+        request.done(function( msg ) {
+            let result = JSON.parse(msg);
+            if (!result.error) {
+                alert(result.msg);
+            }
+        });
+    });
+</script>
 <script>
     $('.check-rrhh').on('change', function (e) {
         console.log(e.target.checked);
@@ -130,6 +197,7 @@ mostrar_header();
             }
         });
     });
+</script>
 </script>
 
 <?php include("../../../../templates/footer.php"); ?>
