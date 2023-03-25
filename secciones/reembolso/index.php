@@ -15,6 +15,9 @@
 $sentencia=$conexion->prepare("
 SELECT
     reembolso.id,
+    reembolso.archivo,
+    reembolso.archivo1,
+    reembolso.archivo2,
     tu.rut,
     tu.nombre,
     tu.apellido_pat,
@@ -34,6 +37,49 @@ join tbl_tipo_reembolso ttr on ttr.id = reembolso.tipo_reembolso
 $sentencia->execute();
 $lista_tbl_reembolso=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
+?>
+<?php
+if(isset( $_GET['txtID'] )){
+
+    $txtID=(isset($_GET['txtID']))?$_GET['txtID']:"";
+//BUSCAR EL ARCHIVO RELACIONADO CON EL REEMBOLSO
+    $sentencia=$conexion->prepare("SELECT archivo, archivo1 FROM tbl_reembolso where id=:id");
+    $sentencia->bindParam(":id",$txtID);
+    $sentencia->execute();
+    $registro_recuperado=$sentencia->fetch(PDO::FETCH_LAZY);
+    
+
+    if(isset($registro_recuperado["archivo"]) && $registro_recuperado["archivo"]!=""){
+        if(file_exists("./subidas/".$registro_recuperado["archivo"])){
+            unlink("./subidas/".$registro_recuperado["archivo"]);
+
+        }
+    }
+
+    if(isset($registro_recuperado["archivo1"]) && $registro_recuperado["archivo1"]!=""){
+        if(file_exists("./subidas/".$registro_recuperado["archivo1"])){
+            unlink("./subidas/".$registro_recuperado["archivo1"]);
+
+        }
+    }
+
+    if(isset($registro_recuperado["archivo2"]) && $registro_recuperado["archivo2"]!=""){
+        if(file_exists("./subidas/".$registro_recuperado["archivo2"])){
+            unlink("./subidas/".$registro_recuperado["archivo2"]);
+
+        }
+    }
+
+
+
+    $sentencia=$conexion->prepare("DELETE FROM tbl_reembolso WHERE id=:id");
+    $sentencia->bindParam(":id",$txtID);
+    $sentencia ->execute();
+    $mensaje = "Reembolso Eliminado";
+header("location:index.php?mensaje=".$mensaje);
+
+
+}
 ?>
 
 
@@ -62,6 +108,10 @@ $lista_tbl_reembolso=$sentencia->fetchALL(PDO::FETCH_ASSOC);
                 <th scope="col">Fecha Solicitud</th>
                 <th scope="col">Fecha Prestación</th>
                 <th scope="col">Estado </th>
+                <th scope="col">Archivo </th>
+                <th scope="col">Archivo 1 </th>
+                <th scope="col">Archivo 2 </th>
+                <th scope="col">Opciones </th>
         
             </tr>
         </thead>
@@ -69,14 +119,34 @@ $lista_tbl_reembolso=$sentencia->fetchALL(PDO::FETCH_ASSOC);
         
         <?php foreach($lista_tbl_reembolso as $registro){?>
 
+            
             <tr class="">
                 <td scope="row"><?php echo $registro['id']; ?></td>
-                <td><?php echo $registro['rut']; ?></td>
+                <td><?php echo $registro['rut']; ?><br></td>
                 <td><?php echo $registro['tipo_reembolso']; ?></td>
                 <td><?php echo $registro['fechasolicitud']; ?></td>      
                 <td><?php echo $registro['fechaprestacion']; ?> </td>
                 <td><?php echo $registro['estado_reembolso']; ?> </td>
-            
+                <td><?php $sub='subidas/';
+                            $dirar=$registro['archivo'];
+                            $mostrarfoto=$sub.$dirar;
+                            
+                    ?>
+                    <img width="150"
+                 src="
+                 <?php echo $mostrarfoto; ?>"
+                  class="img-fluid rounded-top" alt=""/>
+                </td>
+                 <td><?php $sub1='subidas/';
+                            $dirar1=$registro['archivo'];
+                            $mostrarpdf=$sub1.$dirar1;
+                            
+                    ?><?php
+                 echo $registro['archivo1'];?>
+                </td>
+                <td><?php echo $registro['archivo2'];?></th>
+                <td> <br>
+    <a class="btn btn-info" href="editar.php?txtID=<?php echo$registro['id'] ?>" role="button">Editar </a> <a name="" id="" class="btn btn-danger" href="javascript:borrar(<?php echo$registro['id'] ?>);" role="button">BORRAR</a></td>
                 
             </tr>
             <?php } ?>

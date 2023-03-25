@@ -10,8 +10,7 @@ con el ojjetivo de condtruir una una idea.
 
 BASE de datos SALUD (1)
 
-Modificacion de indices, claves primarias, tablas creadas y al parecer bien vinculadas.
-
+Modificacion de indices, claves primarias, tablas creadas vinculadas.
 
 
 BASE de DATOS 
@@ -30,6 +29,9 @@ tipo_reembolso
 usuarios
 tipo_usuario
 
-Vinculadas con sus claves primarias realziadas.
+---------------------------------------
+
+respaldo base de datos para ingresar detalles de los permisos.
+
 
 

@@ -27,7 +27,11 @@ tipojornada,
 jefedirecto,
 jefecesfam,
 rrhh,
-estado_permiso
+estado_permiso,
+detalles,
+firmadirecto,
+firmacesfam
+
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
@@ -75,6 +79,7 @@ mostrar_header();
                 <th scope="col">Jefe Directo</th>
                 <th scope="col">Jefe Cesfam</th>
                 <th scope="col">Estado</th>
+                <th scope="col">Detalles</th>
                 
                 
             </tr>
@@ -96,7 +101,7 @@ mostrar_header();
                     <div class="form-check">
                      <input class="form-check-input check-jefedirecto" type="checkbox"disabled="disabled" id="jefedirecto" <?php echo $registro['jefedirecto'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="jefedirecto">
-                     Aprobar
+                    Revisado Por <?php echo $registro['firmadirecto']?>
                      </label>
                      
                     </div> 
@@ -105,7 +110,7 @@ mostrar_header();
                     <div class="form-check">
                      <input class="form-check-input check-jefecesfam" type="checkbox" disabled="disabled" id="jefecesfam" <?php echo $registro['jefecesfam'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="jefecesfam">
-                     Aprobar
+                    Revisado Por <?php echo $registro['firmacesfam']?>
                      </label>
                      
                     </div> 
@@ -119,10 +124,11 @@ mostrar_header();
             <?php echo $permiso['estado_permiso'] ?> </option>
             <?php } ?> </select></td>
                 
-                
+            <td> <?php echo $registro['detalles'] ?> </td> 
             </tr>
-            <?php } ?>
             
+            <?php } ?>
+          
         </tbody>
     </table>
 </div>

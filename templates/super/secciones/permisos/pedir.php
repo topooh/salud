@@ -32,13 +32,14 @@ mostrar_header();
  $fechapermiso=(isset($_POST["fechapermiso"])?$_POST["fechapermiso"]:"");
  $hasta=(isset($_POST["hasta"])?$_POST["hasta"]:"");
  $jornada=(isset($_POST["jornada"])?$_POST["jornada"]:"");
+ $detalles=(isset($_POST["detalles"])?$_POST["detalles"]:"");
 
 
 
 
  // preparar la iserccion de datos
- $sentencia=$conexion->prepare("INSERT INTO `tbl_permisos` (`id`, `idempleado`, `idtipopermiso`, `fechasolicitud`, `fechapermiso`, `permisohasta`, `jornada`, `jefedirecto`, `jefecesfam`, `rrhh`, `estado_permiso`)
- VALUES(NULL, :primernombre, :tipopermiso, :fechasolicitud, :fechapermiso, :hasta, :jornada, '0', '0', '0', '1')");
+ $sentencia=$conexion->prepare("INSERT INTO `tbl_permisos` (`id`, `idempleado`, `idtipopermiso`, `fechasolicitud`, `fechapermiso`, `permisohasta`, `jornada`, `jefedirecto`, `jefecesfam`, `rrhh`, `estado_permiso`,`detalles`)
+ VALUES(NULL, :primernombre, :tipopermiso, :fechasolicitud, :fechapermiso, :hasta, :jornada, '0', '0', '0', '1',:detalles)");
 
 // asignar valores del formulario 
 
@@ -48,6 +49,7 @@ $sentencia->bindParam(":fechasolicitud",$fechasolicitud);
 $sentencia->bindParam(":fechapermiso",$fechapermiso);
 $sentencia->bindParam(":hasta",$hasta);
 $sentencia->bindParam(":jornada",$jornada);
+$sentencia->bindParam(":detalles",$detalles);
 $sentencia ->execute();
 $mensaje="Permiso solicitado";
 header("location:index.php?mensaje=".$mensaje);
@@ -105,48 +107,12 @@ $lista_tbl_jornada=$sentencia2->fetchALL(PDO::FETCH_ASSOC); ?>
       <input type="date"
         class="form-control" name="fechapermiso" id="fechapermiso" aria-describedby="helpId" placeholder="">
     </div>
-    <?php
-  // Obtener la fecha actual
-  $fecha_actual = date('Y-m-d');
-
-  // Si se envió el formulario
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Obtener la fecha ingresada por el usuario
-    $fecha_ingresada = $_POST['fechapermiso'];
-
-    // Si la fecha ingresada es anterior o igual a la fecha actual
-    if ($fecha_ingresada <= $fecha_actual) {
-      // Mostrar un mensaje de error
-      echo 'La fecha de permiso debe ser posterior fecha actual. ';
-    } else {
-      // La fecha es válida, procesar el formulario
-      // ...
-    }
-  }
-?>
+    
     <div class="mb-3">
       <label for="" class="form-label">Hasta </label>
       <input type="date"
         class="form-control" name="hasta" id="hasta" aria-describedby="helpId" placeholder="">
-        <?php
-  // Obtener la fecha actual
-  $fecha_hasta = date('Y-m-d');
-
-  // Si se envió el formulario
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Obtener la fecha ingresada por el usuario
-    $fecha_ingresada = $_POST['hasta'];
-
-    // Si la fecha ingresada es anterior 
-    if ($fecha_ingresada < $fecha_hasta) {
-      // Mostrar un mensaje de error
-      echo 'El permiso tiene que durar almenos 1 jornada. ';
-    } else {
-      // La fecha es válida, procesar el formulario
-      // ...
-    }
-  }
-?>
+        
     </div>
     <div class="mb-3">
       <label for="" class="form-label">Jornada</label>
@@ -157,9 +123,12 @@ $lista_tbl_jornada=$sentencia2->fetchALL(PDO::FETCH_ASSOC); ?>
 
       </select>
     </div>
-
-
-   
+    <div class="mb-3">
+      <label for="" class="form-label">Detalles</label>
+      <input type="textarea"
+        class="form-control" name="detalles" id="detalles" aria-describedby="helpId" placeholder="Descanso complementario desde 10:00 hasta 12:00 ejemplo">
+      
+    </div>   
   </div>
   <div class="card-footer text-muted">
   <button type="submit" class="btn btn-primary">Agregar</button>  
@@ -167,5 +136,28 @@ $lista_tbl_jornada=$sentencia2->fetchALL(PDO::FETCH_ASSOC); ?>
   </form>
   </div>
 </div>
+<script>
+  // script para verificar las fechas
+  // Obtener los elementos del formulario
+var form = document.querySelector('form');
+var fechaPermisoInput = document.getElementById('fechapermiso');
+var hastaInput = document.getElementById('hasta');
+
+// Agregar un controlador de eventos para el envío del formulario
+form.addEventListener('submit', function(event) {
+  // Obtener las fechas del formulario
+  var fechaPermiso = new Date(fechaPermisoInput.value);
+  var hasta = new Date(hastaInput.value);
+
+  // Verificar que la fecha de inicio es menor o igual que la fecha de término
+  if (fechaPermiso > hasta) {
+    // Mostrar un mensaje de error
+    alert('La fecha de inicio debe ser menor o igual que la fecha de término.');
+    // Cancelar el envío del formulario
+    event.preventDefault();
+  }
+});
+
+  </script>
 
 <?php include("../../../../templates/footer.php"); ?>

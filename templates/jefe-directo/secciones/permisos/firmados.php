@@ -26,7 +26,9 @@ SELECT
     tipojornada,
     jefedirecto,
     jefecesfam,
-    estado_permiso
+    estado_permiso,
+    detalles,
+    firmadirecto
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
@@ -64,7 +66,7 @@ mostrar_header();
     <table class="table" id="tabla_id">
         <thead>
             <tr>
-                <th scope="col">ID</th>
+                
                 <th scope="col">Trabajador</th>
                 <th scope="col">Tipo De Permiso</th>
                 <th scope="col">Fecha Solicitud</th>
@@ -73,6 +75,7 @@ mostrar_header();
                 <th scope="col">Jornada</th>
                 <th scope="col">Jefe Directo</th>
                 <th scope="col">Estado</th>
+                <th scope="col">Detalles</th>
                 
                 
             </tr>
@@ -82,7 +85,7 @@ mostrar_header();
         <?php foreach($lista_tbl_permisos as $registro){?>
 
             <tr class="">
-                <td scope="row"><?php echo $registro['id']; ?></td>
+                
                 <td><?php echo $registro['nombre']; ?> <?php echo $registro['apellido_pat']; ?> <?php echo $registro['apellido_mat']; ?></td>
                 <td><?php echo $registro['tipopermiso']; ?></td>
                 <td><?php echo $registro['fechasolicitud']; ?></td>
@@ -94,7 +97,7 @@ mostrar_header();
                     <div class="form-check">
                      <input class="form-check-input check-jefedirecto" type="checkbox" disabled="disabled" id="jefedirecto" <?php echo $registro['jefedirecto'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="jefedirecto">
-                     Aprobar
+                     Revisado Por   <?php echo $registro['firmadirecto'] ?> </td>
                      </label>
                      
                     </div> 
@@ -107,6 +110,7 @@ mostrar_header();
             <?php echo $permiso['estado_permiso'] ?> </option>
             <?php } ?> </select></td>  
                 
+            <td> <?php echo $registro['detalles']; ?></td>
                 
             </tr>
             <?php } ?>

@@ -2,7 +2,7 @@
   <footer>
 <br>
   <center>
-    Sistema de pedido de permisos.
+    Sistema de toma de permisos V 0.0.1A con Certificado de Antiguedad
 
     
   </center>

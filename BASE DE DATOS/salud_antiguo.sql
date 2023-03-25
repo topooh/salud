@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-03-2023 a las 15:53:27
+-- Tiempo de generación: 15-03-2023 a las 13:48:46
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -113,37 +113,6 @@ INSERT INTO `tbl_jornada` (`id`, `tipojornada`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tbl_nivel_usuario`
---
-
-CREATE TABLE `tbl_nivel_usuario` (
-  `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `tbl_nivel_usuario`
---
-
-INSERT INTO `tbl_nivel_usuario` (`id`) VALUES
-(1),
-(2),
-(3),
-(4),
-(5),
-(6),
-(7),
-(8),
-(9),
-(10),
-(11),
-(12),
-(13),
-(14),
-(15);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `tbl_permisos`
 --
 
@@ -158,17 +127,19 @@ CREATE TABLE `tbl_permisos` (
   `jefedirecto` tinyint(1) NOT NULL,
   `jefecesfam` tinyint(1) NOT NULL,
   `rrhh` tinyint(1) NOT NULL,
-  `estado_permiso` int(1) NOT NULL,
-  `detalles` varchar(255) DEFAULT NULL
+  `estado_permiso` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tbl_permisos`
 --
 
-INSERT INTO `tbl_permisos` (`id`, `idempleado`, `idtipopermiso`, `fechasolicitud`, `fechapermiso`, `permisohasta`, `jornada`, `jefedirecto`, `jefecesfam`, `rrhh`, `estado_permiso`, `detalles`) VALUES
-(79, 93950380, 1, '2023-03-15', '2023-03-14', '2023-03-14', 3, 1, 0, 0, 2, 'Primer Permiso, Firmado solo por Directo'),
-(80, 93950380, 1, '2023-03-15', '2023-03-16', '2023-03-17', 3, 1, 1, 1, 1, 'firmado por ambos');
+INSERT INTO `tbl_permisos` (`id`, `idempleado`, `idtipopermiso`, `fechasolicitud`, `fechapermiso`, `permisohasta`, `jornada`, `jefedirecto`, `jefecesfam`, `rrhh`, `estado_permiso`) VALUES
+(62, 93950380, 1, '2023-03-14', '2023-03-15', '2023-03-16', 3, 1, 1, 1, 3),
+(63, 93950380, 2, '2023-03-14', '2023-03-16', '2023-03-16', 3, 1, 0, 0, 2),
+(66, 93950380, 1, '2023-03-15', '2023-03-14', '2023-03-13', 3, 0, 0, 0, 1),
+(67, 93950380, 1, '2023-03-15', '2023-02-13', '2023-02-13', 3, 0, 0, 0, 1),
+(68, 693574, 1, '2023-03-15', '2023-01-11', '2023-01-11', 3, 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -212,29 +183,6 @@ CREATE TABLE `tbl_reembolso` (
 INSERT INTO `tbl_reembolso` (`id`, `rut_usuario`, `tipo_reembolso`, `fechasolicitud`, `fechaprestacion`, `estado`) VALUES
 (3, 693574, 1, '2023-03-08', '2023-03-09', 1),
 (4, 693574, 1, '2023-03-08', '2023-03-09', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tbl_tipo_categoria`
---
-
-CREATE TABLE `tbl_tipo_categoria` (
-  `id` int(2) NOT NULL,
-  `descripcion` varchar(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `tbl_tipo_categoria`
---
-
-INSERT INTO `tbl_tipo_categoria` (`id`, `descripcion`) VALUES
-(1, 'F'),
-(2, 'E'),
-(3, 'D'),
-(4, 'C'),
-(5, 'B'),
-(6, 'A');
 
 -- --------------------------------------------------------
 
@@ -295,28 +243,22 @@ CREATE TABLE `tbl_usuarios` (
   `nombre` varchar(255) NOT NULL,
   `apellido_pat` varchar(255) NOT NULL,
   `apellido_mat` varchar(255) NOT NULL,
-  `tipousuario` int(11) NOT NULL,
-  `ingreso` date DEFAULT NULL,
-  `fincontrato` date DEFAULT NULL,
-  `funcion` varchar(255) DEFAULT NULL,
-  `categoria` int(1) NOT NULL,
-  `nivel` int(11) NOT NULL,
-  `horas` int(3) NOT NULL
+  `tipousuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tbl_usuarios`
 --
 
-INSERT INTO `tbl_usuarios` (`id`, `usuario`, `password`, `correo`, `rut`, `dv`, `nombre`, `apellido_pat`, `apellido_mat`, `tipousuario`, `ingreso`, `fincontrato`, `funcion`, `categoria`, `nivel`, `horas`) VALUES
-(18, 'root', '123456', 'correoelectronico@correo.cl', 18427293, '3', 'Matias', 'Muñoz', 'Guzman', 4, '2023-02-06', '2023-04-06', 'Informatica', 5, 15, 22),
-(20, 'cesfam', '123456', 'matias@correo.cl', 3, '', 'Jefe', 'cesfam', 'cesfam', 3, '2023-03-01', NULL, 'Medico', 1, 2, 0),
-(21, 'Usuario', '123456', 'perfil@gmail.com', 93950380, '0', 'Usuario ', 'Normal', 'Sin permisos', 1, NULL, NULL, NULL, 1, 3, 0),
-(22, 'directo', '123456', 'directo@gmail.com', 16427293, '', 'Jefe', 'Directo', 'Directo', 2, NULL, NULL, NULL, 1, 4, 0),
-(33, 'prueba', '123456', 'asda@com.cl', 213123, '', 'Nombre', 'Apellido', 'Materno', 1, NULL, NULL, NULL, 1, 5, 0),
-(36, 'RRHH', '123456', 'rrhh@gmail.com', 16293457, '', 'Ingreso', 'RRHH', 'Test', 5, NULL, NULL, NULL, 1, 6, 0),
-(37, 'superjefe', '123456', 'superjefe@gmail.com', 693574, 'k', 'Super', 'Jefe', 'Completo', 6, '2023-03-08', NULL, NULL, 1, 7, 0),
-(38, 'jose', '123456', 'jose@gmail.co', 182938427, 'k', 'jose', 'gonzales', 'villega', 1, NULL, NULL, NULL, 1, 8, 0);
+INSERT INTO `tbl_usuarios` (`id`, `usuario`, `password`, `correo`, `rut`, `dv`, `nombre`, `apellido_pat`, `apellido_mat`, `tipousuario`) VALUES
+(18, 'root', '123456', 'correoelectronico@correo.cl', 37, '', 'Administrador', '', '', 4),
+(20, 'cesfam', '123456', 'matias@correo.cl', 3, '', 'Jefe', 'cesfam', 'cesfam', 3),
+(21, 'Usuario', '123456', 'perfil@gmail.com', 93950380, '0', 'Usuario ', 'Normal', 'Sin permisos', 1),
+(22, 'directo', '123456', 'directo@gmail.com', 16427293, '', 'Jefe', 'Directo', 'Directo', 2),
+(33, 'prueba', '123456', 'asda@com.cl', 213123, '', 'Nombre', 'Apellido', 'Materno', 1),
+(36, 'RRHH', '123456', 'rrhh@gmail.com', 16293457, '', 'Ingreso', 'RRHH', 'Test', 5),
+(37, 'superjefe', '123456', 'superjefe@gmail.com', 693574, '', 'Super', 'Jefe', 'Completo', 6),
+(38, 'jose', '123456', 'jose@gmail.co', 182938427, 'k', 'jose', 'gonzales', 'villega', 1);
 
 -- --------------------------------------------------------
 
@@ -372,12 +314,6 @@ ALTER TABLE `tbl_jornada`
   ADD KEY `tipojornada` (`tipojornada`);
 
 --
--- Indices de la tabla `tbl_nivel_usuario`
---
-ALTER TABLE `tbl_nivel_usuario`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `tbl_permisos`
 --
 ALTER TABLE `tbl_permisos`
@@ -405,12 +341,6 @@ ALTER TABLE `tbl_reembolso`
   ADD KEY `estado` (`estado`);
 
 --
--- Indices de la tabla `tbl_tipo_categoria`
---
-ALTER TABLE `tbl_tipo_categoria`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `tbl_tipo_permiso`
 --
 ALTER TABLE `tbl_tipo_permiso`
@@ -428,9 +358,7 @@ ALTER TABLE `tbl_tipo_reembolso`
 ALTER TABLE `tbl_usuarios`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `rut` (`rut`),
-  ADD KEY `tipousuario` (`tipousuario`),
-  ADD KEY `categoria` (`categoria`),
-  ADD KEY `nivel` (`nivel`);
+  ADD KEY `tipousuario` (`tipousuario`);
 
 --
 -- Indices de la tabla `tipo_usuario`
@@ -467,16 +395,10 @@ ALTER TABLE `tbl_jornada`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `tbl_nivel_usuario`
---
-ALTER TABLE `tbl_nivel_usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
 -- AUTO_INCREMENT de la tabla `tbl_permisos`
 --
 ALTER TABLE `tbl_permisos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_puestos`
@@ -489,12 +411,6 @@ ALTER TABLE `tbl_puestos`
 --
 ALTER TABLE `tbl_reembolso`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `tbl_tipo_categoria`
---
-ALTER TABLE `tbl_tipo_categoria`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_tipo_permiso`
@@ -551,9 +467,7 @@ ALTER TABLE `tbl_reembolso`
 -- Filtros para la tabla `tbl_usuarios`
 --
 ALTER TABLE `tbl_usuarios`
-  ADD CONSTRAINT `tbl_usuarios_ibfk_1` FOREIGN KEY (`tipousuario`) REFERENCES `tipo_usuario` (`id`),
-  ADD CONSTRAINT `tbl_usuarios_ibfk_2` FOREIGN KEY (`categoria`) REFERENCES `tbl_tipo_categoria` (`id`),
-  ADD CONSTRAINT `tbl_usuarios_ibfk_3` FOREIGN KEY (`nivel`) REFERENCES `tbl_nivel_usuario` (`id`);
+  ADD CONSTRAINT `tbl_usuarios_ibfk_1` FOREIGN KEY (`tipousuario`) REFERENCES `tipo_usuario` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

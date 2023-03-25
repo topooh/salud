@@ -25,7 +25,11 @@ SELECT
     tipojornada,
     jefedirecto,
     jefecesfam,
-    estado_permiso
+    estado_permiso,
+    detalles,
+    firmadirecto,
+    firmacesfam,
+    firmarrhh
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
@@ -70,8 +74,11 @@ mostrar_header();
                 <th scope="col">Fecha Permiso</th>
                 <th scope="col">Permiso Hasta</th>
                 <th scope="col">Jornada</th>
-
+                <th scope="col">Jefe Directo </th>
+                <th scope="col">Jefe Cesfam </th>
+                <th scope="col">RRHH </th>
                 <th scope="col">Estado Permiso </th>
+                <th scope="col">Detalles</th>
                 
                 
             </tr>
@@ -90,6 +97,9 @@ mostrar_header();
                <td> <?php echo $registro['tipojornada']; ?></td>
                
                 </td>
+                <td><?php echo $registro['firmadirecto'] ?> </td> 
+                <td><?php echo $registro['firmacesfam'] ?> </td> 
+                <td><?php echo $registro['firmarrhh'] ?> </td> 
                 <td>  <label for="idpuesto" class="form-label"></label>
   <select  class="form-select form-select-sm estado_permiso" name="estado_permiso"  id="estado_permiso" data-id="<?php echo $registro['id'];?>">
     
@@ -98,9 +108,14 @@ mostrar_header();
             <?php echo $permiso['estado_permiso'] ?> </option>
             <?php } ?> </select></td>
                 
-                
-            </tr>
+            <td><?php echo $registro['detalles']?> </td>   
+            
+        </tr>
+            
             <?php } ?>
+            
+
+          
             
         </tbody>
     </table>

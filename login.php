@@ -16,7 +16,7 @@ if($_POST){
     print_r($registro);
     $iduseario=$conexion->prepare("select *,count(*)as n_usuarios
     FROM tbl_usuarios
-    WHERE usuario=:usuario
+    WHERE usuario=:usuario 
     AND password=:password");
 
     if($registro["n_usuarios"]==1){
@@ -29,12 +29,21 @@ if($_POST){
         $_SESSION['nombre']=$registro['nombre'];
         $_SESSION['apellido_pat']=$registro['apellido_pat'];
         $_SESSION['apellido_mat']=$registro['apellido_mat'];
+        $_SESSION['ingreso']=$registro['ingreso'];
+        $_SERVER['fincontrato']=$registro['fincontrato'];
+        $_SESSION['funcion']=$registro['funcion'];
+        $_SESSION['categoria']=$registro['categoria'];
+        $_SESSION['nivel']=$registro['nivel'];
+        $_SESSION['horas']=$registro['horas'];
+        $_SESSION['id']=$registro['id'];
         $mensaje="Haz Ingresado como ".$registro["usuario"]."<br> Tu Rut registrado es <br>".$registro["rut"];
          header("location:index.php?mensaje=".$mensaje);
 
     }else{$mensaje = "Error: Usuario o contraseña incorrecta";
     }
 }
+
+
 ?>
 
 <!doctype html>

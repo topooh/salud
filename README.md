@@ -105,12 +105,12 @@ RRHH
 
 - Se cambio el menu en todas las secciones, a traves de funciones, se agrego  tabla reembolso, se vincula con la tabla tipo de reembolso igualmente creada recientemente
 
-09 - 3
+9 de marzo
 
 Ingresando Reembolsos, cambios a el que sera servidor , falta ingresar archivos.
 
 
-14-03
+14 de marzo
 
 
 Usuario 
@@ -124,7 +124,7 @@ Jefe directo
 
 Listado permisos pendientes
 el permiso tiene que estar firmado por el jefe cesfa m pero tambien a la vez en estar en estado pendiente para que aparezca
-( con el objetivo de que si el jefe anterior lo rechazo pero no aparezca}
+( con el objetivo de que si el jefe anterior lo rechazo pero no aparezca)
 
 Permisos firmados
 
@@ -158,3 +158,66 @@ Revisa los permisos generados por el usuario
 Permisos INDEX
 
 Muestra Los permisos que ya fueron revisados por los jefes anteriores pero falta la revision rrhh, ademas permite cambiar el estado.
+
+15  de marzo
+
+Verificacion de fecha en el pedido de permiso. en todas las secciones funcionando.
+
+Permisoss
+secciones general pedir , ingresando nuevo permiso con detalle para, la dani donde entregan la informacion sobre horas etc.
+Creacion de pedidos modificados, donde permite ingresar detalles.
+
+
+Super Jefe
+
+Con ingreso de detalles no requerido, permite mostrar los  detalles ingresados e ingresar detalles.
+
+
+jefe directo
+
+Agregar detalles en pedir permiso, en mis permisos se muestra a mis detalles.
+
+Jefe Cesfam 
+
+Agregar permisos con detalles, en mis permisos mostrando los detalles.
+mostando detalles en todos los lugares.
+
+
+SAVE DE CESFAM
+
+con seguridad anti consultas sql
+
+mostrando imagenes en el dom pdf tuve que habilitar a la extcion gd en el servidor apache y reiniciarlo par que lo reconozca.
+el decreto adnistrativo esta funcionando me flata cambiar el logo
+
+
+16- de marzo
+
+Se agregan datos a la base de datos para que el certificado de antiguedad tenga todos los datos necesarios
+tiene el switch realizado para el cambio de de tipo de categoria a demas de presentar sus horas.tipo de categoria, y nivel.
+falta cambiarle el idioma al servidor y cambiar el formato de fecha de dd/mm/aaaa a Dia del Mes Del Año para que sea mejor presentado.
+agregar la firma de victor para la solicitud de certificado de antiguedad y achicar el logo.
+
+Se agregaron 2 nuevas tablas a la base de datos y se agregaron campos a la tabla de usuario tales como (cuando ingreso al servicio y cuando termina ( este puede ser null).su funcion dentro del departamente y categorias y niveles de cada uno.)
+
+Falta editar el formulario de ingreso de los usuarios por que faltan demaciados datos para agregar.
+
+
+21 de marzo
+
+Se edita El check de (RRHH,jefe Directo y cesfam) para que aparezca el nombre de la persona que revisa el permiso, se agregan 3 campos mas a la tabla permisos donde se guardaran los datos de la persona que firma.
+
+22 de marzo
+
+se terminan de editar los ultimos detalles del check realizado, ademas de modificar
+la pantalla para la edicion de usuarios, queda completamente listo. se modifica ademas el certificado de antiguedad permitiendo mostrar con formado tia del mes año no 01/12/2022
+se cambia la configuracion al servidor en español para que entrege la diferente informacion .
+
+se procede al avance de las prestaciones medicas, se muestra y se almacenan las imagenes, falta la eliminacion de estas mediante el crud, pero todos los datos son bien enviados.
+
+
+23 de marzo 
+
+Se suben y se bajan los archivos  de las boletas con un maximo de 2 archivos los cuales se almacenan en la carpeta subidas dentro de Reembolsos
+con el objetivo de que mantengan el orden dentro del servidor, FALTA VER COMO ORDENARLAS POR MESES DESPUES SINO QUEDARA LA ....
+se eliminan atraves del boton eliminar

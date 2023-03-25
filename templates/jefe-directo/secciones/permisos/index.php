@@ -30,14 +30,16 @@ SELECT
     tipojornada,
     jefedirecto,
     jefecesfam,
-    estado_permiso
+    estado_permiso,
+    detalles,
+    firmadirecto
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
 join tbl_usuarios tu on tu.rut = tbl_permisos.idempleado
 
 WHERE
-  jefedirecto=0 and estado_permiso=1");
+  jefedirecto=0 and (estado_permiso=1 or estado_permiso=3)");
 $sentencia->execute();
 $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
@@ -67,7 +69,7 @@ mostrar_header();
     <table class="table" id="tabla_id">
         <thead>
             <tr>
-                <th scope="col">ID</th>
+                
                 <th scope="col">Trabajador</th>
                 <th scope="col">Tipo De Permiso</th>
                 <th scope="col">Fecha Solicitud</th>
@@ -76,6 +78,7 @@ mostrar_header();
                 <th scope="col">Jornada</th>
                 <th scope="col">Jefe Directo</th>
                 <th scope="col">Estado Permiso</th>
+                <th scope="col">Detalles</th>
                
                 
                 
@@ -86,7 +89,7 @@ mostrar_header();
         <?php foreach($lista_tbl_permisos as $registro){?>
 
             <tr class="">
-                <td scope="row"><?php echo $registro['id']; ?></td>
+                
                 <td><?php echo $registro['nombre']; ?> <?php echo $registro['apellido_pat']; ?> <?php echo $registro['apellido_mat']; ?> </td>
                 <td><?php echo $registro['tipopermiso']; ?></td>
                 <td><?php echo $registro['fechasolicitud']; ?></td>
@@ -110,7 +113,7 @@ mostrar_header();
             <option value="<?php echo $permiso['id']?>" <?php echo $registro['estado_permiso'] == $permiso['id'] ? 'selected':'';?>>
             <?php echo $permiso['estado_permiso'] ?> </option>
             <?php } ?> </select></td>   
-               
+            <td> <?php echo $registro['detalles']; ?></td>
                 
                 
             </tr>

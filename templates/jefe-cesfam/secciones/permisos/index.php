@@ -29,13 +29,16 @@ SELECT
     tipojornada,
     jefedirecto,
     jefecesfam,
-    estado_permiso
+    estado_permiso,
+    detalles,
+    firmadirecto,
+    firmacesfam
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
 join tbl_usuarios tu on tu.rut = tbl_permisos.idempleado
 
-where jefedirecto=1 and( estado_permiso=1 or estado_permiso=3)");
+where jefedirecto=1 and( estado_permiso=1 or estado_permiso=3) AND jefecesfam=0");
 $sentencia->execute();
 $lista_tbl_permisos=$sentencia->fetchALL(PDO::FETCH_ASSOC);
 
@@ -67,7 +70,7 @@ mostrar_header();
     <table class="table" id="tabla_id">
         <thead>
             <tr>
-                <th scope="col">ID</th>
+                
                 <th scope="col">Trabajador</th>
                 <th scope="col">Tipo De Permiso</th>
                 <th scope="col">Fecha Solicitud</th>
@@ -77,6 +80,7 @@ mostrar_header();
                 <th scope="col">Jefe directo</th>
                 <th scope="col">Jefe cesfam</th>
                 <th scope="col">Estado Solicitud</th>
+                <th scope="col">Detalles</th>
                 
             </tr>
         </thead>
@@ -85,7 +89,7 @@ mostrar_header();
         <?php foreach($lista_tbl_permisos as $registro){?>
 
             <tr class="">
-                <td scope="row"><?php echo $registro['id']; ?></td>
+                
                 <td><?php echo $registro['nombre']; ?> <?php echo $registro['apellido_pat']; ?> <?php echo $registro['apellido_mat']; ?></td>
                 <td><?php echo $registro['tipopermiso']; ?></td>
                 <td><?php echo $registro['fechasolicitud']; ?></td>
@@ -95,7 +99,7 @@ mostrar_header();
                <td>    <div class="form-check">
                      <input class="form-check-input check-jefedirecto" type="checkbox" id="jefedirecto" disabled="disabled" <?php echo $registro['jefedirecto'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="jefedirecto">
-                     Aprobar
+                     Revisado Por <br><?php echo $registro['firmadirecto']; ?>
                      </label>
                      </td>
                      
@@ -103,7 +107,7 @@ mostrar_header();
                 <div class="form-check">
                 <input class="form-check-input check-jefecesfam" type="checkbox" id="jefecesfam" <?php echo $registro['jefecesfam'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="jefecesfam">
-                  Aprobar
+                    Revisar <br><?php echo $registro['firmacesfam']; ?>
                   </label>
                 </div>
                 </td>
@@ -114,7 +118,7 @@ mostrar_header();
             <option value="<?php echo $permiso['id']?>" <?php echo $registro['estado_permiso'] == $permiso['id'] ? 'selected':'';?>>
             <?php echo $permiso['estado_permiso'] ?> </option>
             <?php } ?> </select></td>
-                
+            <td> <?php echo $registro['detalles']; ?></td> 
             </tr>
             <?php } ?>
             

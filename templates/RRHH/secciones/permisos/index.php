@@ -28,7 +28,10 @@ SELECT
     jefedirecto,
     jefecesfam,
     rrhh,
-    estado_permiso
+    estado_permiso,
+    detalles,
+    firmadirecto,
+    firmacesfam
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
@@ -60,7 +63,7 @@ mostrar_header();
 <div class="card">
     
     <div class="card-header">
-        Listado de Permisos  por aprovard<a name="pedir" id="pedir" class="btn btn-primary" href="pedir.php" role="button">Pedir Permiso</a>
+        Listado de Permisos  <a name="pedir" id="pedir" class="btn btn-primary" href="pedir.php" role="button">Pedir Permiso</a>
     </div>
     <div class="card-body">
 <div class="table-responsive-sm">
@@ -75,8 +78,11 @@ mostrar_header();
                 <th scope="col">Fecha Permiso</th>
                 <th scope="col">Permiso Hasta</th>
                 <th scope="col">Jornada</th>
+                <th scope="col">Jefe Directo </th>
+                <th scope="col">Jefe Cesfam </th>
                 <th scope="col">RRHH</th>
                 <th scope="col"> Estado Permiso</th>
+                <th scope="col">Detalles </th>
                 
             </tr>
         </thead>
@@ -92,12 +98,14 @@ mostrar_header();
                 <td><?php echo $registro['fechapermiso']; ?></td>
                 <td><?php echo $registro['permisohasta']; ?></td>
                <td> <?php echo $registro['tipojornada']; ?></td>
+               <td> <?php echo $registro['firmadirecto'];?></td>
+               <td> <?php echo $registro['firmacesfam'];?></td>
                
                 <td>
                 <div class="form-check">
                      <input class="form-check-input check-rrhh" type="checkbox" id="rrhh" <?php echo $registro['rrhh'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="jefedirecto">
-                     Revisado
+                     Revisar
                      </label>
                      
                     </div> 
@@ -109,7 +117,7 @@ mostrar_header();
             <option value="<?php echo $permiso['id']?>" <?php echo $registro['estado_permiso'] == $permiso['id'] ? 'selected':'';?>>
             <?php echo $permiso['estado_permiso'] ?> </option>
             <?php } ?> </select></td>
-                
+            <td> <?php echo $registro['detalles']; ?></td>
             </tr>
            
             <?php } ?>

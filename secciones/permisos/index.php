@@ -16,7 +16,11 @@ SELECT
     jefedirecto,
     jefecesfam,
     rrhh,
-    estado_permiso
+    estado_permiso,
+    detalles,
+    firmadirecto,
+    firmacesfam,
+    firmarrhh
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
@@ -57,8 +61,6 @@ break;
 ?>
 
 
-<?php 
-?>
 
 
 <br><br>
@@ -85,6 +87,7 @@ break;
                 <th scope="col">Jefe CESFAM</th>
                 <th scope="col">RRHH</th>
                 <th scope="col">estado</th>
+                <th scope="col">Detalles </th>
                 
             </tr>
         </thead>
@@ -105,7 +108,7 @@ break;
                     <div class="form-check">
                      <input class="form-check-input check-jefedirecto" type="checkbox" id="jefedirecto" <?php echo $registro['jefedirecto'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="jefedirecto">
-                     Aprobar
+                    Revisado Por   <?php echo $registro['firmadirecto'] ?> 
                      </label>
                      
                     </div> 
@@ -114,14 +117,15 @@ break;
                 <div class="form-check">
                 <input class="form-check-input check-jefecesfam" type="checkbox" id="jefecesfam" <?php echo $registro['jefecesfam'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="jefecesfam">
-                  Aprobar
+                    Revisado Por   <?php echo $registro['firmacesfam'] ?> 
                   </label>
                 </div>
                 </td>
                 <td> <div class="form-check">
                 <input class="form-check-input check-rrhh" type="checkbox" id="rrhh" <?php echo $registro['rrhh'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="rrhh">
-                  Recepcionado
+                    Revisado Por   <?php echo $registro['firmarrhh'] ?>
+                     
                   </label>
                 </div></td>
                 <td>  <label for="idpuesto" class="form-label"></label>
@@ -131,7 +135,9 @@ break;
             <option value="<?php echo $permiso['id']?>" <?php echo $registro['estado_permiso'] == $permiso['id'] ? 'selected':'';?>>
             <?php echo $permiso['estado_permiso'] ?> </option>
             <?php } ?> </select></td>
-            </tr>
+            <td> <?php echo $registro['detalles']; ?></td>    
+        </tr>
+            
             <?php } ?>
             
         </tbody>

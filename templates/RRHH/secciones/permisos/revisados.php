@@ -30,7 +30,11 @@ SELECT
     jefedirecto,
     jefecesfam,
     rrhh,
-    estado_permiso
+    estado_permiso,
+    detalles,
+    firmadirecto,
+    firmacesfam,
+    firmarrhh
 FROM tbl_permisos
          join tbl_tipo_permiso ttp on ttp.id = tbl_permisos.idtipopermiso
          join tbl_jornada tj on tj.id = tbl_permisos.jornada
@@ -67,16 +71,19 @@ mostrar_header();
     <table class="table" id="tabla_id">
         <thead>
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Trabajador</th>
-                <th scope="col">Rut </th>
+                
+                <th scope="col">RUT</th>
+                <th scope="col">Nombre </th>
                 <th scope="col">Tipo De Permiso</th>
                 <th scope="col">Fecha Solicitud</th>
                 <th scope="col">Fecha Permiso</th>
                 <th scope="col">Permiso Hasta</th>
                 <th scope="col">Jornada</th>
+                <th scope="col">Jefe Directo</th>
+                <th scope="col">Jefe Cesfam</th>
                 <th scope="col">RRHH</th>
                 <th scope="col">estado Permiso </th>
+                <th scope="col">Detalles </th>
                 
                 
             </tr>
@@ -86,20 +93,22 @@ mostrar_header();
         <?php foreach($lista_tbl_permisos as $registro){?>
 
             <tr class="">
-                <td scope="row"><?php echo $registro['id']; ?></td>
-                <td><?php echo $registro['nombre']; ?> <?php echo $registro['apellido_pat']; ?> <?php echo $registro['apellido_mat']; ?></td>
                 <td><?php echo $registro['rut']; ?> - <?php echo $registro['dv']; ?></td>
+                <td><?php echo $registro['nombre']; ?> <?php echo $registro['apellido_pat']; ?> <?php echo $registro['apellido_mat']; ?></td>
+                
                 <td><?php echo $registro['tipopermiso']; ?></td>
                 <td><?php echo $registro['fechasolicitud']; ?></td>
                 <td><?php echo $registro['fechapermiso']; ?></td>
                 <td><?php echo $registro['permisohasta']; ?></td>
                <td> <?php echo $registro['tipojornada']; ?></td>
+               <td> <?php echo $registro['firmadirecto']; ?></td>
+               <td> <?php echo $registro['firmacesfam'];?></td>
                
                 <td>
                     <div class="form-check">
                      <input class="form-check-input check-rrhh" type="checkbox" id="rrhh" <?php echo $registro['rrhh'] ? 'checked' : '' ;?>  data-id="<?php echo $registro['id'];?>">
                     <label class="form-check-label" for="rrhh">
-                     Revisado
+                     Revisado <?php echo $registro['firmarrhh']; ?>
                      </label>
                      
                     </div> 
@@ -112,7 +121,7 @@ mostrar_header();
             <?php echo $permiso['estado_permiso'] ?> </option>
             <?php } ?> </select></td>   
                 
-                
+            <td> <?php echo $registro['detalles']; ?></td>  
             </tr>
             <?php } ?>
             
